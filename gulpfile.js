@@ -26,7 +26,8 @@ const
 	ARGV = yargs(process.argv).argv,
 
 	SOURCE_DIR = './source',
-	EXAMPLES_DIR = './examples',
+	DOCS_DIR = './docs',
+	EXAMPLES_DIR = `${DOCS_DIR}/examples`,
 	NODE_DIR = './node_modules',
 	LIB_SOURCE_DIR = `${SOURCE_DIR}/lib`,
 	LIB_SOURCES = [
@@ -139,7 +140,7 @@ function serveExamples(done){
 		/*middleware(connect, opt){
 			return [
 				serveStatic({
-					path : EXAMPLES_DIR,
+					path : DOCS_DIR,
 					url : '/',
 					// otherwise connect produces a content encoding error
 					gzip : false
