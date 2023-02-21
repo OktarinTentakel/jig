@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+   jig:
+      container_name: jig__dev
+      build:
+         context: .
+         dockerfile: ./docker/jig/dockerfile
+      image: oktarintentakel/jig
+      volumes:
+         - .:/project:delegated
+      ports:
+         - 3000:3000
+         - 3001:3001
+      working_dir: /project
+      environment:
+         - TERM=xterm-256color
+         - YARN_CACHE_FOLDER=/tmp
+      command: bash -c "yarn install; gulp --color examples"

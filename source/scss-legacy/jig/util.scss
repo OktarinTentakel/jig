@@ -1,0 +1,144 @@
+///
+/// Retrieve a value deeply nested in a map, defined by a path of keys.
+///
+/// @param {Map} $map - the map to search in
+/// @param {String|List<String>} $keys - the keys to traverse down in the map
+/// @return {*|null} the value at the defined key path or null if not defined
+///
+/// @example
+/// map-get-deep($foo-map, 'level1', 'level2')
+/// => value of $foo-map.level1.level2
+///
+@function map-get-deep($map, $keys...){
+	@each $key in $keys {
+		@if map-has-key($map, $key) {
+			$map: map-get($map, $key);
+		} @else {
+			@return null;
+		}
+	}
+
+	@return $map;
+}
+
+
+
+///
+/// Retrieves the value of the adjacent, next key in a map, if one exists.
+///
+/// @param {Map} $map - the map to use
+/// @param {String} $key - the current key, from which we want to go to the next
+/// @return {*|null} the value of the next key or null if there is none
+///
+/// @example
+/// map-next($fooMap, 'small')
+/// => value of $fooMap.medium
+///
+@function map-next($map, $key){
+	$keys: map-keys($map);
+
+	$next-index: 0;
+	@if map-has-key($map, $key) {
+		$next-index: index($keys, $key) + 1;
+	}
+
+	@if ($next-index == 0) or ($next-index > length($map)) {
+		@return null;
+	} @else {
+		@return map-get($map, nth($keys, $next-index));
+	}
+}
+
+
+
+///
+/// Removes the unit from a value, turning it into a unit-less value.
+///
+/// @param {Number} $number - the number to strip the unit from
+/// @return {Number} the unit-less number
+///
+/// @example
+/// strip-unit(16px)
+/// => 16
+///
+@function strip-unit($number){
+	@return $number / ($number * 0 + 1);
+}
+
+
+
+///
+/// Convert one or more px values to (a) rem value(s), based on a base font size in px, percent or rem.
+/// If the base is in % or rem, the base will be converted to px based on the global base font size.///
+/// @param {Number|List<Number>} $values - the value(s) to convert
+/// @param {?Number} [$base=$--jig--base-font-size-px] - the base size to convert against
+/// @return {Number|List<Number>} the converted value(s)
+///
+/// @example
+/// to-rem(32px)
+/// => 2rem
+/// to-rem([10px, 20px, 40px], 20px)
+/// => [0.5rem, 1rem, 2rem]
+///
+@function to-rem($values, $base:$--jig--base-font-size){
+	@if unit($base) == '%' {
+		$base: ($base / 100%) * $--jig--base-font-size;
+	}
+
+	@if unit($base) == 'rem' {
+		$base: strip-unit($base) * $--jig--base-font-size;
+	}
+
+	@if type-of($values) != 'list' {
+		$values: [$values];
+	}
+
+	$rem-values: [];
+	@each $value in $values {
+		$rem-value: 0;
+		@if unit($value) == 'em' {
+			$rem-value: strip-unit($value);
+		} @else {
+			$rem-value: strip-unit($value) / strip-unit($base);
+		}
+		@if $rem-value != 0 {
+			$rem-value: $rem-value * 1rem;
+		}
+		$rem-values: append($rem-values, $rem-value);
+	}
+
+	@if length($rem-values) == 1 {
+		@return nth($rem-values, 1);
+	} @else {
+		@return $rem-values;
+	}
+}
+
+
+
+///
+/// Join/concatenate two or more strings with an optional glue string.
+///
+/// @param {String|List<String>} $strings - the strings to join
+/// @param {String} $glue - the string to put between joined strings
+/// @return {String} the joined string
+///
+/// str-join(['fo', 'ar'], 'ob')
+/// => 'foobar'
+///
+@function str-join($strings, $glue:''){
+	$strings: join([], $strings);
+
+	$res: '';
+	@each $string in $strings {
+		@if $string {
+			$res: $res+$string+$glue;
+		}
+	}
+
+	@if ($res != '') and ($glue != '') {
+		@return str-slice($res, 1, str-length($glue) * -1);
+	} @else {
+		@return $res;
+	}
+}

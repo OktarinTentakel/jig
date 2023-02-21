@@ -1,0 +1,123 @@
+/**
+ * Retrieve a value deeply nested in a hash, defined by a path of keys.
+ *
+ * @param {Hash} $hash - the hash to search in
+ * @param {String|List<String>} $keys - the keys to traverse down in the hash
+ * @return {*|null} the value at the defined key path or null if not defined
+ *
+ * @example
+ * hash-get-deep(foo-hash, 'level1', 'level2')
+ * => value of foo-hash.level1.level2
+ */
+hash-get-deep($hash, $keys...)
+	for $key in $keys
+		if $key in $hash
+			$hash = $hash[$key]
+		else
+			return null
+
+	return $hash
+
+
+
+/**
+ * Retrieves the value of the adjacent, next key in a hash, if one exists.
+ *
+ * @param {Hash} $hash - the hash to use
+ * @param {String} $key - the current key, from which we want to go to the next
+ * @return {*|null} the value of the next key or null if there is none
+ *
+ * @example
+ * hash-next(foo-hash, 'small')
+ * => value of foo-hash.medium
+ */
+hash-next($hash, $key)
+	$keys = keys($hash)
+
+	$next-index = 0
+	if $key in $hash
+		$next-index = index($keys, $key) + 1
+
+	if ($next-index == 0) or ($next-index > (length($keys) - 1))
+		return null
+	else
+		return $hash[$keys[$next-index]]
+
+
+
+/**
+ * Removes the unit from a value, turning it into a unit-less value.
+ *
+ * @param {Number} $number - the number to strip the unit from
+ * @return {Number} the unit-less number
+ *
+ * @example
+ * strip-unit(16px)
+ * => 16
+ */
+strip-unit($number)
+	return unit($number, '')
+
+
+
+/**
+ * Convert one or more px values to (a) rem value(s), based on a base font size in px, percent or rem.
+ * If the base is in % or rem, the base will be converted to px based on the global base font size.
+ *
+ * @param {Number|List<Number>} $values - the value(s) to convert
+ * @param {?Number} [$base=$--jig--base-font-size-px] - the base size to convert against
+ * @return {Number|List<Number>} the converted value(s)
+ *
+ * @example
+ * to-rem(32px)
+ * => 2rem
+ * to-rem((10px, 20px, 40px), 20px)
+ * => [0.5rem, 1rem, 2rem]
+ */
+to-rem($values, $base=$--jig--base-font-size)
+	if unit($base) == '%'
+		$base = (strip-unit($base) / 100) * $--jig--base-font-size
+
+	if unit($base) == 'rem'
+		$base = strip-unit($base) * $--jig--base-font-size
+
+	$rem-values = ()
+	for $value in $values
+		$rem-value = 0
+		if unit($value) == 'em'
+			$rem-value = strip-unit($value)
+		else
+			$rem-value = strip-unit($value) / strip-unit($base)
+		if $rem-value != 0
+			$rem-value = ($rem-value)rem
+		append($rem-values, $rem-value)
+
+	if length($rem-values) == 1
+		return $rem-values[0]
+	else
+		return $rem-values
+
+	return $rem-values
+
+
+
+/**
+ * Join/concatenate two or more strings with an optional glue string.
+ *
+ * @param {String|List<String>} strings - the strings to join
+ * @param {String} glue - the string to put between joined strings
+ * @return {String} the joined string
+ *
+ * str-join(('fo', 'ar'), 'ob')
+ * => 'foobar'
+ */
+str-join($strings, $glue='')
+	$res = ''
+	for $string in $strings
+		if $string
+			$res = $res+$string+$glue;
+
+	if ($res != '') and ($glue != '')
+		return slice($res, 0, length($glue) * -1)
+	else
+		return $res

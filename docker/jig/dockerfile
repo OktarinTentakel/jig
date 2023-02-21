@@ -1,0 +1,14 @@
+FROM node:16.19
+
+ENV TERM=xterm-256color
+
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN yarn global add gulp-cli@2.3.0
+
+WORKDIR /project
+
+COPY docker/bash/bashrc /root/.bashrc

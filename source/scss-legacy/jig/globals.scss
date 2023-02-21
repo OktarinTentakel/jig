@@ -1,0 +1,66 @@
+$--jig--layout: null !default;
+@if type-of($--jig--layout) != 'map' {
+	@if global-variable-exists('JIG_LAYOUT') {
+		$--jig--layout: $JIG_LAYOUT;
+	}
+}
+
+@if type-of($--jig--layout) != 'map' {
+	@error 'jig ##> globals | jig layout is undefined or not a map'
+}
+
+$--jig--breakpoint-config: map-get($--jig--layout, 'breakpoints') !default;
+$--jig--breakpoint-config: (
+	'small' : 0,
+	'medium' : 768px,
+	'large' : 1280px
+) !default;
+
+$--jig--grid-config: map-get($--jig--layout, 'grid') !default;
+$--jig--grid-config: (
+	'columns' : 12,
+	'gutters' : (
+		'horizontal' : (
+			'small' : 20px,
+			'medium' : 40px,
+			'large' : 40px
+		),
+		'vertical' : 20px
+	)
+) !default;
+
+$--jig--spacings-config: map-get($--jig--layout, 'spacings') !default;
+$--jig--spacings-config: (
+	'sm' : (
+		'small' : 1rem,
+		'medium' : 2rem,
+		'large' : 3rem
+	),
+	'md': (
+		'small' : 2rem,
+		'medium' : 3rem,
+		'large' : 5rem
+	),
+	'l': (
+		'small' : 3rem,
+		'medium' : 5rem,
+		'large' : 8rem
+	)
+) !default;
+
+$--jig--content-config: map-get($--jig--layout, 'content') !default;
+$--jig--content-config: (
+	'padding' : (
+		'small' : 20px,
+		'medium' : 40px,
+		'large' : 80px
+	),
+	'max-width' : 1600px,
+	'base-font-size' : 16px
+) !default;
+
+$--jig--base-font-size: map-get($--jig--content-config, 'base-font-size') !default;
+$--jig--base-font-size: 16px !default;
+
+$--jig--print-breakpoint: map-get($--jig--layout, 'print-breakpoint') !default;
+$--jig--print-breakpoint: 'large' !default;

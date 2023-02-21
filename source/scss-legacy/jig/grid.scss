@@ -1,0 +1,172 @@
+///
+/// Renders the basic properties of a grid container, which is the bracket element for elements, which are
+/// to be placed in a grid, thereby making the container, more or less, "the grid itself".
+///
+/// The basic characteristic of this container is the pre-definition of usable grid columns, according to our
+/// layout definition.
+///
+@mixin grid-container(){
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: repeat(map-get($--jig--grid-config, 'columns'), 1fr);
+	@include attributes-for-breakpoints((
+		'grid-column-gap' : map-get-deep($--jig--grid-config, 'gutters', 'horizontal'),
+		'grid-row-gap' : map-get-deep($--jig--grid-config, 'gutters', 'vertical')
+	));
+}
+
+
+
+///
+/// Renders the basic properties of a grid item, which is an item inside a grid, being placed according to
+/// pre-defined columns.
+///
+/// The main purpose of this mixin is, to define the space, the item takes inside the grid. To do this, there are
+/// several means of definition. Either just giving it a column-based width, aligning it at the end of other,
+/// already existing items, or defining a specific area it should cover, by explicitly defining a start and end column
+/// or a combination of both.
+///
+/// Additionally, the item may also be defined to take up more than one row, adding the native grid capabilities to
+/// our concepts.
+///
+/// @param {?Number} [$span=null] - the width of the item in columns
+/// @param {?Number} [$start=null] - the horizontal start offset of the item in columns, may be combined with $end or $span
+/// @param {?Number} [$end=null] - the horizontal end offset of the item in columns, may be combined with $start or $span
+/// @param {?Number} [$row-span=null] - the height of the item in rows
+/// @param {?Number} [$row-start=null] - the vertical start offset of the item in rows, may be combined with $row-end or $row-span
+/// @param {?Number} [$row-end=null] - the vertical end offset of the item in rows, may be combined with $row-start or $row-span
+///
+/// @example
+/// grid-item(12)
+/// grid-item(6, 6)
+/// grid-item(null, 2, 2)
+/// grid-item(6, null, null, 2)
+/// grid-item(6, null, null, null, 0, 5)
+///
+@mixin grid-item(
+	$span:null,
+	$start:null,
+	$end:null,
+	$row-span:null,
+	$row-start:null,
+	$row-end:null
+){
+	$columns: map-get($--jig--grid-config, 'columns');
+
+	@if ($span == null) and ($start == null) {
+		grid-column-end: span $columns;
+	} @else {
+		@if $span != null {
+			grid-column-end: span $span;
+		}
+
+		@if $start != null {
+			grid-column-start: $start + 1;
+		}
+
+		@if ($end != null) and ($span == null) {
+			grid-column-end: $end + 1;
+		}
+	}
+
+	@if ($row-span != null) or ($row-start != null) {
+		@if $row-span != null {
+			grid-row-end: span $row-span;
+		}
+
+		@if $row-start != null {
+			grid-row-start: $row-start + 1;
+		}
+
+		@if ($row-end != null) and ($row-span == null) {
+			grid-row-end: $row-end + 1;
+		}
+	}
+}
+
+
+
+///
+/// Renders properties of a grid item, to define the item's alignment inside the area defined for the item using
+/// the grid-item mixin. The usage of this only make sense for grid items.
+///
+/// @param {String} [$horizontal=null] - "left"/"start", "right"/"end", "middle"/"center" or "full"/"stretch"
+/// @param {String} [$vertical=null] - "top"/"start", "bottom"/"end", "middle"/"center" or "full"/"stretch"
+///
+/// @example
+/// grid-item-align('left')
+/// grid-item-align('center', 'center')
+/// grid-item-align(null, 'full')
+///
+@mixin grid-item-align($horizontal:null, $vertical:null){
+	@if $horizontal == 'left' {
+		$horizontal: 'start';
+	} @else if $horizontal == 'right' {
+		$horizontal: 'end';
+	} @else if $horizontal == 'middle' {
+		$horizontal: 'center';
+	} @else if $horizontal == 'full' {
+		$horizontal: 'stretch';
+	}
+
+	@if $vertical == 'top' {
+		$vertical: 'start';
+	} @else if $vertical == 'bottom' {
+		$vertical: 'end';
+	} @else if $vertical == 'middle' {
+		$vertical: 'center';
+	} @else if $vertical == 'full' {
+		$vertical: 'stretch';
+	}
+
+	@if $horizontal != null {
+		justify-self: unquote($horizontal);
+	}
+
+	@if $vertical != null {
+		align-self: unquote($vertical);
+	}
+}
+
+
+
+///
+/// Returns the value of the defined distance between two columns/rows for a breakpoint.
+///
+/// The main usage for this is, to define a property value based on the current gutter.
+/// This is why the parameter order may seem flipped, but usually, you'd use this inside a breakpoint
+/// using auto-breakpoint detection, primarily rather working with the value itself. For other cases:
+/// Remember, that that you can simply use named parameters.
+///
+/// @param {Number} [$factor=1.0] - factor to apply to the finally evaluated gutter value, most helpful to get half a gutter for example
+/// @param {Number} [$add=0] - value to add to the finally evaluated gutter value, may also be negative to subtract
+/// @param {String} [$direction='horizontal'] - either "horizontal" or "vertical", determines the gutter direction in the grid
+/// @param {String} [$breakpoint='auto'] - a defined breakpoint name or "auto", to use the current breakpoint at the point of usage
+/// @return {Number} the determined gutter value with applied factor and/or addition
+///
+/// @example
+/// padding-left: gutter-value(0.5);
+/// margin-top: gutter-value($direction:'vertical', $breakpoint:'small');
+///
+@function gutter-value($factor:1.0, $add:0, $direction:'horizontal', $breakpoint:auto){
+	$gutter: map-get-deep($--jig--grid-config, 'gutters', $direction);
+	$res: null;
+
+	@if $breakpoint == auto {
+		$breakpoint: $--jig--current-breakpoint;
+	}
+
+	@if $gutter != null {
+		@if type-of($gutter) == 'map' {
+			$res: breakpoint-value($gutter, $breakpoint);
+		} @else {
+			$res: $gutter;
+		}
+	}
+
+	@if $res == null {
+		@error 'gutter-value | could not resolve gutter, check direction and/or breakpoint';
+	}
+
+	@return ($res * $factor) + $add;
+}

@@ -1,0 +1,262 @@
+#basic-grid-example {
+	.examples > .scss-legacy {
+		@include grid-container();
+
+		@include attribute-for-breakpoints(background-color, $GRID_CONTAINER_BACKGROUNDCOLOR);
+
+
+
+		> div {
+			background-color: gray;
+
+			&:nth-of-type(odd){
+				@include grid-item(6);
+
+				height: 100px;
+			}
+
+			&:nth-of-type(even){
+				@include grid-item(6);
+
+				height: 75px;
+			}
+		}
+
+
+
+		@include breakpoint(medium up){
+			> div {
+				&:nth-of-type(1) {
+					@include grid-item(4);
+
+					height: 100px;
+				}
+
+				&:nth-of-type(2) {
+					@include grid-item(4);
+
+					height: 80px;
+				}
+
+				&:nth-of-type(3) {
+					@include grid-item(4);
+
+					height: 60px;
+				}
+
+				&:nth-of-type(4) {
+					@include grid-item(4);
+
+					height: 40px;
+				}
+
+				&:nth-of-type(5) {
+					@include grid-item(4);
+
+					height: 20px;
+				}
+			}
+		}
+
+
+
+		@include breakpoint(medium down){
+			> div {
+				&:nth-of-type(3) {
+					background-color: aqua;
+				}
+			}
+		}
+
+
+
+		@include breakpoint(large){
+			> div {
+				&:nth-of-type(1) {
+					@include grid-item();
+
+					height: 25vh;
+				}
+
+				&:nth-of-type(2) {
+					@include grid-item(6);
+
+					height: 12.5vh;
+				}
+
+				&:nth-of-type(3) {
+					@include grid-item(6);
+					@include grid-item-align($vertical:bottom);
+
+					height: 10vh;
+				}
+
+				&:nth-of-type(4) {
+					@include grid-item(4);
+					@include grid-item-align(center, center);
+					order: 2;
+
+					width: 100px;
+					height: 5vh;
+				}
+
+				&:nth-of-type(5) {
+					@include grid-item(4);
+					order: 1;
+
+					height: 10vh;
+				}
+			}
+		}
+	}
+}
+
+
+
+#advanced-grid-example {
+	.examples > .scss-legacy {
+		@include grid-container();
+
+		@include spacing-based-attribute(padding-top, 'xxl');
+
+		@include attribute-for-breakpoints(background-color, $GRID_CONTAINER_BACKGROUNDCOLOR);
+
+
+
+		> div {
+			background-color: gray;
+
+			&:nth-of-type(odd){
+				@include grid-item(4);
+
+				height: gutter-value(5.0);
+			}
+
+			&:nth-of-type(even){
+				@include grid-item(4);
+				@include grid-item-align(null, end);
+
+				height: 75px;
+			}
+
+			&:first-of-type {
+				@include grid-item($span:4, $row-span:2);
+
+				height: auto;
+			}
+		}
+
+
+
+		@include breakpoint(xsmall only){
+			> div {
+				&:nth-of-type(3) {
+					background-color: aqua;
+				}
+			}
+		}
+
+
+
+		@include breakpoint(medium){
+			> div {
+				&:nth-of-type(1) {
+					@include grid-item(4);
+					order: 5;
+
+					width: 50%;
+					height: gutter-value(3.0);
+				}
+
+				&:nth-of-type(2) {
+					@include grid-item($start:8, $end:12);
+					order: 4;
+
+					height: 80px;
+				}
+
+				&:nth-of-type(3) {
+					@include grid-item($start:6, $span:2);
+					@include grid-item-align(full, center);
+					order: 3;
+
+					height: 60px;
+				}
+
+				&:nth-of-type(4) {
+					@include grid-item(8, $row-start:1, $row-end:3);
+					@include grid-item-align('right', $vertical:'full');
+					order: 2;
+
+					width: 50%;
+					height: auto;
+				}
+
+				&:nth-of-type(5) {
+					@include grid-item(4);
+					@include grid-item-align(left, top);
+					order: 1;
+					z-index: 1;
+
+					width: 200%;
+					height: 55px;
+
+					background-color: red;
+					transform: rotate(5deg);
+				}
+			}
+		}
+
+
+
+		@include breakpoint(large){
+			> div {
+				&:nth-of-type(1) {
+					@include grid-item($start:0, $span:4, $row-start:0, $row-span:1);
+					@include grid-item-align($vertical:full);
+					order: 1;
+
+					width: auto;
+					height: 10vh;
+				}
+
+				&:nth-of-type(2) {
+					@include grid-item($start:4, $end:8, $row-start:0, $row-span:2);
+					@include grid-item-align($vertical:full);
+					order: 2;
+
+					height: auto;
+				}
+
+				&:nth-of-type(3) {
+					@include grid-item($start:8, $span:4, $row-start:0, $row-span:3);
+					@include grid-item-align($vertical:full);
+					order: 3;
+
+					height: auto;
+				}
+
+				&:nth-of-type(4) {
+					@include grid-item($start:0, $span:4, $row-start:1, $row-end:2);
+					@include grid-item-align(right, center);
+					order: 4;
+
+					width: 100px;
+					height: 10vh;
+				}
+
+				&:nth-of-type(5) {
+					@include grid-item(6);
+					@include grid-item-align(stretch);
+					order: 5;
+
+					width: auto;
+					height: 20vh;
+
+					background-color: gray;
+					transform: rotate(0deg);
+				}
+			}
+		}
+	}
+}
