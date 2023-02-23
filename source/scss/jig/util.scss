@@ -1,25 +1,10 @@
-///
-/// Retrieve a value deeply nested in a map, defined by a path of keys.
-///
-/// @param {Map} $map - the map to search in
-/// @param {String|List<String>} $keys - the keys to traverse down in the map
-/// @return {*|null} the value at the defined key path or null if not defined
-///
-/// @example
-/// map-get-deep($foo-map, 'level1', 'level2')
-/// => value of $foo-map.level1.level2
-///
-@function map-get-deep($map, $keys...){
-	@each $key in $keys {
-		@if map-has-key($map, $key) {
-			$map: map-get($map, $key);
-		} @else {
-			@return null;
-		}
-	}
+@use 'sass:meta';
+@use 'sass:math';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
 
-	@return $map;
-}
+@use 'globals' as *;
 
 
 
@@ -37,17 +22,17 @@
 /// => value of $fooMap.medium
 ///
 @function map-next($map, $key){
-	$keys: map-keys($map);
+	$keys: map.keys($map);
 
 	$next-index: 0;
-	@if map-has-key($map, $key) {
-		$next-index: index($keys, $key) + 1;
+	@if map.has-key($map, $key) {
+		$next-index: list.index($keys, $key) + 1;
 	}
 
 	@if ($next-index == 0) or ($next-index > length($map)) {
 		@return null;
 	} @else {
-		@return map-get($map, nth($keys, $next-index));
+		@return map.get($map, nth($keys, $next-index));
 	}
 }
 
@@ -64,7 +49,7 @@
 /// => 16
 ///
 @function strip-unit($number){
-	@return $number / ($number * 0 + 1);
+	@return math.div($number, ($number * 0 + 1));
 }
 
 
@@ -84,15 +69,15 @@
 /// => [0.5rem, 1rem, 2rem]
 ///
 @function to-rem($values, $base:$jig---base-font-size){
-	@if unit($base) == '%' {
-		$base: (strip-unit($base) / 100) * $jig---base-font-size;
+	@if math.unit($base) == '%' {
+		$base: math.div(strip-unit($base), 100) * $jig---base-font-size;
 	}
 
-	@if unit($base) == 'rem' {
+	@if math.unit($base) == 'rem' {
 		$base: strip-unit($base) * $jig---base-font-size;
 	}
 
-	@if type-of($values) != 'list' {
+	@if meta.type-of($values) != 'list' {
 		$values: [$values];
 	}
 
@@ -100,21 +85,21 @@
 	@each $value in $values {
 		$rem-value: 0;
 
-		@if unit($value) == 'em' {
+		@if math.unit($value) == 'em' {
 			$rem-value: strip-unit($value);
 		} @else {
-			$rem-value: strip-unit($value) / strip-unit($base);
+			$rem-value: math.div(strip-unit($value), strip-unit($base));
 		}
 
 		@if $rem-value != 0 {
 			$rem-value: $rem-value * 1rem;
 		}
 
-		$rem-values: append($rem-values, $rem-value);
+		$rem-values: list.append($rem-values, $rem-value);
 	}
 
-	@if length($rem-values) == 1 {
-		@return nth($rem-values, 1);
+	@if list.length($rem-values) == 1 {
+		@return list.nth($rem-values, 1);
 	} @else {
 		@return $rem-values;
 	}
@@ -133,7 +118,7 @@
 /// => 'foobar'
 ///
 @function str-join($strings, $glue:''){
-	$strings: join([], $strings);
+	$strings: list.join([], $strings);
 
 	$res: '';
 	@each $string in $strings {
@@ -143,7 +128,7 @@
 	}
 
 	@if ($res != '') and ($glue != '') {
-		@return str-slice($res, 1, str-length($glue) * -1);
+		@return string.slice($res, 1, string.length($glue) * -1);
 	} @else {
 		@return $res;
 	}

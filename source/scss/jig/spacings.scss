@@ -1,3 +1,11 @@
+@use 'sass:meta';
+@use 'sass:map';
+
+@use 'globals' as *;
+@use 'breakpoints';
+
+
+
 ///
 /// Return a spacing value defined in the jig layout config, based on a breakpoint.
 ///
@@ -12,14 +20,14 @@
 ///     => 5rem
 ///
 @function spacing-value($size, $breakpoint:'auto'){
-	$spacing: map-get($jig---spacings-config, $size);
+	$spacing: map.get($jig---spacings-config, $size);
 
 	@if $spacing == null {
 		@error 'jig:spacing-value | unknown size "#{$size}"';
 	}
 
-	@if type-of($spacing) == 'map' {
-		@return breakpoint-value($spacing, $breakpoint);
+	@if meta.type-of($spacing) == 'map' {
+		@return breakpoints.breakpoint-value($spacing, $breakpoint);
 	} @else {
 		@return $spacing;
 	}
@@ -54,16 +62,16 @@
 @mixin spacing-based-attributes($attributes, $factor:null){
 	$spacing-attributes: ();
 	@each $attribute-name, $attribute-size in $attributes {
-		$size-definition: map-get($jig---spacings-config, $attribute-size);
+		$size-definition: map.get($jig---spacings-config, $attribute-size);
 
 		@if $size-definition == null {
 			@error 'jig:spacing-based-attributes | unknown size "#{$size-definition}"';
 		}
 
-		$spacing-attributes: map-merge($spacing-attributes, ($attribute-name : $size-definition));
+		$spacing-attributes: map.merge($spacing-attributes, ($attribute-name : $size-definition));
 	}
 
-	@include attributes-for-breakpoints($spacing-attributes, $factor);
+	@include breakpoints.attributes-for-breakpoints($spacing-attributes, $factor);
 }
 
 
@@ -82,6 +90,6 @@
 ///
 @mixin spacing-based-attribute($attribute, $size, $factor:null){
 	$attributes: ();
-	$attributes: map-merge($attributes, ('#{$attribute}' : $size));
+	$attributes: map.merge($attributes, ('#{$attribute}' : $size));
 	@include spacing-based-attributes($attributes, $factor);
 }

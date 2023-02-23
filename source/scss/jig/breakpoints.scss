@@ -1,4 +1,13 @@
-$jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:map';
+
+@use 'globals' as *;
+@use 'util';
+
+
+
+$jig---auto-breakpoint: list.nth(map.keys($jig---breakpoint-config), 1);
 
 
 
@@ -39,8 +48,8 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///   }
 ///
 @mixin set-auto-breakpoint($breakpoint){
-	@if map-has-key($jig---breakpoint-config, $breakpoint) {
-		$jig---auto-breakpoint: $breakpoint !global;
+	@if map.has-key($jig---breakpoint-config, $breakpoint) {
+		$jig---auto-breakpoint: $breakpoint;
 	} @else {
 		@error 'jig:set-current-breakpoint | unknown named breakpoint "#{$breakpoint}"';
 	}
@@ -60,7 +69,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///   reset-auto-breakpoint()
 ///
 @mixin reset-auto-breakpoint(){
-	$jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1) !global;
+	$jig---auto-breakpoint: list.nth(map.keys($jig---breakpoint-config), 1);
 }
 
 
@@ -76,7 +85,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///     => true
 ///
 @function is-named-breakpoint($breakpoint){
-	@return map-has-key($jig---breakpoint-config, $breakpoint);
+	@return map.has-key($jig---breakpoint-config, $breakpoint);
 }
 
 
@@ -96,7 +105,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///     => '(max-width: 100rem)'
 ///
 @function build-breakpoint-range($min:null, $max:null){
-	@return str-join(
+	@return util.str-join(
 		[
 			if($min != null, '(min-width: #{$min})', null),
 			if($max != null, '(max-width: #{$max})', null)
@@ -131,8 +140,8 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///     => '(orientation: landscape)'
 ///
 @function build-breakpoint-query($breakpoint-definition:0){
-	$breakpoint: if($breakpoint-definition and (length($breakpoint-definition) > 0), nth($breakpoint-definition, 1), 0);
-	$direction: if($breakpoint-definition and (length($breakpoint-definition) > 1), nth($breakpoint-definition, 2), 'up');
+	$breakpoint: if($breakpoint-definition and (list.length($breakpoint-definition) > 0), list.nth($breakpoint-definition, 1), 0);
+	$direction: if($breakpoint-definition and (list.length($breakpoint-definition) > 1), list.nth($breakpoint-definition, 2), 'up');
 	$breakpoint-name: null;
 	$next-breakpoint: null;
 	$min: null;
@@ -143,11 +152,11 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 		@return '(min-width: 0)';
 	} @else if ($breakpoint == 'landscape') or ($breakpoint == 'portrait') {
 		@return '(orientation: #{$breakpoint})';
-	} @else if type-of($breakpoint) == 'string' {
+	} @else if meta.type-of($breakpoint) == 'string' {
 		@if is-named-breakpoint($breakpoint) {
 			$breakpoint-name: $breakpoint;
-			$breakpoint: map-get($jig---breakpoint-config, $breakpoint-name);
-			$next-breakpoint: map-next($jig---breakpoint-config, $breakpoint-name);
+			$breakpoint: map.get($jig---breakpoint-config, $breakpoint-name);
+			$next-breakpoint: util.map-next($jig---breakpoint-config, $breakpoint-name);
 		} @else {
 			@error 'jig:build-breakpoint-query | "#{$breakpoint-definition}" is not a defined breakpoint';
 		}
@@ -158,14 +167,14 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 	}
 
 	@if ($direction == 'only') or ($direction == 'up') {
-		$min: to-rem($breakpoint, $query-rem-conversion-base);
+		$min: util.to-rem($breakpoint, $query-rem-conversion-base);
 	}
 
 	@if ($direction == 'only') or ($direction == 'down') {
 		@if $breakpoint-name == null {
-			$max: to-rem($breakpoint, $query-rem-conversion-base);
+			$max: util.to-rem($breakpoint, $query-rem-conversion-base);
 		} @else if $next-breakpoint != null {
-			$max: to-rem($next-breakpoint, $query-rem-conversion-base) - to-rem(1px, $query-rem-conversion-base);
+			$max: util.to-rem($next-breakpoint, $query-rem-conversion-base) - util.to-rem(1px, $query-rem-conversion-base);
 		}
 	}
 
@@ -195,10 +204,10 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 @mixin breakpoint($breakpoint-definitions...){
 	@each $breakpoint-definition in $breakpoint-definitions {
 		$query: build-breakpoint-query($breakpoint-definition);
-		$breakpoint: if(length($breakpoint-definition) > 0, nth($breakpoint-definition, 1), 0);
-		$direction: if(length($breakpoint-definition) > 1, nth($breakpoint-definition, 2), 'up');
-		$breakpoint-index: index(map-keys($jig---breakpoint-config), nth($breakpoint-definition, 1));
-		$print-breakpoint-index: index(map-keys($jig---breakpoint-config), $jig---print-breakpoint);
+		$breakpoint: if(list.length($breakpoint-definition) > 0, list.nth($breakpoint-definition, 1), 0);
+		$direction: if(list.length($breakpoint-definition) > 1, list.nth($breakpoint-definition, 2), 'up');
+		$breakpoint-index: index(map.keys($jig---breakpoint-config), list.nth($breakpoint-definition, 1));
+		$print-breakpoint-index: list.index(map.keys($jig---breakpoint-config), $jig---print-breakpoint);
 
 		// set current breakpoint var to mixin breakpoint value to allow for auto-evaluation inside
 		@if is-named-breakpoint($breakpoint){
@@ -251,11 +260,11 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///     => 20px
 ///
 @function breakpoint-value($value, $breakpoint:'auto'){
-	@if ($breakpoint != 'auto') and not map-has-key($jig---breakpoint-config, $breakpoint) {
+	@if ($breakpoint != 'auto') and not map.has-key($jig---breakpoint-config, $breakpoint) {
 		@error 'jig:breakpoint-value | given breakpoint "#{$breakpoint}" not defined';
 	}
 
-	@if type-of($value) == 'map' {
+	@if meta.type-of($value) == 'map' {
 		$res: null;
 
 		@if $breakpoint == 'auto' {
@@ -263,7 +272,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 		}
 
 		@each $breakpoint-name, $breakpoint-definition in $jig---breakpoint-config {
-			$breakpoint-value: map-get($value, $breakpoint-name);
+			$breakpoint-value: map.get($value, $breakpoint-name);
 
 			@if $breakpoint-value != null {
 				$res: $breakpoint-value;
@@ -313,7 +322,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 @mixin attributes-for-breakpoints($attributes, $factor:null){
 	$attributes-for-breakpoints: ();
 	@each $attribute-name, $attribute-value in $attributes {
-		@if type-of($attribute-value) != 'map' {
+		@if meta.type-of($attribute-value) != 'map' {
 			@if $factor == null {
 				#{$attribute-name}: $attribute-value;
 			} @else {
@@ -321,19 +330,19 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 			}
 		} @else {
 			@each $breakpoint-name, $breakpoint-definition in $jig---breakpoint-config {
-				$breakpoint-value: map-get($attribute-value, $breakpoint-name);
+				$breakpoint-value: map.get($attribute-value, $breakpoint-name);
 				@if $breakpoint-value != null {
-					$breakpoint-attributes: map-get($attributes-for-breakpoints, $breakpoint-name);
+					$breakpoint-attributes: map.get($attributes-for-breakpoints, $breakpoint-name);
 					@if $breakpoint-attributes == null {
 						$breakpoint-attributes: ();
 					}
 
-					$breakpoint-attributes: map-merge(
+					$breakpoint-attributes: map.merge(
 						$breakpoint-attributes,
 						($attribute-name : $breakpoint-value)
 					);
 
-					$attributes-for-breakpoints: map-merge(
+					$attributes-for-breakpoints: map.merge(
 						$attributes-for-breakpoints,
 						($breakpoint-name : $breakpoint-attributes)
 					);
@@ -343,8 +352,8 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 	}
 
 	@each $breakpoint-name, $breakpoint-definition in $jig---breakpoint-config {
-		$breakpoint-attributes: map-get($attributes-for-breakpoints, $breakpoint-name);
-		@if ($breakpoint-attributes != null) and (length(map-keys($breakpoint-attributes)) > 0) {
+		$breakpoint-attributes: map.get($attributes-for-breakpoints, $breakpoint-name);
+		@if ($breakpoint-attributes != null) and (list.length(map.keys($breakpoint-attributes)) > 0) {
 			@include breakpoint($breakpoint-name){
 				@each $attribute-name, $attribute-value in $breakpoint-attributes {
 					@if $factor == null {
@@ -383,7 +392,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///
 @mixin attribute-for-breakpoints($attribute, $value, $factor:null){
 	$attributes: ();
-	$attributes: map-merge($attributes, ('#{$attribute}' : $value));
+	$attributes: map.merge($attributes, ('#{$attribute}' : $value));
 	@include attributes-for-breakpoints($attributes, $factor);
 }
 
@@ -437,7 +446,7 @@ $jig---auto-breakpoint: nth(map-keys($jig---breakpoint-config), 1);
 ///
 @mixin overwrite-breakpoint-for-attribute($attribute, $value, $factor:null){
 	$attributes: ();
-	$attributes: map-merge($attributes, ('#{$attribute}' : $value));
+	$attributes: map.merge($attributes, ('#{$attribute}' : $value));
 	@include overwrite-breakpoint-for-attributes($attributes, $factor);
 }
 

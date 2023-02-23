@@ -4,14 +4,17 @@
  *
  * The basic characteristic of this container is the pre-definition of usable grid columns, according to our
  * layout definition.
+ *
+ * @example
+ *   grid-container()
  */
 grid-container()
 	display grid
 	grid-auto-flow row
-	grid-template-columns repeat($--jig--grid-config.columns, 1fr)
+	grid-template-columns repeat($jig---grid-config.columns, 1fr)
 	attributes-for-breakpoints({
-		'grid-column-gap' : hash-get-deep($--jig--grid-config, 'gutters', 'horizontal'),
-		'grid-row-gap' : hash-get-deep($--jig--grid-config, 'gutters', 'vertical')
+		'grid-column-gap' : hash-get-deep($jig---grid-config, 'gutters', 'horizontal'),
+		'grid-row-gap' : hash-get-deep($jig---grid-config, 'gutters', 'vertical')
 	})
 
 
@@ -36,11 +39,11 @@ grid-container()
  * @param {?Number} [$row-end=null] - the vertical end offset of the item in rows, may be combined with row-start or row-span
  *
  * @example
- * grid-item(12)
- * grid-item(6, 6)
- * grid-item(null, 2, 2)
- * grid-item(6, null, null, 2)
- * grid-item(6, null, null, null, 0, 5)
+ *   grid-item(12)
+ *   grid-item(6, 6)
+ *   grid-item(null, 2, 2)
+ *   grid-item(6, null, null, 2)
+ *   grid-item(6, null, null, null, 0, 5)
  */
 grid-item(
 	$span=null,
@@ -50,10 +53,8 @@ grid-item(
 	$row-start=null,
 	$row-end=null
 )
-	$columns = $--jig--grid-config.columns
-
 	if ($span == null) and ($start == null)
-		grid-column-end span $columns
+		grid-column-end span $jig---grid-config.columns
 	else
 		if $span != null
 			grid-column-end span $span
@@ -84,9 +85,9 @@ grid-item(
  * @param {String} [$vertical=null] - "top"/"start", "bottom"/"end", "middle"/"center" or "full"/"stretch"
  *
  * @example
- * grid-item-align('left')
- * grid-item-align('center', 'center')
- * grid-item-align(null, 'full')
+ *   grid-item-align('left')
+ *   grid-item-align(center, center)
+ *   grid-item-align(null, 'full')
  */
 grid-item-align($horizontal=null, $vertical=null)
 	if $horizontal == 'left'
@@ -130,8 +131,9 @@ grid-item-align($horizontal=null, $vertical=null)
  * @return {Number} the determined gutter value with applied factor and/or addition
  *
  * @example
- * padding-left: gutter-value(0.5);
- * margin-top: gutter-value($direction:'vertical', $breakpoint:'small');
+ *   +breakpoint(medium)
+ *     padding-left gutter-value(0.5)
+ *   margin-top gutter-value($direction:'vertical', $breakpoint:'small')
  */
 gutter-value(
 	$factor=1.0,
@@ -139,13 +141,10 @@ gutter-value(
 	$direction='horizontal',
 	$breakpoint='auto'
 )
-	$direction += ''
-	$breakpoint += ''
-	$gutter = hash-get-deep($--jig--grid-config, 'gutters', $direction)
+	$direction = to-str($direction)
+	$breakpoint = to-str($breakpoint)
+	$gutter = hash-get-deep($jig---grid-config, 'gutters', $direction)
 	$res = null
-
-	if $breakpoint == 'auto'
-		$breakpoint = $--jig--current-breakpoint
 
 	if $gutter != null
 		if type($gutter) == 'object'
@@ -154,6 +153,6 @@ gutter-value(
 			$res = $gutter
 
 	if $res == null
-		error('gutter-value | could not resolve gutter, check direction and/or breakpoint')
+		error('jig:gutter-value | could not resolve gutter, check direction and/or breakpoint')
 
 	return ($res * $factor) + $add

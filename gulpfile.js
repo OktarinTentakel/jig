@@ -11,8 +11,6 @@ import connect from 'gulp-connect';
 import dartSass from 'sass';
 import nodeSass from 'node-sass';
 import gulpSass from 'gulp-sass';
-const scss = gulpSass(dartSass);
-const scssLegacy = gulpSass(nodeSass);
 import stylus from 'gulp-stylus';
 
 
@@ -30,9 +28,19 @@ const
 	EXAMPLES_DIR = `${DOCS_DIR}/examples`,
 	NODE_DIR = './node_modules',
 	LIB_SOURCE_DIR = `${SOURCE_DIR}/lib`,
-	LIB_SOURCES = [
-		`${LIB_SOURCE_DIR}/**/*.css`
+
+	SCSS_SOURCE_DIR = `${SOURCE_DIR}/scss`,
+	SCSS_EXAMPLES_DIR = `${EXAMPLES_DIR}/scss`,
+	SCSS_ENTRY = `${SCSS_EXAMPLES_DIR}/main.scss`,
+	SCSS_SOURCES = [
+		`${SCSS_SOURCE_DIR}/**/*.scss`,
+		`${SCSS_EXAMPLES_DIR}/**/*.scss`,
 	],
+	SCSS_INCLUDES = [
+		SCSS_SOURCE_DIR,
+		LIB_SOURCE_DIR
+	],
+	SCSS_OUT_DIR = `${EXAMPLES_DIR}/css`,
 
 	SCSS_LEGACY_SOURCE_DIR = `${SOURCE_DIR}/scss-legacy`,
 	SCSS_LEGACY_EXAMPLES_DIR = `${EXAMPLES_DIR}/scss-legacy`,
@@ -68,7 +76,7 @@ const
 function compileNormalize(){
 	return gulp.src(`${NODE_DIR}/normalize.css/normalize.css`)
 		.pipe(sourcemaps.init())
-			.pipe(scssLegacy({
+			.pipe(gulpSass(nodeSass)({
 				outputStyle : 'compressed'
 			})).on('error', function(err){
 				log(err);
@@ -85,10 +93,31 @@ function compileNormalize(){
 
 
 
+function compileScss(){
+	return gulp.src(SCSS_ENTRY)
+		.pipe(sourcemaps.init())
+			.pipe(gulpSass(dartSass).sync({
+				outputStyle : 'compressed',
+				includePaths : SCSS_INCLUDES
+			})).on('error', function(err){
+				log(err);
+				this.emit('end');
+			})
+			.pipe(rename(function(path){
+				path.basename = 'scss';
+				path.extname = '.css';
+			}))
+		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest(SCSS_OUT_DIR))
+		;
+}
+
+
+
 function compileScssLegacy(){
 	return gulp.src(SCSS_LEGACY_ENTRY)
 		.pipe(sourcemaps.init())
-			.pipe(scssLegacy({
+			.pipe(gulpSass(nodeSass)({
 				outputStyle : 'compressed',
 				includePaths : SCSS_LEGACY_INCLUDES
 			})).on('error', function(err){
@@ -172,9 +201,9 @@ gulp.task('watch', function(done){
 	};
 
 	gulp.watch(
-		SCSS_LEGACY_SOURCES,
+		[...SCSS_SOURCES, ...SCSS_LEGACY_SOURCES],
 		watchConfig,
-		gulp.series(compileScssLegacy, function reloadCss(){ return reload(`${EXAMPLES_DIR}/**/*.css`); })
+		gulp.series(compileScss, compileScssLegacy, function reloadCss(){ return reload(`${EXAMPLES_DIR}/**/*.css`); })
 	);
 
 	gulp.watch(
@@ -198,7 +227,7 @@ gulp.task('watch', function(done){
 	done();
 });
 
-gulp.task('build', gulp.series(compileNormalize, compileScssLegacy, compileStylus));
+gulp.task('build', gulp.series(compileNormalize, compileScss, compileScssLegacy, compileStylus));
 
 gulp.task('examples', gulp.series('build', serveExamples, 'watch'));
 

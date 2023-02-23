@@ -1,22 +1,26 @@
-$--jig--layout ?= null
-if !($--jig--layout is a 'object')
+$jig---layout ?= null
+if !($jig---layout is a 'object')
 	if $JIG_LAYOUT is defined
-		$--jig--layout = $JIG_LAYOUT
+		$jig---layout = $JIG_LAYOUT
 	else if JIG_LAYOUT is defined
-		$--jig--layout = JIG_LAYOUT
+		$jig---layout = JIG_LAYOUT
 
-if !($--jig--layout is a 'object')
+if !($jig---layout is a 'object')
 	error('jig:globals | jig layout is undefined or not a hash')
 
-$--jig--breakpoint-config ?= $--jig--layout.breakpoints
-$--jig--breakpoint-config ?= {
+
+
+$jig---breakpoint-config ?= $jig---layout.breakpoints
+$jig---breakpoint-config ?= {
 	'small' : 0,
 	'medium' : 768px,
 	'large' : 1280px
 }
 
-$--jig--grid-config ?= $--jig--layout.grid
-$--jig--grid-config ?= {
+
+
+$jig---grid-config ?= $jig---layout.grid
+$jig---grid-config ?= {
 	'columns' : 12,
 	'gutters' : {
 		'horizontal' : {
@@ -28,27 +32,31 @@ $--jig--grid-config ?= {
 	}
 }
 
-$--jig--spacings-config ?= $--jig--layout.spacings
-$--jig--spacings-config ?= {
+
+
+$jig---spacings-config ?= $jig---layout.spacings
+$jig---spacings-config ?= {
 	'sm' : {
 		'small' : 1rem,
 		'medium' : 2rem,
 		'large' : 3rem
 	}
-	'md': {
+	'md' : {
 		'small' : 2rem,
 		'medium' : 3rem,
 		'large' : 5rem
 	},
-	'l': {
+	'l' : {
 		'small' : 3rem,
 		'medium' : 5rem,
 		'large' : 8rem
 	}
 }
 
-$--jig--content-config ?= $--jig--layout.content
-$--jig--content-config ?= {
+
+
+$jig---content-config ?= $jig---layout.content
+$jig---content-config ?= {
 	'padding' : {
 		'small' : 20px,
 		'medium' : 40px,
@@ -58,8 +66,12 @@ $--jig--content-config ?= {
 	'base-font-size' : 16px
 }
 
-$--jig--base-font-size ?= $--jig--content-config.base-font-size
-$--jig--base-font-size ?= 16px
 
-$--jig--print-breakpoint ?= $--jig--layout.print-breakpoint
-$--jig--print-breakpoint ?= 'large'
+
+$jig---base-font-size ?= $jig---content-config.base-font-size
+$jig---base-font-size ?= 16px
+
+
+
+$jig---print-breakpoint ?= $jig---layout.print-breakpoint
+$jig---print-breakpoint ?= 'large'

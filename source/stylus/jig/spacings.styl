@@ -1,18 +1,18 @@
 /**
  * Return a spacing value defined in the jig layout config, based on a breakpoint.
  *
- * @param {String} $size - on of the named sized defined in jig's spacing config (sm, l, xxl, ...)
- * @param {Literal|String} $breakpoint - either "auto" (to use the current breakpoint) or one of the defined named layout breakpoints
+ * @param {String} $size - on of the named sized defined in jig's spacing config (e.g. sm, l, xxl, ...)
+ * @param {Literal|String} [$breakpoint='auto'] - either "auto" (to use the current breakpoint) or one of the defined named layout breakpoints
  * @return {Number|null} the spacing value or null if nothing was found
  *
  * @example
- * spacing-value(sm)
- * => 12px
- * spacing-value(md, large)
- * => 5rem
+ *   spacing-value(sm)
+ *     => 12px
+ *   spacing-value(md, large)
+ *     => 5rem
  */
-spacing-value($size, $breakpoint=auto)
-	$spacing = $--jig--spacings-config[$size]
+spacing-value($size, $breakpoint='auto')
+	$spacing = $jig---spacings-config[$size]
 
 	if $spacing == null
 		error('jig:spacing-value | unknown size "'+$size+'"')
@@ -36,22 +36,22 @@ spacing-value($size, $breakpoint=auto)
  * @param {Number} [$factor=null] - if a float factor is provided all values will be multiplied with this factor
  *
  * @example
- * spacing-based-attributes(
- *   {
- *     'padding-top' : 'sm',
- *     'padding-right' : 'md',
- *     'padding-bottom' : 'sm'
- *     'padding-left' : 'md'
- *     'margin-top' : 'l',
- *     'margin-bottom' : 'xl'
- *   },
- *   2.0
- * )
+ *   spacing-based-attributes(
+ *     {
+ *       'padding-top' : 'sm',
+ *       'padding-right' : 'md',
+ *       'padding-bottom' : 'sm'
+ *       'padding-left' : 'md'
+ *       'margin-top' : 'l',
+ *       'margin-bottom' : 'xl'
+ *     },
+ *     2.0
+ *   )
  */
 spacing-based-attributes($attributes, $factor=null)
 	$spacing-attributes = {}
 	for $attribute-name, $attribute-size in $attributes
-		$size-definition = $--jig--spacings-config[$attribute-size]
+		$size-definition = $jig---spacings-config[$attribute-size]
 
 		if $size-definition == null
 			error('jig:spacing-based-attributes | unknown size "'+$size-definition+'"')
@@ -70,8 +70,11 @@ spacing-based-attributes($attributes, $factor=null)
  * @param {String} $attribute - the name of the attribute you want to set
  * @param {String} $size - on of the named sized defined in jig's spacing config (sm, l, xxl, ...)
  * @param {Number} [$factor=null] - if a float factor is provided the value will be multiplied with this factor
+ *
+ * @example
+ *   spacing-based-attribute(margin-top, 'xl', 1.0)
  */
 spacing-based-attribute($attribute, $size, $factor=null)
 	$attributes = {}
-	$attributes[$attribute] = $size
+	$attributes[''+$attribute] = $size
 	spacing-based-attributes($attributes, $factor)

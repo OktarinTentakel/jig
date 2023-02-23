@@ -1,3 +1,12 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:map';
+
+@use 'globals' as *;
+@use 'breakpoints';
+
+
+
 ///
 /// Renders the basic properties of a grid container, which is the bracket element for elements, which are
 /// to be placed in a grid, thereby making the container, more or less, "the grid itself".
@@ -11,10 +20,10 @@
 @mixin grid-container(){
 	display: grid;
 	grid-auto-flow: row;
-	grid-template-columns: repeat(map-get($jig---grid-config, 'columns'), 1fr);
-	@include attributes-for-breakpoints((
-		'grid-column-gap' : map-get-deep($jig---grid-config, 'gutters', 'horizontal'),
-		'grid-row-gap' : map-get-deep($jig---grid-config, 'gutters', 'vertical')
+	grid-template-columns: repeat(map.get($jig---grid-config, 'columns'), 1fr);
+	@include breakpoints.attributes-for-breakpoints((
+		'grid-column-gap' : map.get($jig---grid-config, 'gutters', 'horizontal'),
+		'grid-row-gap' : map.get($jig---grid-config, 'gutters', 'vertical')
 	));
 }
 
@@ -55,7 +64,7 @@
 	$row-end:null
 ){
 	@if ($span == null) and ($start == null) {
-		grid-column-end: span map-get($jig---grid-config, 'columns');
+		grid-column-end: span map.get($jig---grid-config, 'columns');
 	} @else {
 		@if $span != null {
 			grid-column-end: span $span;
@@ -121,11 +130,11 @@
 	}
 
 	@if $horizontal != null {
-		justify-self: unquote($horizontal);
+		justify-self: string.unquote($horizontal);
 	}
 
 	@if $vertical != null {
-		align-self: unquote($vertical);
+		align-self: string.unquote($vertical);
 	}
 }
 
@@ -152,12 +161,12 @@
 ///   margin-top: gutter-value($direction:'vertical', $breakpoint:'small');
 ///
 @function gutter-value($factor:1.0, $add:0, $direction:'horizontal', $breakpoint:'auto'){
-	$gutter: map-get-deep($jig---grid-config, 'gutters', $direction);
+	$gutter: map.get($jig---grid-config, 'gutters', $direction);
 	$res: null;
 
 	@if $gutter != null {
-		@if type-of($gutter) == 'map' {
-			$res: breakpoint-value($gutter, $breakpoint);
+		@if meta.type-of($gutter) == 'map' {
+			$res: breakpoints.breakpoint-value($gutter, $breakpoint);
 		} @else {
 			$res: $gutter;
 		}
