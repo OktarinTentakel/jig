@@ -3,8 +3,10 @@
 import fs from 'fs';
 import yargs from 'yargs';
 import log from 'fancy-log';
+import {deleteAsync as del} from 'del';
 import gulp from'gulp';
 import rename from 'gulp-rename';
+import shell from 'gulp-shell';
 
 import sourcemaps from 'gulp-sourcemaps';
 import connect from 'gulp-connect';
@@ -26,6 +28,7 @@ const
 	SOURCE_DIR = './source',
 	DOCS_DIR = './docs',
 	EXAMPLES_DIR = `${DOCS_DIR}/examples`,
+	DOCUMENTATION_DIR = `${DOCS_DIR}/documentation`,
 	NODE_DIR = './node_modules',
 	LIB_SOURCE_DIR = `${SOURCE_DIR}/lib`,
 
@@ -191,6 +194,12 @@ function reload(source){
 
 
 
+function clearDocumentation(){
+	return del(`${DOCUMENTATION_DIR}/**/*`);
+}
+
+
+
 //###[ TASKS ]##########################################################################################################
 
 gulp.task('watch', function(done){
@@ -226,6 +235,16 @@ gulp.task('watch', function(done){
 
 	done();
 });
+
+gulp.task('documentation-scss', shell.task('jsdoc -c jsdoc.config.scss.json --verbose'));
+gulp.task('documentation-scss-legacy', shell.task('jsdoc -c jsdoc.config.scss-legacy.json --verbose'));
+gulp.task('documentation-stylus', shell.task('jsdoc -c jsdoc.config.stylus.json --verbose'));
+gulp.task('documentation', gulp.series(
+	clearDocumentation,
+	'documentation-scss',
+	'documentation-scss-legacy',
+	'documentation-stylus'
+));
 
 gulp.task('build', gulp.series(compileNormalize, compileScss, compileScssLegacy, compileStylus));
 

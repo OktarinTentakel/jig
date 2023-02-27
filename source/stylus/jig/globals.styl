@@ -1,16 +1,18 @@
-$jig---layout ?= null
-if !($jig---layout is a 'object')
-	if $JIG_LAYOUT is defined
-		$jig---layout = $JIG_LAYOUT
-	else if JIG_LAYOUT is defined
-		$jig---layout = JIG_LAYOUT
+$jig---config ?= null
+if !($jig---config is a 'object')
+	if jig---config is defined
+		$jig---config = jig---config
+	else if $JIG_CONFIG is defined
+		$jig---config = $JIG_CONFIG
+	else if JIG_CONFIG is defined
+		$jig---config = JIG_CONFIG
 
-if !($jig---layout is a 'object')
-	error('jig:globals | jig layout is undefined or not a hash')
+if !($jig---config is a 'object')
+	error('jig:globals | jig config is undefined or not a hash')
 
 
 
-$jig---breakpoint-config ?= $jig---layout.breakpoints
+$jig---breakpoint-config ?= $jig---config.breakpoints
 $jig---breakpoint-config ?= {
 	'small' : 0,
 	'medium' : 768px,
@@ -19,13 +21,13 @@ $jig---breakpoint-config ?= {
 
 
 
-$jig---grid-config ?= $jig---layout.grid
+$jig---grid-config ?= $jig---config.grid
 $jig---grid-config ?= {
 	'columns' : 12,
 	'gutters' : {
 		'horizontal' : {
 			'small' : 20px,
-			'medium' : 40px,
+			'medium' : 30px,
 			'large' : 40px
 		},
 		'vertical' : 20px
@@ -34,8 +36,8 @@ $jig---grid-config ?= {
 
 
 
-$jig---spacings-config ?= $jig---layout.spacings
-$jig---spacings-config ?= {
+$jig---spacing-config ?= $jig---config.spacing
+$jig---spacing-config ?= {
 	'sm' : {
 		'small' : 1rem,
 		'medium' : 2rem,
@@ -55,7 +57,7 @@ $jig---spacings-config ?= {
 
 
 
-$jig---content-config ?= $jig---layout.content
+$jig---content-config ?= $jig---config.content
 $jig---content-config ?= {
 	'padding' : {
 		'small' : 20px,
@@ -73,5 +75,5 @@ $jig---base-font-size ?= 16px
 
 
 
-$jig---print-breakpoint ?= $jig---layout.print-breakpoint
+$jig---print-breakpoint ?= $jig---config.print-breakpoint
 $jig---print-breakpoint ?= 'large'

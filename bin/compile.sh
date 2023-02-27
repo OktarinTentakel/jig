@@ -1,4 +1,5 @@
 #!/bin/bash
 
 cd "${0%/*}" && \
-./build.sh
+./build.sh && \
+./documentation.sh

@@ -1,12 +1,28 @@
 /**
+ * @namespace Grid
+ */
+
+
+
+/**
+ * @namespace Grid:grid-container
+ */
+
+/**
  * Renders the basic properties of a grid container, which is the bracket element for elements, which are
  * to be placed in a grid, thereby making the container, more or less, "the grid itself".
  *
- * The basic characteristic of this container is the pre-definition of usable grid columns, according to our
- * layout definition.
+ * The basic characteristic of this container is the pre-definition of usable grid columns, according to our config.
+ *
+ * @memberof Grid:grid-container
+ * @function
+ * @name grid-container
+ * @alias grid-container
+ *
+ * @see grid-item
  *
  * @example
- *   grid-container()
+ * grid-container()
  */
 grid-container()
 	display grid
@@ -20,6 +36,10 @@ grid-container()
 
 
 /**
+ * @namespace Grid:grid-item
+ */
+
+/**
  * Renders the basic properties of a grid item, which is an item inside a grid, being placed according to
  * pre-defined columns.
  *
@@ -31,6 +51,11 @@ grid-container()
  * Additionally, the item may also be defined to take up more than one row, adding the native grid capabilities to
  * our concepts.
  *
+ * @memberof Grid:grid-item
+ * @function
+ * @name grid-item
+ * @alias grid-item
+ *
  * @param {?Number} [$span=null] - the width of the item in columns
  * @param {?Number} [$start=null] - the horizontal start offset of the item in columns, may be combined with end or span
  * @param {?Number} [$end=null] - the horizontal end offset of the item in columns, may be combined with start or span
@@ -38,12 +63,15 @@ grid-container()
  * @param {?Number} [$row-start=null] - the vertical start offset of the item in rows, may be combined with row-end or row-span
  * @param {?Number} [$row-end=null] - the vertical end offset of the item in rows, may be combined with row-start or row-span
  *
+ * @see grid-container
+ * @see grid-item-align
+ *
  * @example
- *   grid-item(12)
- *   grid-item(6, 6)
- *   grid-item(null, 2, 2)
- *   grid-item(6, null, null, 2)
- *   grid-item(6, null, null, null, 0, 5)
+ * grid-item(12)
+ * grid-item(6, 6)
+ * grid-item(null, 2, 2)
+ * grid-item(6, null, null, 2)
+ * grid-item(6, null, null, null, 0, 5)
  */
 grid-item(
 	$span=null,
@@ -78,16 +106,27 @@ grid-item(
 
 
 /**
+ * @namespace Grid:grid-item-align
+ */
+
+/**
  * Renders properties of a grid item, to define the item's alignment inside the area defined for the item using
  * the grid-item mixin. The usage of this only make sense for grid items.
+ *
+ * @memberof Grid:grid-item-align
+ * @function
+ * @name grid-item-align
+ * @alias grid-item-align
  *
  * @param {String} [$horizontal=null] - "left"/"start", "right"/"end", "middle"/"center" or "full"/"stretch"
  * @param {String} [$vertical=null] - "top"/"start", "bottom"/"end", "middle"/"center" or "full"/"stretch"
  *
+ * @see grid-item
+ *
  * @example
- *   grid-item-align('left')
- *   grid-item-align(center, center)
- *   grid-item-align(null, 'full')
+ * grid-item-align('left')
+ * grid-item-align(center, center)
+ * grid-item-align(null, 'full')
  */
 grid-item-align($horizontal=null, $vertical=null)
 	if $horizontal == 'left'
@@ -117,6 +156,10 @@ grid-item-align($horizontal=null, $vertical=null)
 
 
 /**
+ * @namespace Grid:gutter-value
+ */
+
+/**
  * Returns the value of the defined distance between two columns/rows for a breakpoint.
  *
  * The main usage for this is, to define a property value based on the current gutter.
@@ -124,16 +167,22 @@ grid-item-align($horizontal=null, $vertical=null)
  * using auto-breakpoint detection, primarily rather working with the value itself. For other cases:
  * Remember, that that you can simply use named parameters.
  *
+ * @memberof Grid:gutter-value
+ * @function
+ * @name gutter-value
+ * @alias gutter-value
+ *
  * @param {Number} [$factor=1.0] - factor to apply to the finally evaluated gutter value, most helpful to get half a gutter for example
  * @param {Number} [$add=0] - value to add to the finally evaluated gutter value, may also be negative to subtract
  * @param {String} [$direction='horizontal'] - either "horizontal" or "vertical", determines the gutter direction in the grid
  * @param {String} [$breakpoint='auto'] - a defined breakpoint name or "auto", to use the current breakpoint at the point of usage
- * @return {Number} the determined gutter value with applied factor and/or addition
+ * @returns {Number} the determined gutter value with applied factor and/or addition
+ * @throws error if no gutter value could be determined, based on given breakpoint and/or direction
  *
  * @example
- *   +breakpoint(medium)
- *     padding-left gutter-value(0.5)
- *   margin-top gutter-value($direction:'vertical', $breakpoint:'small')
+ * +breakpoint(medium)
+ *   padding-left gutter-value(0.5)
+ * margin-top gutter-value($direction:'vertical', $breakpoint:'small')
  */
 gutter-value(
 	$factor=1.0,

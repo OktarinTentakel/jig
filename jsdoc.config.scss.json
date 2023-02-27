@@ -1,0 +1,28 @@
+{
+	"opts": {
+		"template": "jsdoc/templates/default",
+		"encoding": "utf8",
+		"destination": "./docs/documentation/scss/",
+		"recurse": true,
+		"readme" : "readme.md"
+	},
+	"tags": {
+		"allowUnknownTags": true
+	},
+	"source": {
+		"include" : ["source/scss"],
+		"includePattern": ".+\\.scss",
+		"excludePattern": "(^|\\/|\\\\)_"
+	},
+	"plugins": ["plugins/markdown", "plugins/commentsOnly", "jsdoc/plugins/escape-at"],
+	"markdown": {
+		"excludeTags": ["author", "classdesc", "param", "property", "returns", "see", "throws"]
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"default": {
+			"outputSourceFiles": true
+		}
+	}
+}

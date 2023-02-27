@@ -1,14 +1,82 @@
+$example-grid
+	grid-container()
+
+	position relative
+
+	padding gutter-value()
+	border 3px solid red
+
+	&:before
+		content ''
+
+		position absolute
+		top 0
+		right 0
+		bottom 0
+		left 0
+
+		background-size cover
+		background-position center center
+		attributes-for-breakpoints({
+			'background-color' : $GRID_CONTAINER_BACKGROUNDCOLOR,
+			'background-image' : $GRID_CONTAINER_BACKGROUNDIMAGE
+		})
+
+		filter saturate(150%) brightness(38%)
+
+	set-auto-breakpoint(medium)
+	+breakpoint(medium)
+		padding gutter-value()
+
+	+breakpoint(large)
+		padding gutter-value($breakpoint:large)
+
+
+
+	> div
+		position relative
+
+		border 3px solid dodgerblue
+
+		background-size cover
+		background-position center center
+		background-color dodgerblue
+
+		filter grayscale(50%) hue-rotate(-10deg) saturate(200%)
+
+		&:nth-of-type(1)
+			background-image url('../files/img/block-1.jpg')
+
+		&:nth-of-type(2)
+			background-image url('../files/img/block-2.jpg')
+
+		&:nth-of-type(3)
+			background-image url('../files/img/block-3.jpg')
+
+		&:nth-of-type(4)
+			background-image url('../files/img/block-4.jpg')
+
+		&:nth-of-type(5)
+			background-image url('../files/img/block-5.jpg')
+
+
+
+	&:hover
+		&:before
+		> div
+			background-image none !important
+
+			filter none !important
+
+
+
 #basic-grid-example
 	.examples > .stylus
-		grid-container()
-
-		attribute-for-breakpoints(background-color, $GRID_CONTAINER_BACKGROUNDCOLOR)
+		@extend $example-grid
 
 
 
 		> div
-			background-color gray
-
 			&:nth-of-type(odd)
 				grid-item(6)
 
@@ -53,7 +121,10 @@
 		+breakpoint(medium down)
 			> div
 				&:nth-of-type(3)
+					border-color aqua
+
 					background-color aqua
+					background-image url('../files/img/block-6.jpg')
 
 
 
@@ -90,32 +161,30 @@
 					height 10vh
 
 
+
 #advanced-grid-example
 	.examples > .stylus
-		grid-container()
+		@extend $example-grid
 
 		spacing-based-attribute(padding-top, 'xxl')
-
-		attribute-for-breakpoints(background-color, $GRID_CONTAINER_BACKGROUNDCOLOR)
 
 
 
 		> div
-			background-color gray
-
 			&:nth-of-type(odd)
 				grid-item(4)
+				grid-item-align(null, end)
 
-				height gutter-value(5.0)
+				height gutter-value(2.5, $direction:'vertical')
 
 			&:nth-of-type(even)
 				grid-item(4)
-				grid-item-align(null, end)
 
 				height 75px
 
 			&:first-of-type
 				grid-item($span:4, $row-span:2)
+				grid-item-align($vertical:full)
 
 				height auto
 
@@ -124,7 +193,10 @@
 		+breakpoint(xsmall only)
 			> div
 				&:nth-of-type(3)
+					border-color aqua
+
 					background-color aqua
+					background-image url('../files/img/block-6.jpg')
 
 
 
@@ -160,7 +232,7 @@
 					height auto
 
 				&:nth-of-type(5)
-					grid-item(4);
+					grid-item(4)
 					grid-item-align(left, top)
 					order 1
 					z-index 1
@@ -168,8 +240,12 @@
 					width 200%
 					height 55px
 
+					border-color red
+
 					background-color red
-					transform rotate(5deg)
+					background-image url('../files/img/block-7.jpg')
+
+					transform rotate(10deg)
 
 
 
@@ -213,5 +289,9 @@
 					width auto
 					height 20vh
 
-					background-color gray
+					border-color dodgerblue
+
+					background-color dodgerblue
+					background-image url('../files/img/block-8.jpg')
+
 					transform rotate(0deg)

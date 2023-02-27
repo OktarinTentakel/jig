@@ -1,18 +1,34 @@
 /**
- * Return a spacing value defined in the jig layout config, based on a breakpoint.
+ * @namespace Spacing
+ */
+
+
+
+/**
+ * @namespace Spacing:spacing-value
+ */
+
+/**
+ * Return a spacing value defined in the jig config, based on a breakpoint.
+ *
+ * @memberof Spacing:spacing-value
+ * @function
+ * @name spacing-value
+ * @alias spacing-value
  *
  * @param {String} $size - on of the named sized defined in jig's spacing config (e.g. sm, l, xxl, ...)
- * @param {Literal|String} [$breakpoint='auto'] - either "auto" (to use the current breakpoint) or one of the defined named layout breakpoints
- * @return {Number|null} the spacing value or null if nothing was found
+ * @param {Literal|String} [$breakpoint='auto'] - either "auto" (to use the current breakpoint) or one of the defined named breakpoints
+ * @returns {Number|null} the spacing value or null if nothing was found
+ * @throws error if size is unknown
  *
  * @example
- *   spacing-value(sm)
- *     => 12px
- *   spacing-value(md, large)
- *     => 5rem
+ * spacing-value(sm)
+ *   => 12px
+ * spacing-value(md, large)
+ *   => 5rem
  */
 spacing-value($size, $breakpoint='auto')
-	$spacing = $jig---spacings-config[$size]
+	$spacing = $jig---spacing-config[$size]
 
 	if $spacing == null
 		error('jig:spacing-value | unknown size "'+$size+'"')
@@ -25,6 +41,10 @@ spacing-value($size, $breakpoint='auto')
 
 
 /**
+ * @namespace Spacing:spacing-based-attributes
+ */
+
+/**
  * Define (an) attribute(s) based on breakpoint-dependent spacing values.
  * This will render the given attributes with the corresponding spacing values for each defined breakpoint
  * in compiled media queries. Since this will result in many media queries being rendered, make sure before,
@@ -32,26 +52,34 @@ spacing-value($size, $breakpoint='auto')
  * better and more performant to rather write the queries manually and get the spacing values via `[]` or
  * `spacing-value`.
  *
+ * @memberof Spacing:spacing-based-attributes
+ * @function
+ * @name spacing-based-attributes
+ * @alias spacing-based-attributes
+ *
  * @param {Hash} $attributes - keys are attribute names, while values are spacing sizes
  * @param {Number} [$factor=null] - if a float factor is provided all values will be multiplied with this factor
+ * @throws error if size is unknown
+ *
+ * @see spacing-based-attribute
  *
  * @example
- *   spacing-based-attributes(
- *     {
- *       'padding-top' : 'sm',
- *       'padding-right' : 'md',
- *       'padding-bottom' : 'sm'
- *       'padding-left' : 'md'
- *       'margin-top' : 'l',
- *       'margin-bottom' : 'xl'
- *     },
- *     2.0
- *   )
+ * spacing-based-attributes(
+ *   {
+ *     'padding-top' : 'sm',
+ *     'padding-right' : 'md',
+ *     'padding-bottom' : 'sm'
+ *     'padding-left' : 'md'
+ *     'margin-top' : 'l',
+ *     'margin-bottom' : 'xl'
+ *   },
+ *   2.0
+ * )
  */
 spacing-based-attributes($attributes, $factor=null)
 	$spacing-attributes = {}
 	for $attribute-name, $attribute-size in $attributes
-		$size-definition = $jig---spacings-config[$attribute-size]
+		$size-definition = $jig---spacing-config[$attribute-size]
 
 		if $size-definition == null
 			error('jig:spacing-based-attributes | unknown size "'+$size-definition+'"')
@@ -63,16 +91,28 @@ spacing-based-attributes($attributes, $factor=null)
 
 
 /**
+ * @namespace Spacing:spacing-based-attribute
+ */
+
+/**
  * Define an attribute based on breakpoint-dependent spacing values.
  * Since this version does not optimize the usage of media queries, please make sure to only use this mixin,
  * if you'll definitely only have one attribute to be defined in multiple breakpoints.
  *
+ * @memberof Spacing:spacing-based-attribute
+ * @function
+ * @name spacing-based-attribute
+ * @alias spacing-based-attribute
+ *
  * @param {String} $attribute - the name of the attribute you want to set
  * @param {String} $size - on of the named sized defined in jig's spacing config (sm, l, xxl, ...)
  * @param {Number} [$factor=null] - if a float factor is provided the value will be multiplied with this factor
+ * @throws error if size is unknown
+ *
+ * @see spacing-based-attributes
  *
  * @example
- *   spacing-based-attribute(margin-top, 'xl', 1.0)
+ * spacing-based-attribute(margin-top, 'xl', 1.0)
  */
 spacing-based-attribute($attribute, $size, $factor=null)
 	$attributes = {}

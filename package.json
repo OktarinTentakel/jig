@@ -10,22 +10,29 @@
 		"standard grid",
 		"css grid",
 		"breakpoints",
-		"spacings",
+		"spacing",
 		"helpers",
 		"scss",
 		"stylus"
 	],
 
 	"type" : "module",
+	"directories" : {
+		"docs" : "./docs/documentation",
+		"examples" : "./docs/examples"
+	},
 
 	"devDependencies" : {
+		"del": "^7.0.0",
 		"fancy-log": "^2.0.0",
 		"gulp" : "^4.0.2",
 		"gulp-connect" : "^5.7.0",
 		"gulp-rename": "^2.0.0",
 		"gulp-sass" : "^5.1.0",
+		"gulp-shell" : "^0.8.0",
 		"gulp-sourcemaps" : "^3.0.0",
 		"gulp-stylus" : "^3.0.0",
+		"jsdoc" : "^3.6.11",
 		"node-sass" : "^8.0.0",
 		"normalize.css" : "^8.0.1",
 		"sass" : "^1.58.0",

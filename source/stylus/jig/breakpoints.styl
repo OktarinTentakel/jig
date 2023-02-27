@@ -1,18 +1,33 @@
+/**
+ * @namespace Breakpoints
+ */
+
+
+
 $jig---auto-breakpoint = keys($jig---breakpoint-config)[0]
 
 
 
 /**
+ * @namespace Breakpoints:get-auto-breakpoint
+ */
+
+/**
  * Returns the current auto breakpoint value.
  *
- * @return {String} the name of the current named auto breakpoint
+ * @memberof Breakpoints:get-auto-breakpoint
+ * @function
+ * @name get-auto-breakpoint
+ * @alias get-auto-breakpoint
+ *
+ * @returns {String} the name of the current named auto breakpoint
  *
  * @see set-auto-breakpoint
  * @see reset-auto-breakpoint
  *
  * @example
- *   get-auto-breakpoint()
- *     => 'medium'
+ * get-auto-breakpoint()
+ *   => 'medium'
  */
 get-auto-breakpoint()
 	return $jig---auto-breakpoint
@@ -20,20 +35,29 @@ get-auto-breakpoint()
 
 
 /**
+ * @namespace Breakpoints:set-auto-breakpoint
+ */
+
+/**
  * Sets the auto breakpoint to a named breakpoint value.
  * Hint: in Stylus we have to do this manually, if we want to use auto breakpoint values,
  * since blocks are always evaluated _before_ the block mixin around the block, which results
  * in the block only knowing the breakpoint before the mixin.
  *
- * @param {String} $breakpoint - a named breakpoint defined in the jig layout
+ * @memberof Breakpoints:set-auto-breakpoint
+ * @function
+ * @name set-auto-breakpoint
+ * @alias set-auto-breakpoint
+ *
+ * @param {String} $breakpoint - a named breakpoint defined in the jig config
  * @throws error if breakpoint is unknown
  *
  * @see reset-auto-breakpoint
- *
+
  * @example
- *   set-auto-breakpoint(medium)
- *   +breakpoint(medium)
- *     ...
+ * set-auto-breakpoint(medium)
+ * +breakpoint(medium)
+ *   ...
  */
 set-auto-breakpoint($breakpoint)
 	$breakpoint = to-str($breakpoint)
@@ -46,15 +70,24 @@ set-auto-breakpoint($breakpoint)
 
 
 /**
- * Resets the auto breakpoint to the first/smallest named breakpoint defined in the jig layout.
+ * @namespace Breakpoints:reset-auto-breakpoint
+ */
+
+/**
+ * Resets the auto breakpoint to the first/smallest named breakpoint defined in the jig config.
  * Hint: although you may do this manually in Stylus, this is automatically called at the end of the
  * breakpoint mixin, so usually you should be fine with set-auto-breakpoint, without resetting, if you
  * use a breakpoint directly after the call.
  *
- * @see set-auto-breakpoint
+ * @memberof Breakpoints:reset-auto-breakpoint
+ * @function
+ * @name reset-auto-breakpoint
+ * @alias reset-auto-breakpoint
  *
+ * @see set-auto-breakpoint
+
  * @example
- *   reset-auto-breakpoint()
+ * reset-auto-breakpoint()
  */
 reset-auto-breakpoint()
 	define('$jig---auto-breakpoint', keys($jig---breakpoint-config)[0], true)
@@ -62,14 +95,23 @@ reset-auto-breakpoint()
 
 
 /**
- * Returns if the given breakpoint is a registered named breakpoint to be found in the jig layout definition.
+ * @namespace Breakpoints:is-named-breakpoint
+ */
+
+/**
+ * Returns if the given breakpoint is a registered named breakpoint to be found in the jig config.
  *
- * @param {String} $breakpoint - a named breakpoint defined in the jig layout
- * @return {Boolean} true if breakpoint is a registered named breakpoint name
+ * @memberof Breakpoints:is-named-breakpoint
+ * @function
+ * @name is-named-breakpoint
+ * @alias is-named-breakpoint
+ *
+ * @param {String} $breakpoint - a named breakpoint defined in the jig config
+ * @returns {Boolean} true if breakpoint is a registered named breakpoint name
  *
  * @example
- *   is-named-breakpoint(medium)
- *     => true
+ * is-named-breakpoint(medium)
+ *   => true
  */
 is-named-breakpoint($breakpoint)
 	$breakpoint = to-str($breakpoint)
@@ -79,18 +121,27 @@ is-named-breakpoint($breakpoint)
 
 
 /**
+ * @namespace Breakpoints:build-breakpoint-range
+ */
+
+/**
  * Returns a string to be used in a media query, which defines the range/bounds of a breakpoint with
  * min and/or max value.
  *
+ * @memberof Breakpoints:build-breakpoint-range
+ * @function
+ * @name build-breakpoint-range
+ * @alias build-breakpoint-range
+ *
  * @param {?Number} [$min=null] - the min width of the breakpoint
  * @param {?Number} [$max=null] - the max width of the breakpoint
- * @return {String} the media query string for the breakpoint range
+ * @returns {String} the media query string for the breakpoint range
  *
  * @example
- *   build-breakpoint-range(0, 767px)
- *     => '(min-width: 0) and (max-width: 767px)'
- *   build-breakpoint-range(null, 100rem)
- *     => '(max-width: 100rem)'
+ * build-breakpoint-range(0, 767px)
+ *   => '(min-width: 0) and (max-width: 767px)'
+ * build-breakpoint-range(null, 100rem)
+ *   => '(max-width: 100rem)'
  */
 build-breakpoint-range($min=null, $max=null)
 	$min-query = ($min != null) ? '(min-width: '+$min+')' : null
@@ -101,6 +152,10 @@ build-breakpoint-range($min=null, $max=null)
 
 
 /**
+ * @namespace Breakpoints:build-breakpoint-query
+ */
+
+/**
  * Constructs a query to be used in a media query, based on a breakpoint definition.
  * Also automatically converts values to rem.
  *
@@ -108,20 +163,27 @@ build-breakpoint-range($min=null, $max=null)
  *
  * You may also define the special breakpoints "landscape" or "portrait" to cover device orientations.
  *
- * @param {?Number|Literal|List<String>} [$breakpoint-definition=0] - either a simple number or a composite definition of width and direction, where the width may either be a number or a name defined in the named layout breakpoints
- * @return {String} the media query string for the breakpoint definition
+ * @memberof Breakpoints:build-breakpoint-query
+ * @function
+ * @name build-breakpoint-query
+ * @alias build-breakpoint-query
+ *
+ * @param {?Number|Literal|List<String>} [$breakpoint-definition=0] - either a simple number or a composite definition of width and direction, where the width may either be a number or a name defined in the named breakpoints
+ * @returns {String} the media query string for the breakpoint definition
+ * @throws error if named breakpoint is unknown
+ * @throws error if an unnamed breakpoint has an "only" direction
  *
  * @example
- *   build-breakpoint-query(200rem)
- *     => '(min-width: 200rem)'
- *   build-breakpoint-query(small down)
- *     => '(max-width: 199rem)'
- *   build-breakpoint-query(('large' 'only'))
- *     => '(min-width: 200rem) and (max-width: 499rem)'
- *   build-breakpoint-query(1024px only)
- *     => '(min-width: 64rem) and (max-width: 64rem)'
- *   build-breakpoint-query(landscape)
- *     => '(orientation: landscape)'
+ * build-breakpoint-query(200rem)
+ *   => '(min-width: 200rem)'
+ * build-breakpoint-query(small down)
+ *   => '(max-width: 199rem)'
+ * build-breakpoint-query(('large' 'only'))
+ *   => '(min-width: 200rem) and (max-width: 499rem)'
+ * build-breakpoint-query(1024px only)
+ *   => '(min-width: 64rem) and (max-width: 64rem)'
+ * build-breakpoint-query(landscape)
+ *   => '(orientation: landscape)'
  */
 build-breakpoint-query($breakpoint-definition=0)
 	$breakpoint = $breakpoint-definition[0] ? to-str($breakpoint-definition[0], $only-ident:true) : 0
@@ -164,16 +226,26 @@ build-breakpoint-query($breakpoint-definition=0)
 
 
 /**
+ * @namespace Breakpoints:breakpoint
+ */
+
+/**
  * Renders media queries based one one or more breakpoint definitions.
+ *
+ * @memberof Breakpoints:breakpoint
+ * @function
+ * @name breakpoint
+ * @alias breakpoint
  *
  * @param {Number|Literal|List<String>|List<Literal>|List<List<String>>} $breakpoint-definitions - a list of breakpoint definitions according to build-breakpoint-query
  *
- * @see build-breakpoint-query
+ * @see set-auto-breakpoint
+ *
  * @example
- *   +breakpoint(small)
- *     ...
- *   +breakpoint(small down, large up)
- *     ...
+ * +breakpoint(small)
+ *   ...
+ * +breakpoint(small down, large up)
+ *   ...
  */
 breakpoint($breakpoint-definitions...)
 	for $breakpoint-definition in $breakpoint-definitions
@@ -205,22 +277,35 @@ breakpoint($breakpoint-definitions...)
 
 
 /**
+ * @namespace Breakpoints:breakpoint-value
+ */
+
+/**
  * Search for a value, defined for a breakpoint, in a given hash of values.
  * The function escalates in a mobile-first manner. So we take the value for the smallest breakpoint
  * and step up the breakpoints one by one until we reach the defined breakpoint. So, if we want the
  * according value for "large", but we only have a value for "medium", we'll get the "medium" value, which,
  * in mobile-first manner, escalates upwards and is the "large" value if nothing else is defined.
  *
- * @param {*|Hash} $value - a map of breakpoint-keyed map of values
- * @param {Literal|String} $breakpoint - either "auto" (to use the current breakpoint) or one of the defined named layout breakpoints
- * @return {*|null} the breakpoint value or null if nothing was found
+ * @memberof Breakpoints:breakpoint-value
+ * @function
+ * @name breakpoint-value
+ * @alias breakpoint-value
+ *
+ * @param {*|Hash} $value - a hash of breakpoint-keyed map of values, or a simple value
+ * @param {Literal|String} $breakpoint - either "auto" (to use the current breakpoint) or one of the defined named breakpoints
+ * @returns {*|null} the breakpoint value or null if nothing was found
+ * @throws error if named breakpoint is unknown
  *
  * @example
- *   breakpoint-value((
+ * breakpoint-value(
+ *   {
  *     'small' : 10px,
  *     'medium' : 20px
- *   ), large)
- *     => 20px
+ *   },
+ *   large
+ * )
+ *   => 20px
  */
 breakpoint-value($value, $breakpoint='auto')
 	$breakpoint = to-str($breakpoint)
@@ -250,6 +335,10 @@ breakpoint-value($value, $breakpoint='auto')
 
 
 /**
+ * @namespace Breakpoints:attributes-for-breakpoints
+ */
+
+/**
  * Renders attribute values for given attributes for defined breakpoints.
  *
  * Definitions will be rendered together if possible, minimizing the amount of media queries.
@@ -258,24 +347,31 @@ breakpoint-value($value, $breakpoint='auto')
  * If in doubt, it might be a better idea to write the queries manually, perhaps rather using `[]` or
  * `breakpoint-value` to automatically pull values from breakpoint value hashes.
  *
- * @param {hash} $attributes - keys are attribute names, while values are either plain values or hashes with breakpoint name keys, providing different values per breakpoint
+ * @memberof Breakpoints:attributes-for-breakpoints
+ * @function
+ * @name attributes-for-breakpoints
+ * @alias attributes-for-breakpoints
+ *
+ * @see attribute-for-breakpoints
+ *
+ * @param {Hash} $attributes - keys are attribute names, while values are either plain values or hashes with breakpoint name keys, providing different values per breakpoint
  * @param {Number} [$factor=null] - if a float factor is provided all values will be multiplied with this factor
  *
  * @example
- *   attributes-for-breakpoints(
- *     {
- *       'font-size' : 12px,
- *       'line-height' : {
- *         'small' : 1,
- *         'large' : 1.25
- *       },
- *       'margin-top' : {
- *         'small' : 10px,
- *         'medium' : 20px
- *       }
+ * attributes-for-breakpoints(
+ *   {
+ *     'font-size' : 12px,
+ *     'line-height' : {
+ *       'small' : 1,
+ *       'large' : 1.25
  *     },
- *     2.0
- *   )
+ *     'margin-top' : {
+ *       'small' : 10px,
+ *       'medium' : 20px
+ *     }
+ *   },
+ *   2.0
+ * )
  */
 attributes-for-breakpoints($attributes, $factor=null)
 	$attributes-for-breakpoints = {}
@@ -288,7 +384,7 @@ attributes-for-breakpoints($attributes, $factor=null)
 		else
 			for $breakpoint-name, $breakpoint-definition in $jig---breakpoint-config
 				$breakpoint-value = $attribute-value[$breakpoint-name]
-				if $breakpoint-value != null
+				if ($breakpoint-value != null) or (type($breakpoint-value) == 'call')
 					if !($breakpoint-name in $attributes-for-breakpoints)
 						$attributes-for-breakpoints[$breakpoint-name] = {}
 					$attributes-for-breakpoints[$breakpoint-name][$attribute-name] = $breakpoint-value;
@@ -306,25 +402,36 @@ attributes-for-breakpoints($attributes, $factor=null)
 
 
 /**
+ * @namespace Breakpoints:attribute-for-breakpoints
+ */
+
+/**
  * Renders attribute values for given attribute for defined breakpoints.
  *
  * This is the single attribute version of `attributes-for-breakpoints`.
  * Since this version does not optimize the usage of media queries, please make sure to only use this mixin,
  * if you'll definitely only have one attribute to be defined in multiple breakpoints.
  *
+ * @memberof Breakpoints:attribute-for-breakpoints
+ * @function
+ * @name attribute-for-breakpoints
+ * @alias attribute-for-breakpoints
+ *
+ * @see attributes-for-breakpoints
+ *
  * @param {String} $attribute - the name of the attribute you want to set
  * @param {*} $value - the value to set the attribute to
  * @param {Number} [$factor=null] - if a float factor is provided the value will be multiplied with this factor
  *
  * @example
- *   attribute-for-breakpoints(
- *     'line-height',
- *     {
- *       'small' : 1,
- *       'large' : 1.25
- *     },
- *     1.0
- *   )
+ * attribute-for-breakpoints(
+ *   'line-height',
+ *   {
+ *     'small' : 1,
+ *     'large' : 1.25
+ *   },
+ *   1.0
+ * )
  */
 attribute-for-breakpoints($attribute, $value, $factor=null)
 	$attributes = {}
@@ -334,26 +441,37 @@ attribute-for-breakpoints($attribute, $value, $factor=null)
 
 
 /**
+ * @namespace Breakpoints:overwrite-breakpoint-for-attributes
+ */
+
+/**
  * Use this, if you need to overwrite attribute values previously defined in (a) breakpoint(s).
  *
  * A use case might be, for example, to set a font-size to a static value in an element with a responsive,
  * breakpoint-based font-size definition.
  *
+ * @memberof Breakpoints:overwrite-breakpoint-for-attributes
+ * @function
+ * @name overwrite-breakpoint-for-attributes
+ * @alias overwrite-breakpoint-for-attributes
+ *
  * @param {Hash} $attributes - keys are attribute names, while values are either plain values or hashes with breakpoint name keys, providing different values per breakpoint
  * @param {Number} [$factor=null] - if a float factor is provided all values will be multiplied with this factor
  *
+ * @see overwrite-breakpoint-for-attribute
+ *
  * @example
- *   overwrite-breakpoint-for-attributes(
- *     {
- *       'font-size' : 12px,
- *       'line-height' : 1.25
- *       'margin-top' : 20px
- *     },
- *     2.0
- *   )
+ * overwrite-breakpoint-for-attributes(
+ *   {
+ *     'font-size' : 12px,
+ *     'line-height' : 1.25
+ *     'margin-top' : 20px
+ *   },
+ *   2.0
+ * )
  */
 overwrite-breakpoint-for-attributes($attributes, $factor=null)
-	+breakpoint(0)
+	+breakpoint('overwrite')
 		for $attribute-name, $attribute-value in $attributes
 			if $factor == null
 				{$attribute-name} $attribute-value
@@ -363,17 +481,28 @@ overwrite-breakpoint-for-attributes($attributes, $factor=null)
 
 
 /**
+ * @namespace Breakpoints:overwrite-breakpoint-for-attribute
+ */
+
+/**
  * Use this, if you need to overwrite an attribut value previously defined in (a) breakpoint(s).
  *
  * A use case might be, for example, to set a font-size to a static value in an element with a responsive,
  * breakpoint-based font-size definition.
+ *
+ * @memberof Breakpoints:overwrite-breakpoint-for-attribute
+ * @function
+ * @name overwrite-breakpoint-for-attribute
+ * @alias overwrite-breakpoint-for-attribute
+ *
+ * @see overwrite-breakpoint-for-attributes
  *
  * @param {String} $attribute - the name of the attribute you want to set
  * @param {*} $value - the value to set the attribute to
  * @param {Number} [$factor=null] - if a float factor is provided the value will be multiplied with this factor
  *
  * @example
- *   overwrite-breakpoint-for-attribute(font-size, 12px, 2.0)
+ * overwrite-breakpoint-for-attribute(font-size, 12px, 2.0)
  */
 overwrite-breakpoint-for-attribute($attribute, $value, $factor=null)
 	$attributes = {}
@@ -383,15 +512,24 @@ overwrite-breakpoint-for-attribute($attribute, $value, $factor=null)
 
 
 /**
+ * @namespace Breakpoints:overwrite-breakpoint
+ */
+
+/**
  * Use this, if you need to overwrite something previously defined in (a) breakpoint(s).
  *
  * A use case might be, for example, to redefine something statically in an override situation, which has
  * been defined responsively before.
  *
+ * @memberof Breakpoints:overwrite-breakpoint
+ * @function
+ * @name overwrite-breakpoint
+ * @alias overwrite-breakpoint
+ *
  * @example
- *   +overwrite-breakpoint()
- *     font-size 12xp
- *     margin-top 20px
+ * +overwrite-breakpoint()
+ *   font-size 12xp
+ *   margin-top 20px
  */
 overwrite-breakpoint()
 	+breakpoint('overwrite')

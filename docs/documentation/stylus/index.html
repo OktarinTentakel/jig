@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><img src="jig.png" alt="jig"></p>
+<h1>jig</h1>
+<p>by Sebastian Schlapkohl</p>
+<blockquote>
+<p>A &quot;foundationish&quot; grid solution for SCSS and Stylus with native CSS grid and sane defaults and helpers for
+responsive websites.</p>
+</blockquote>
+<p><img src="https://img.shields.io/badge/NPM-no%20peer%20dependencies-blue" alt="NPM - no peer dependencies">
+<img src="https://img.shields.io/badge/Dart%20Sass-SCSS%20Mixins-blue" alt="Dart Sass - SCSS Mixins">
+<img src="https://img.shields.io/badge/Node%20Sass-Legacy%20SCSS%20Mixins-blue" alt="Node Sass - Legacy SCSS Mixins">
+<img src="https://img.shields.io/badge/Stylus-Mixins-blue" alt="Stylus - Mixins">
+<img src="https://img.shields.io/badge/Examples-Interactive%20Demonstration-brightgreen" alt="Examples - Interactive Demonstration">
+<img src="https://img.shields.io/badge/GitHub%20Pages-Online%20Examples-yellow" alt="GitHub Pages - Online Examples">
+<img src="https://img.shields.io/badge/Docker-Docker%20Compose%20Dev%20Setup%20With%20Gulp-yellow" alt="Docker - Docker Compose Dev Setup With Gulp"></p>
+<h2>A Word of Caution</h2>
+<p>This package is <strong>still in development</strong> and is missing a lot of implementation, documentation and testing.
+Use this with caution or keep your usage to using the source as a reference for your project.</p>
+<h2>What is This?</h2>
+<p>Browsers have long moved on from table and float layouts, moved past flex layouts and finally arrived at native grids.
+Native grids finally offer most tools frontend had to hack together using things and principles, that were not built
+with that usage in mind, making the definition of the viewport and single components in the ways design has thought
+about this topic since the beginning of time, additionally offering flexibility and auto-layouting features on top.</p>
+<p>But this development does not mean, that the classic grid is dead. No need to fix it, if it ain't broke.
+The classic (12-)column grid, popularized by Bootstrap and Foundation, is still a very helpful and common way of
+thinking about layouts and enabling communication between design and development with a common set of rules and syntax
+like &quot;columns&quot;, &quot;gutters&quot; and &quot;breakpoints&quot;. These principles will not go away so soon, since they are just too
+practical to ignore on a day-to-day basis. Surely you can define layouts purely component based, with container queries
+and can build everything fluidly according to viewport dimensions, but these are concepts, that may be a little too
+esoteric for the bread-and-butter, run-off-the-mill website you have to build with your colleagues in the next few
+weeks.</p>
+<p>jig tries to bring you the best of both worlds. Offering a layout and definition framework with mixins to build a
+classic grid, while also using simple native CSS grids to build this grid, offering all the flexibility to change stuff
+individually on top, for free.</p>
+<p>Doing this, jig strongly aligns with known solutions like Foundation (especially the XY-Grid) in terms of mixin
+structure and layout definition. So, the jump from Foundation's (or Bootstrap's) semantic mixins to jig should be a
+short one. So, you'll find familiar-sounding mixins like <code>grid-container</code>, <code>grid-item</code> and <code>breakpoint</code>.</p>
+<p>Additionally, jig offers helpers and best-practices to better work with responsive layouts, like responsive spacing
+values for example.</p>
+<p>So, the TL;DR is: jig is a lightweight, mixin-based grid framework for SCSS and Stylus, that uses native CSS grid.</p>
+<h2>What's on Offer</h2>
+<ul>
+<li>define basic layout and grid properties via a central configuration constant</li>
+<li>use semantic mixins to define grid containers and grid items and define dimensions and alignments for the latter</li>
+<li>use breakpoint-based mixins to flexibly work with responsive layouts and values</li>
+<li>use spacing-based mixins to work with responsive standard offsets</li>
+</ul>
+<h2>How Can I Run the Examples?</h2>
+<p>Either view the examples on <a href="https://oktarintentakel.github.io/jig/">GitHub</a> or open
+<code>/examples/index.html</code> locally after checking out the repo.</p>
+<h2>How Do I Install This?</h2>
+<p>Besides just downloading the zip and dropping the package in your project (which I would not recommend doing), you may
+easily use npm or yarn. Since I do not publish to npm yet, you can just reference the Github repo and maybe the version
+tag (which I would recommend) and you are done. To get an idea about the latest version and/or changes, have a look at
+the tags and releases in Github.</p>
+<h3>NPM</h3>
+<pre class="prettyprint source"><code>npm install oktarintentakel/jig
+</code></pre>
+<p>or</p>
+<pre class="prettyprint source"><code>npm install oktarintentakel/jig#vX.X.X
+</code></pre>
+<h3>Yarn</h3>
+<pre class="prettyprint source"><code>yarn add oktarintentakel/jig
+</code></pre>
+<p>or</p>
+<pre class="prettyprint source"><code>yarn add oktarintentakel/jig#vX.X.X
+</code></pre>
+<h3>@client Package Separation</h3>
+<p>It may be a good idea, to generally split node and client packages up. Why? Client packages are delivered directly to
+the client and are executed and interpreted on the user's machine. So, these packages have a different set of rules
+applying to them. For example: it is not really clever to give client packages an approximate version, like a normal
+node dependency using <code>^</code> oder <code>~</code>, because every minor change in a client package may affect all receiving clients
+after a reevaluation of npm versions. This is a nightmare, because this means, that, at undetermined points in time, all
+cross-browser testing you did may be invalid and since you are not seeing everything while developing all the time, your
+app may fall apart on certain devices, without you knowing.</p>
+<p>Another problem is sharing of packages between dev/build/hosting and frontend/client. Let's say both use lodash or q
+promises: both have to agree on the exact same version, that should not be changed frequently because of the afore
+mentioned problems. That is very unpractical for both usages and each should be able to use the version fitting its
+purpose, since they are used for different things on very different machines, even if it is the same package under the
+hood.</p>
+<p>So I generally propse separating all npm packages, that are delivered to the client directly in any way into a specific
+<code>@client</code> package in <code>node_modules</code> using fixed versioning for these (I originally got the idea when I transitioned)
+from bower to npm, reading the bower team's <a href="https://bower.io/blog/2017/how-to-migrate-away-from-bower/">ideas</a> about
+this.</p>
+<p>So, adding a <code>@client</code> dependency may look like this in <code>package.json</code>:</p>
+<pre class="prettyprint source"><code>&quot;dependencies&quot;: {
+    &quot;@client/jig&quot; : &quot;oktarintentakel/jig#vX.X.X&quot;,
+    ...
+}
+</code></pre>
+<p>You can also add the dependency on the command line like this, albeit the command gets a little lengthy then:</p>
+<pre class="prettyprint source"><code>yarn add @client/jig@oktarintentakel/jig#vX.X.X
+</code></pre>
+<p>If the package is on npm you can, of course, pull the package from there as well:</p>
+<pre class="prettyprint source"><code>&quot;dependencies&quot;: {
+    &quot;@client/some-npm-package&quot; : &quot;npm:some-npm-package@1.0.0&quot;,
+    ...
+}
+</code></pre>
+<h2>How Do I Include and Use This?</h2>
+<p>After installation, the first thing you should do, is to add the package to the includes of either Sass or Stylus, by
+adding <code>/source/scss</code>, <code>/source/scss-legacy</code> or <code>/source/stylus</code>, to be able to import jig like this:</p>
+<h3>SCSS (Dart Sass)</h3>
+<pre class="prettyprint source lang-scss"><code>@use 'jig' with ($JIG_CONFIG : $JIG_CONFIG);
+</code></pre>
+<p>or (if you want to have more control about what to include)</p>
+<pre class="prettyprint source lang-scss"><code>@use 'jig/globals' with ($JIG_CONFIG : $JIG_CONFIG);
+// optional from here on
+@use 'jig/util';
+@use 'jig/breakpoints';
+@use 'jig/grid';
+@use 'jig/spacing';
+</code></pre>
+<h3>Legacy SCSS (LibSass)</h3>
+<pre class="prettyprint source lang-scss"><code>@import 'jig';
+</code></pre>
+<p>or (if are below libsass 3.6, which does not allow index imports)</p>
+<pre class="prettyprint source lang-scss"><code>@import 'jig/_index';
+</code></pre>
+<p>or (if you want to have more control about what to include)</p>
+<pre class="prettyprint source lang-scss"><code>@import 'jig/globals';
+@import 'jig/util';
+// optional from here on
+@import 'jig/breakpoints';
+// optional, but depending on breakpoints
+@import 'jig/grid';
+@import 'jig/spacing';
+</code></pre>
+<h3>Stylus</h3>
+<pre class="prettyprint source lang-stylus"><code>@require 'jig'
+</code></pre>
+<p>or (if you want to have more control about what to include)</p>
+<pre class="prettyprint source lang-stylus"><code>@require 'jig/globals'
+@require 'jig/util'
+// optional from here on
+@require 'jig/breakpoints'
+// optional, but depending on breakpoints
+@require 'jig/grid'
+@require 'jig/spacing'
+</code></pre>
+<p>But this is just the absolute minimum. Of course you'll want to customize the grid and the layout, by providing
+detailed information about the structure you are trying to build. Also, we are still missing stuff like CSS
+normalization here, which we'd probably like to add.</p>
+<p>To see a complete setup, please have a look at the <code>docs/examples</code> folder and select the folder fitting for your
+preprocessor there. Inside, you should find a <code>main</code> file, outlining a complete setup as well as a <code>defines</code> file
+containing the example configuration for the provided examples, which you can find in the <code>examples</code> file in the same
+folder.</p>
+<p>The <code>defines</code> should include the above-mentioned <code>$JIG_CONFIG</code>, which contains the complete setup for jig, overwriting
+the default globals per base key. So, to configure jig, after installing it, you (most likely) will want to define
+a map/hash/object providing details about your setup.</p>
+<p>The default config looks like this (here as an SCSS map, translate to a hash for Stylus).</p>
+<pre class="prettyprint source lang-scss"><code>$JIG_CONFIG: (
+  'breakpoints' : (
+    'small' : 0,
+    'medium' : 768px,
+    'large' : 1280px
+  ),
+  'print-breakpoint' : 'large',
+  'grid' : (
+    'columns' : 12,
+    'gutters' : (
+      'horizontal' : (
+        'small' : 20px,
+        'medium' : 30px,
+        'large' : 40px
+      ),
+      'vertical' : 20px
+    )
+  ),
+  'spacing' : (
+    'sm' : (
+      'small' : 1rem,
+      'medium' : 2rem,
+      'large' : 3rem
+    ),
+    'md' : (
+      'small' : 2rem,
+      'medium' : 3rem,
+      'large' : 5rem
+    ),
+    'l' : (
+      'small' : 3rem,
+      'medium' : 5rem,
+      'large' : 8rem
+    )
+  ),
+  'content' : (
+    'padding' : (
+      'small' : 20px,
+      'medium' : 40px,
+      'large' : 80px
+    ),
+    'max-width' : 1600px,
+    'base-font-size' : 16px
+  )
+);
+</code></pre>
+<p>To provide a custom configuration, a constant such as this (with each top-level key bein optional), has to be provided
+to <code>globals</code>, or, in case of Stylus and legacy SCSS, defined before including <code>globals</code>.</p>
+<p>By the way: you may also use the constant name <code>$jig---config</code> or, for Stylus, leave out the leading <code>$</code> in both cases.</p>
+<h2>Versioning</h2>
+<p>I'm using semver, so majors are definitely breaking, minors may be breaking and bugfixes should never break anything.</p>
+<h2>Is This Any Good, Why Should I Use This?</h2>
+<p>Depends. Do you plan to build a classic grid on a modern browser? Are you used to semantic mixins to do something like
+this and do you have notoriously bad memory concerning stuff like grid notation?</p>
+<p>Are you additionally using a preprocessor like Sass or Stylus and are able to setup a build process using these?</p>
+<p>Yes to all? Then this might by your package indeed.</p>
+<p>Anyway, this is a rather compact and streamlined package without much fluff. So, in theory you could even just give it
+a spin and, if it does not bring to the table what you need, you can even replace it fairly easy with Foundation again.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li class="namespace-member"><a href="Breakpoints.html">Breakpoints</a></li><li class="namespace"><a href="Breakpoints_attribute-for-breakpoints.html">Breakpoints:attribute-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_attributes-for-breakpoints.html">Breakpoints:attributes-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_breakpoint.html">Breakpoints:breakpoint</a></li><li class="namespace"><a href="Breakpoints_breakpoint-value.html">Breakpoints:breakpoint-value</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-query.html">Breakpoints:build-breakpoint-query</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-range.html">Breakpoints:build-breakpoint-range</a></li><li class="namespace"><a href="Breakpoints_get-auto-breakpoint.html">Breakpoints:get-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_is-named-breakpoint.html">Breakpoints:is-named-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint.html">Breakpoints:overwrite-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attribute.html">Breakpoints:overwrite-breakpoint-for-attribute</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attributes.html">Breakpoints:overwrite-breakpoint-for-attributes</a></li><li class="namespace"><a href="Breakpoints_reset-auto-breakpoint.html">Breakpoints:reset-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_set-auto-breakpoint.html">Breakpoints:set-auto-breakpoint</a></li><li class="namespace-member"><a href="Grid.html">Grid</a></li><li class="namespace"><a href="Grid_grid-container.html">Grid:grid-container</a></li><li class="namespace"><a href="Grid_grid-item.html">Grid:grid-item</a></li><li class="namespace"><a href="Grid_grid-item-align.html">Grid:grid-item-align</a></li><li class="namespace"><a href="Grid_gutter-value.html">Grid:gutter-value</a></li><li class="namespace-member"><a href="Spacing.html">Spacing</a></li><li class="namespace"><a href="Spacing_spacing-based-attribute.html">Spacing:spacing-based-attribute</a></li><li class="namespace"><a href="Spacing_spacing-based-attributes.html">Spacing:spacing-based-attributes</a></li><li class="namespace"><a href="Spacing_spacing-value.html">Spacing:spacing-value</a></li><li class="namespace-member"><a href="Util.html">Util</a></li><li class="namespace"><a href="Util_hash-get-deep.html">Util:hash-get-deep</a></li><li class="namespace"><a href="Util_hash-next.html">Util:hash-next</a></li><li class="namespace"><a href="Util_str-join.html">Util:str-join</a></li><li class="namespace"><a href="Util_strip-unit.html">Util:strip-unit</a></li><li class="namespace"><a href="Util_to-rem.html">Util:to-rem</a></li><li class="namespace"><a href="Util_to-str.html">Util:to-str</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Feb 27 2023 15:43:21 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

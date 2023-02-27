@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: Grid:gutter-value</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: Grid:gutter-value</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>Grid:gutter-value</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="grid.styl.html">grid.styl</a>, <a href="grid.styl.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="gutter-value"><span class="type-signature"></span>gutter-value<span class="signature">($factor<span class="signature-attributes">opt</span>, $add<span class="signature-attributes">opt</span>, $direction<span class="signature-attributes">opt</span>, $breakpoint<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Returns the value of the defined distance between two columns/rows for a breakpoint.</p>
+<p>The main usage for this is, to define a property value based on the current gutter.
+This is why the parameter order may seem flipped, but usually, you'd use this inside a breakpoint
+using auto-breakpoint detection, primarily rather working with the value itself. For other cases:
+Remember, that that you can simply use named parameters.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$factor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1.0
+                
+                </td>
+            
+
+            <td class="description last"><p>factor to apply to the finally evaluated gutter value, most helpful to get half a gutter for example</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$add</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>value to add to the finally evaluated gutter value, may also be negative to subtract</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$direction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'horizontal'
+                
+                </td>
+            
+
+            <td class="description last"><p>either &quot;horizontal&quot; or &quot;vertical&quot;, determines the gutter direction in the grid</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$breakpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'auto'
+                
+                </td>
+            
+
+            <td class="description last"><p>a defined breakpoint name or &quot;auto&quot;, to use the current breakpoint at the point of usage</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="grid.styl.html">grid.styl</a>, <a href="grid.styl.html#line93">line 93</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        <p>error if no gutter value could be determined, based on given breakpoint and/or direction</p>
+    
+    </div>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the determined gutter value with applied factor and/or addition
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>+breakpoint(medium)
+  padding-left gutter-value(0.5)
+margin-top gutter-value($direction:'vertical', $breakpoint:'small')</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li class="namespace-member"><a href="Breakpoints.html">Breakpoints</a></li><li class="namespace"><a href="Breakpoints_attribute-for-breakpoints.html">Breakpoints:attribute-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_attributes-for-breakpoints.html">Breakpoints:attributes-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_breakpoint.html">Breakpoints:breakpoint</a></li><li class="namespace"><a href="Breakpoints_breakpoint-value.html">Breakpoints:breakpoint-value</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-query.html">Breakpoints:build-breakpoint-query</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-range.html">Breakpoints:build-breakpoint-range</a></li><li class="namespace"><a href="Breakpoints_get-auto-breakpoint.html">Breakpoints:get-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_is-named-breakpoint.html">Breakpoints:is-named-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint.html">Breakpoints:overwrite-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attribute.html">Breakpoints:overwrite-breakpoint-for-attribute</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attributes.html">Breakpoints:overwrite-breakpoint-for-attributes</a></li><li class="namespace"><a href="Breakpoints_reset-auto-breakpoint.html">Breakpoints:reset-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_set-auto-breakpoint.html">Breakpoints:set-auto-breakpoint</a></li><li class="namespace-member"><a href="Grid.html">Grid</a></li><li class="namespace"><a href="Grid_grid-container.html">Grid:grid-container</a></li><li class="namespace"><a href="Grid_grid-item.html">Grid:grid-item</a></li><li class="namespace"><a href="Grid_grid-item-align.html">Grid:grid-item-align</a></li><li class="namespace"><a href="Grid_gutter-value.html">Grid:gutter-value</a></li><li class="namespace-member"><a href="Spacing.html">Spacing</a></li><li class="namespace"><a href="Spacing_spacing-based-attribute.html">Spacing:spacing-based-attribute</a></li><li class="namespace"><a href="Spacing_spacing-based-attributes.html">Spacing:spacing-based-attributes</a></li><li class="namespace"><a href="Spacing_spacing-value.html">Spacing:spacing-value</a></li><li class="namespace-member"><a href="Util.html">Util</a></li><li class="namespace"><a href="Util_hash-get-deep.html">Util:hash-get-deep</a></li><li class="namespace"><a href="Util_hash-next.html">Util:hash-next</a></li><li class="namespace"><a href="Util_str-join.html">Util:str-join</a></li><li class="namespace"><a href="Util_strip-unit.html">Util:strip-unit</a></li><li class="namespace"><a href="Util_to-rem.html">Util:to-rem</a></li><li class="namespace"><a href="Util_to-str.html">Util:to-str</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Feb 27 2023 15:43:21 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

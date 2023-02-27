@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: util.scss</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: util.scss</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @namespace Util
+ */
+
+
+
+@use 'sass:meta';
+@use 'sass:math';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+@use 'globals' as *;
+
+
+
+/**
+ * @namespace Util:map-next
+ */
+
+/**
+ * Retrieves the value of the adjacent, next key in a map, if one exists.
+ * The idea is, to retrieve the next key, based on a current one, to go one step further,
+ * which is helpful for things like escalating to the next breakpoint for example.
+ *
+ * @memberof Util:map-next
+ * @function
+ * @name map-next
+ * @alias map-next
+ *
+ * @param {Map} $map - the map to use
+ * @param {String} $key - the current key, from which we want to go to the next
+ * @returns {*|null} the value of the next key or null if there is none
+ *
+ * @example
+ * map-next($foo-map, 'small')
+ *   => value of $foo-map.medium
+ */
+@function map-next($map, $key){
+	$keys: map.keys($map);
+
+	$next-index: 0;
+	@if map.has-key($map, $key) {
+		$next-index: list.index($keys, $key) + 1;
+	}
+
+	@if ($next-index == 0) or ($next-index > length($map)) {
+		@return null;
+	} @else {
+		@return map.get($map, nth($keys, $next-index));
+	}
+}
+
+
+
+/**
+ * @namespace Util:strip-unit
+ */
+
+/**
+ * Removes the unit from a value, turning it into a unit-less value.
+ *
+ * @memberof Util:strip-unit
+ * @function
+ * @name strip-unit
+ * @alias strip-unit
+ *
+ * @param {Number} $number - the number to strip the unit from
+ * @returns {Number} the unit-less number
+ *
+ * @example
+ * strip-unit(16px)
+ *   => 16
+ */
+@function strip-unit($number){
+	@return math.div($number, ($number * 0 + 1));
+}
+
+
+
+/**
+ * @namespace Util:to-rem
+ */
+
+/**
+ * Convert one or more px values to (a) rem value(s), based on a base font size in px, percent or rem.
+ * If the base is in % or rem, the base will be converted to px based on the global base font size.
+ *
+ * @memberof Util:to-rem
+ * @function
+ * @name to-rem
+ * @alias to-rem
+ *
+ * @param {Number|List&lt;Number>} $values - the value(s) to convert, usually px values, if a value is em, it will be treated as rem
+ * @param {?Number} [$base=$jig---base-font-size-px] - the base size to convert against
+ * @returns {Number|List&lt;Number>} the converted value(s)
+ *
+ * @example
+ * to-rem(32px)
+ *   => 2rem
+ * to-rem((10px, 20px, 40px), 20px)
+ *   => [0.5rem, 1rem, 2rem]
+ */
+@function to-rem($values, $base:$jig---base-font-size){
+	@if math.unit($base) == '%' {
+		$base: math.div(strip-unit($base), 100) * $jig---base-font-size;
+	}
+
+	@if math.unit($base) == 'rem' {
+		$base: strip-unit($base) * $jig---base-font-size;
+	}
+
+	@if meta.type-of($values) != 'list' {
+		$values: [$values];
+	}
+
+	$rem-values: [];
+	@each $value in $values {
+		$rem-value: 0;
+
+		@if math.unit($value) == 'em' {
+			$rem-value: strip-unit($value);
+		} @else {
+			$rem-value: math.div(strip-unit($value), strip-unit($base));
+		}
+
+		@if $rem-value != 0 {
+			$rem-value: $rem-value * 1rem;
+		}
+
+		$rem-values: list.append($rem-values, $rem-value);
+	}
+
+	@if list.length($rem-values) == 1 {
+		@return list.nth($rem-values, 1);
+	} @else {
+		@return $rem-values;
+	}
+}
+
+
+
+/**
+ * @namespace Util:str-join
+ */
+
+/**
+ * Join/concatenate two or more strings with an optional glue string.
+ *
+ * @memberof Util:str-join
+ * @function
+ * @name str-join
+ * @alias str-join
+ *
+ * @param {String|List&lt;String>} strings - the strings to join
+ * @param {String} glue - the string to put between joined strings
+ * @returns {String} the joined string
+ *
+ * @example
+ * str-join(['fo', 'ar'], 'ob')
+ *   => 'foobar'
+ */
+@function str-join($strings, $glue:''){
+	$strings: list.join([], $strings);
+
+	$res: '';
+	@each $string in $strings {
+		@if $string {
+			$res: $res+$string+$glue;
+		}
+	}
+
+	@if ($res != '') and ($glue != '') {
+		@return string.slice($res, 1, string.length($glue) * -1);
+	} @else {
+		@return $res;
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li class="namespace-member"><a href="Breakpoints.html">Breakpoints</a></li><li class="namespace"><a href="Breakpoints_attribute-for-breakpoints.html">Breakpoints:attribute-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_attributes-for-breakpoints.html">Breakpoints:attributes-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_breakpoint.html">Breakpoints:breakpoint</a></li><li class="namespace"><a href="Breakpoints_breakpoint-value.html">Breakpoints:breakpoint-value</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-query.html">Breakpoints:build-breakpoint-query</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-range.html">Breakpoints:build-breakpoint-range</a></li><li class="namespace"><a href="Breakpoints_get-auto-breakpoint.html">Breakpoints:get-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_is-named-breakpoint.html">Breakpoints:is-named-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint.html">Breakpoints:overwrite-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attribute.html">Breakpoints:overwrite-breakpoint-for-attribute</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attributes.html">Breakpoints:overwrite-breakpoint-for-attributes</a></li><li class="namespace"><a href="Breakpoints_reset-auto-breakpoint.html">Breakpoints:reset-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_set-auto-breakpoint.html">Breakpoints:set-auto-breakpoint</a></li><li class="namespace-member"><a href="Grid.html">Grid</a></li><li class="namespace"><a href="Grid_grid-container.html">Grid:grid-container</a></li><li class="namespace"><a href="Grid_grid-item.html">Grid:grid-item</a></li><li class="namespace"><a href="Grid_grid-item-align.html">Grid:grid-item-align</a></li><li class="namespace"><a href="Grid_gutter-value.html">Grid:gutter-value</a></li><li class="namespace-member"><a href="Spacing.html">Spacing</a></li><li class="namespace"><a href="Spacing_spacing-based-attribute.html">Spacing:spacing-based-attribute</a></li><li class="namespace"><a href="Spacing_spacing-based-attributes.html">Spacing:spacing-based-attributes</a></li><li class="namespace"><a href="Spacing_spacing-value.html">Spacing:spacing-value</a></li><li class="namespace-member"><a href="Util.html">Util</a></li><li class="namespace"><a href="Util_map-next.html">Util:map-next</a></li><li class="namespace"><a href="Util_str-join.html">Util:str-join</a></li><li class="namespace"><a href="Util_strip-unit.html">Util:strip-unit</a></li><li class="namespace"><a href="Util_to-rem.html">Util:to-rem</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Feb 27 2023 15:43:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

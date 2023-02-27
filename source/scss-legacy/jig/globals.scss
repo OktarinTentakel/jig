@@ -1,16 +1,16 @@
-$JIG_LAYOUT: null !default;
-$jig---layout: null !default;
-@if (type-of($jig---layout) != 'map') and (type-of($JIG_LAYOUT) == 'map') {
-	$jig---layout: $JIG_LAYOUT;
+$JIG_CONFIG: null !default;
+$jig---config: null !default;
+@if (type-of($jig---config) != 'map') and (type-of($JIG_CONFIG) == 'map') {
+	$jig---config: $JIG_CONFIG;
 }
 
-@if type-of($jig---layout) != 'map' {
-	@error 'jig:globals | jig layout is undefined or not a map'
+@if type-of($jig---config) != 'map' {
+	@error 'jig:globals | jig config is undefined or not a map'
 }
 
 
 
-$jig---breakpoint-config: map-get($jig---layout, 'breakpoints') !default;
+$jig---breakpoint-config: map-get($jig---config, 'breakpoints') !default;
 $jig---breakpoint-config: (
 	'small' : 0,
 	'medium' : 768px,
@@ -19,13 +19,13 @@ $jig---breakpoint-config: (
 
 
 
-$jig---grid-config: map-get($jig---layout, 'grid') !default;
+$jig---grid-config: map-get($jig---config, 'grid') !default;
 $jig---grid-config: (
 	'columns' : 12,
 	'gutters' : (
 		'horizontal' : (
 			'small' : 20px,
-			'medium' : 40px,
+			'medium' : 30px,
 			'large' : 40px
 		),
 		'vertical' : 20px
@@ -34,8 +34,8 @@ $jig---grid-config: (
 
 
 
-$jig---spacings-config: map-get($jig---layout, 'spacings') !default;
-$jig---spacings-config: (
+$jig---spacing-config: map-get($jig---config, 'spacing') !default;
+$jig---spacing-config: (
 	'sm' : (
 		'small' : 1rem,
 		'medium' : 2rem,
@@ -55,7 +55,7 @@ $jig---spacings-config: (
 
 
 
-$jig---content-config: map-get($jig---layout, 'content') !default;
+$jig---content-config: map-get($jig---config, 'content') !default;
 $jig---content-config: (
 	'padding' : (
 		'small' : 20px,
@@ -73,5 +73,5 @@ $jig---base-font-size: 16px !default;
 
 
 
-$jig---print-breakpoint: map-get($jig---layout, 'print-breakpoint') !default;
+$jig---print-breakpoint: map-get($jig---config, 'print-breakpoint') !default;
 $jig---print-breakpoint: 'large' !default;

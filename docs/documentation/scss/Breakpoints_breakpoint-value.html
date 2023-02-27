@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: Breakpoints:breakpoint-value</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: Breakpoints:breakpoint-value</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>Breakpoints:breakpoint-value</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="breakpoints.scss.html">breakpoints.scss</a>, <a href="breakpoints.scss.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="breakpoint-value"><span class="type-signature"></span>breakpoint-value<span class="signature">($value, $breakpoint)</span><span class="type-signature"> &rarr; {*|null}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Search for a value, defined for a breakpoint, in a given map of values.
+The function escalates in a mobile-first manner. So we take the value for the smallest breakpoint
+and step up the breakpoints one by one until we reach the defined breakpoint. So, if we want the
+according value for &quot;large&quot;, but we only have a value for &quot;medium&quot;, we'll get the &quot;medium&quot; value, which,
+in mobile-first manner, escalates upwards and is the &quot;large&quot; value if nothing else is defined.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+|
+
+<span class="param-type">Map</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a map of breakpoint-keyed map of values, or a simple value</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$breakpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Literal</span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>either &quot;auto&quot; (to use the current breakpoint) or one of the defined named breakpoints</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="breakpoints.scss.html">breakpoints.scss</a>, <a href="breakpoints.scss.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        <p>error if named breakpoint is unknown</p>
+    
+    </div>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the breakpoint value or null if nothing was found
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>breakpoint-value(
+  (
+    'small' : 10px,
+    'medium' : 20px
+  ),
+  large
+)
+  => 20px</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li class="namespace-member"><a href="Breakpoints.html">Breakpoints</a></li><li class="namespace"><a href="Breakpoints_attribute-for-breakpoints.html">Breakpoints:attribute-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_attributes-for-breakpoints.html">Breakpoints:attributes-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_breakpoint.html">Breakpoints:breakpoint</a></li><li class="namespace"><a href="Breakpoints_breakpoint-value.html">Breakpoints:breakpoint-value</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-query.html">Breakpoints:build-breakpoint-query</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-range.html">Breakpoints:build-breakpoint-range</a></li><li class="namespace"><a href="Breakpoints_get-auto-breakpoint.html">Breakpoints:get-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_is-named-breakpoint.html">Breakpoints:is-named-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint.html">Breakpoints:overwrite-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attribute.html">Breakpoints:overwrite-breakpoint-for-attribute</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attributes.html">Breakpoints:overwrite-breakpoint-for-attributes</a></li><li class="namespace"><a href="Breakpoints_reset-auto-breakpoint.html">Breakpoints:reset-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_set-auto-breakpoint.html">Breakpoints:set-auto-breakpoint</a></li><li class="namespace-member"><a href="Grid.html">Grid</a></li><li class="namespace"><a href="Grid_grid-container.html">Grid:grid-container</a></li><li class="namespace"><a href="Grid_grid-item.html">Grid:grid-item</a></li><li class="namespace"><a href="Grid_grid-item-align.html">Grid:grid-item-align</a></li><li class="namespace"><a href="Grid_gutter-value.html">Grid:gutter-value</a></li><li class="namespace-member"><a href="Spacing.html">Spacing</a></li><li class="namespace"><a href="Spacing_spacing-based-attribute.html">Spacing:spacing-based-attribute</a></li><li class="namespace"><a href="Spacing_spacing-based-attributes.html">Spacing:spacing-based-attributes</a></li><li class="namespace"><a href="Spacing_spacing-value.html">Spacing:spacing-value</a></li><li class="namespace-member"><a href="Util.html">Util</a></li><li class="namespace"><a href="Util_map-next.html">Util:map-next</a></li><li class="namespace"><a href="Util_str-join.html">Util:str-join</a></li><li class="namespace"><a href="Util_strip-unit.html">Util:strip-unit</a></li><li class="namespace"><a href="Util_to-rem.html">Util:to-rem</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Feb 27 2023 15:43:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

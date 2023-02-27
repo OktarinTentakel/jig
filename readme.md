@@ -6,6 +6,9 @@ jig
 ===
 by Sebastian Schlapkohl
 
+> A "foundationish" grid solution for SCSS and Stylus with native CSS grid and sane defaults and helpers for
+> responsive websites.
+
 ![NPM - no peer dependencies](https://img.shields.io/badge/NPM-no%20peer%20dependencies-blue)
 ![Dart Sass - SCSS Mixins](https://img.shields.io/badge/Dart%20Sass-SCSS%20Mixins-blue)
 ![Node Sass - Legacy SCSS Mixins](https://img.shields.io/badge/Node%20Sass-Legacy%20SCSS%20Mixins-blue)
@@ -145,13 +148,30 @@ How Do I Include and Use This?
 After installation, the first thing you should do, is to add the package to the includes of either Sass or Stylus, by
 adding `/source/scss`, `/source/scss-legacy` or `/source/stylus`, to be able to import jig like this:
 
-### SCSS
+### SCSS (Dart Sass)
+
+```scss
+@use 'jig' with ($JIG_CONFIG : $JIG_CONFIG);
+```
+
+or (if you want to have more control about what to include)
+
+```scss
+@use 'jig/globals' with ($JIG_CONFIG : $JIG_CONFIG);
+// optional from here on
+@use 'jig/util';
+@use 'jig/breakpoints';
+@use 'jig/grid';
+@use 'jig/spacing';
+```
+
+### Legacy SCSS (LibSass)
 
 ```scss
 @import 'jig';
 ```
 
-or (if you use legacy SCSS and are below libsass 3.6)
+or (if are below libsass 3.6, which does not allow index imports)
 
 ```scss
 @import 'jig/_index';
@@ -162,10 +182,11 @@ or (if you want to have more control about what to include)
 ```scss
 @import 'jig/globals';
 @import 'jig/util';
-// below optional
+// optional from here on
 @import 'jig/breakpoints';
-@import 'jig/grid';     // needs breakpoints
-@import 'jig/spacings'; // needs breakpoints
+// optional, but depending on breakpoints
+@import 'jig/grid';
+@import 'jig/spacing';
 ```
 
 ### Stylus
@@ -179,20 +200,80 @@ or (if you want to have more control about what to include)
 ```stylus
 @require 'jig/globals'
 @require 'jig/util'
-// below optional
+// optional from here on
 @require 'jig/breakpoints'
-@require 'jig/grid'     // needs breakpoints
-@require 'jig/spacings' // needs breakpoints
+// optional, but depending on breakpoints
+@require 'jig/grid'
+@require 'jig/spacing'
 ```
 
 But this is just the absolute minimum. Of course you'll want to customize the grid and the layout, by providing
 detailed information about the structure you are trying to build. Also, we are still missing stuff like CSS
 normalization here, which we'd probably like to add.
 
-To see a complete setup, please have a look at the `examples` folder and select the folder fitting for your
+To see a complete setup, please have a look at the `docs/examples` folder and select the folder fitting for your
 preprocessor there. Inside, you should find a `main` file, outlining a complete setup as well as a `defines` file
 containing the example configuration for the provided examples, which you can find in the `examples` file in the same
 folder.
+
+The `defines` should include the above-mentioned `$JIG_CONFIG`, which contains the complete setup for jig, overwriting
+the default globals per base key. So, to configure jig, after installing it, you (most likely) will want to define
+a map/hash/object providing details about your setup.
+
+The default config looks like this (here as an SCSS map, translate to a hash for Stylus).
+
+```scss
+$JIG_CONFIG: (
+  'breakpoints' : (
+    'small' : 0,
+    'medium' : 768px,
+    'large' : 1280px
+  ),
+  'print-breakpoint' : 'large',
+  'grid' : (
+    'columns' : 12,
+    'gutters' : (
+      'horizontal' : (
+        'small' : 20px,
+        'medium' : 30px,
+        'large' : 40px
+      ),
+      'vertical' : 20px
+    )
+  ),
+  'spacing' : (
+    'sm' : (
+      'small' : 1rem,
+      'medium' : 2rem,
+      'large' : 3rem
+    ),
+    'md' : (
+      'small' : 2rem,
+      'medium' : 3rem,
+      'large' : 5rem
+    ),
+    'l' : (
+      'small' : 3rem,
+      'medium' : 5rem,
+      'large' : 8rem
+    )
+  ),
+  'content' : (
+    'padding' : (
+      'small' : 20px,
+      'medium' : 40px,
+      'large' : 80px
+    ),
+    'max-width' : 1600px,
+    'base-font-size' : 16px
+  )
+);
+```
+
+To provide a custom configuration, a constant such as this (with each top-level key bein optional), has to be provided
+to `globals`, or, in case of Stylus and legacy SCSS, defined before including `globals`.
+
+By the way: you may also use the constant name `$jig---config` or, for Stylus, leave out the leading `$` in both cases.
 
 
 

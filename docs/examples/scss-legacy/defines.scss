@@ -1,4 +1,4 @@
-$JIG_LAYOUT: (
+$JIG_CONFIG: (
 	'breakpoints' : (
 		'xsmall' : 0,
 		'medium' : 768px,
@@ -17,7 +17,7 @@ $JIG_LAYOUT: (
 			'vertical' : 20px
 		)
 	),
-	'spacings' : (
+	'spacing' : (
 		'xxs' : (
 			'xsmall' : 10px
 		),
@@ -62,7 +62,13 @@ $JIG_LAYOUT: (
 );
 
 $GRID_CONTAINER_BACKGROUNDCOLOR: (
-	'xsmall': lightblue,
-	'medium': lightcyan,
-	'large': lightgreen
+	'xsmall' : #aaa,
+	'medium' : #ccc,
+	'large' : #eee
+);
+
+$GRID_CONTAINER_BACKGROUNDIMAGE: (
+	'xsmall' : url('../files/img/background-small.jpg'),
+	'medium' : url('../files/img/background-medium.jpg'),
+	'large' : url('../files/img/background-large.jpg')
 );
