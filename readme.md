@@ -79,68 +79,100 @@ Either view the examples on [GitHub](https://oktarintentakel.github.io/jig/) or 
 
 How Do I Install This?
 ----------------------
-Besides just downloading the zip and dropping the package in your project (which I would not recommend doing), you may
-easily use npm or yarn. Since I do not publish to npm yet, you can just reference the Github repo and maybe the version
-tag (which I would recommend) and you are done. To get an idea about the latest version and/or changes, have a look at
-the tags and releases in Github.
+Besides just downloading the zip file and dropping the package in your project (which I would not recommend doing), you
+may easily use NPM or Yarn.
+
+Currently, I'm publishing to Github packages and not the central NPM registry. If you want to directly install the
+package, not using the repository URL, , you'll have to tell NPM/Yarn, that `@oktarintentakel` can be found at GitHub
+packages and not at the central NPM registry and add an access token to use for installing. To do this, add or edit a
+`.npmrc` file (either globally in your home folder or next to the `package.json` to your project) and add
+`@oktarintentakel:registry=https://npm.pkg.github.com` to the file (following GitHub's
+[documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
+). After this, the defined namespace is installed from there automatically. Additionally, we also need a personal access
+token by adding the line `//npm.pkg.github.com/:_authToken=TOKEN` (following GitHub's
+[documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token)
+).
+
+**Hint:** I am aware, that this is rather cumbersome currently, and therefore I currently suggest using the repository
+URL, but I implemented the workflow anyway, awaiting an easier workflow in the future. 
+
 
 ### NPM
 
-```
+```bash
 npm install @oktarintentakel/jig
 ```
 or with a version
-```
+```bash
 npm install @oktarintentakel/jig@X.X.X
 ```
-or via GitHub directly
-```
+or via GitHub repository
+```bash
 npm install oktarintentakel/jig
 ```
-or via GitHub directly using a tag
-```
+or via GitHub repository using a tag
+```bash
 npm install oktarintentakel/jig#vX.X.X
 ```
 
+
 ### Yarn
 
-```
+```bash
 yarn add @oktarintentakel/jig
 ```
 or with a version
-```
+```bash
 yarn add @oktarintentakel/jig@X.X.X
 ```
-or via GitHub directly
-```
+or via GitHub repository
+```bash
 yarn add oktarintentakel/jig
 ```
-or via GitHub directly using a tag
-```
+or via GitHub repository using a tag
+```bash
 yarn add oktarintentakel/jig#vX.X.X
 ```
 
+
 ### Using an Alias Location
 
-In many cases (especially when installing directly from Github) it makes sense to define an install alias, to manually
-define a folder inside `node_modules` to install to.
+In many cases (especially when installing directly from Github repository) it makes sense to define an install alias,
+to manually define a folder inside `node_modules` to install to.
 
 Using NPM
-```
+```bash
 npm install my-alias-location@:npm@oktarintentakel/jig@X.X.X
 ```
-or using NPM with GitHub
-```
+or using NPM with GitHub repository
+```bash
 npm install my-alias-location@oktarintentakel/jig#vX.X.X
 ```
 or using Yarn
-```
+```bash
 yarn add my-alias-location@:npm@oktarintentakel/jig@X.X.X
 ```
-or using Yarn with GitHub
-```
+or using Yarn with GitHub repository
+```bash
 yarn add my-alias-location@oktarintentakel/jig#vX.X.X
 ```
+or in `package.json`
+```json
+{
+  "dependencies": {
+      "my-alias-location" : "npm:@oktarintentakel/jig@X.X.X"
+  }
+}
+```
+or with Github repository
+````json
+{
+  "dependencies": {
+      "my-alias-location" : "oktarintentakel/jig#vX.X.X"
+  }
+}
+````
+
 
 ### @client Package Separation
 
@@ -163,27 +195,14 @@ So I generally propse separating all npm packages, that are delivered to the cli
 from bower to npm, reading the bower team's [ideas](https://bower.io/blog/2017/how-to-migrate-away-from-bower/) about
 this.
 
-So, adding a `@client` dependency may look like this in `package.json`:
+So, I propose to generally use an alias location for client packages, such as this
+(see previous point, for all/other options):
 
-```
-"dependencies": {
-    "@client/jig" : "oktarintentakel/jig#vX.X.X",
-    ...
-}
-```
-
-You can also add the dependency on the command line like this, albeit the command gets a little lengthy then:
-
-```
-yarn add @client/jig@oktarintentakel/jig#vX.X.X
-```
-
-If the package is on npm you can, of course, pull the package from there as well:
-
-```
-"dependencies": {
-    "@client/jig" : "npm:@oktarintentakel/jig@1.0.0",
-    ...
+```json
+{
+  "dependencies": {
+      "@client/jig" : "oktarintentakel/jig#vX.X.X"
+  }
 }
 ```
 
