@@ -21,8 +21,12 @@ by Sebastian Schlapkohl
 
 A Word of Caution
 -----------------
-This package is **still in development** and is missing a lot of implementation, documentation and testing.
-Use this with caution or keep your usage to using the source as a reference for your project.
+This package has reached beta status. Everything included is tested with browser examples. And the contents include
+everything I aimed for in the first version. Although everything is finished from a technical perspective, this package
+is not yet battle-proven.
+
+The beta should be fine to use (cautiously), but I will delay the bump to version 1.0.0 stable until after I've used
+this in a real-world project.
 
 
 
@@ -69,7 +73,7 @@ What's on Offer
 How Can I Run the Examples?
 ---------------------------
 Either view the examples on [GitHub](https://oktarintentakel.github.io/jig/) or open
-`/examples/index.html` locally after checking out the repo.
+`/docs/examples/index.html` locally after checking out the repo.
 
 
 
@@ -81,24 +85,65 @@ tag (which I would recommend) and you are done. To get an idea about the latest 
 the tags and releases in Github.
 
 ### NPM
+
+```
+npm install @oktarintentakel/jig
+```
+or with a version
+```
+npm install @oktarintentakel/jig@X.X.X
+```
+or via GitHub directly
 ```
 npm install oktarintentakel/jig
 ```
-or
+or via GitHub directly using a tag
 ```
 npm install oktarintentakel/jig#vX.X.X
 ```
 
 ### Yarn
+
+```
+yarn add @oktarintentakel/jig
+```
+or with a version
+```
+yarn add @oktarintentakel/jig@X.X.X
+```
+or via GitHub directly
 ```
 yarn add oktarintentakel/jig
 ```
-or
+or via GitHub directly using a tag
 ```
 yarn add oktarintentakel/jig#vX.X.X
 ```
 
+### Using an Alias Location
+
+In many cases (especially when installing directly from Github) it makes sense to define an install alias, to manually
+define a folder inside `node_modules` to install to.
+
+Using NPM
+```
+npm install my-alias-location@:npm@oktarintentakel/jig@X.X.X
+```
+or using NPM with GitHub
+```
+npm install my-alias-location@oktarintentakel/jig#vX.X.X
+```
+or using Yarn
+```
+yarn add my-alias-location@:npm@oktarintentakel/jig@X.X.X
+```
+or using Yarn with GitHub
+```
+yarn add my-alias-location@oktarintentakel/jig#vX.X.X
+```
+
 ### @client Package Separation
+
 It may be a good idea, to generally split node and client packages up. Why? Client packages are delivered directly to
 the client and are executed and interpreted on the user's machine. So, these packages have a different set of rules
 applying to them. For example: it is not really clever to give client packages an approximate version, like a normal
@@ -137,7 +182,7 @@ If the package is on npm you can, of course, pull the package from there as well
 
 ```
 "dependencies": {
-    "@client/some-npm-package" : "npm:some-npm-package@1.0.0",
+    "@client/jig" : "npm:@oktarintentakel/jig@1.0.0",
     ...
 }
 ```

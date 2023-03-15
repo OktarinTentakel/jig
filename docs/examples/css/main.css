@@ -22,7 +22,15 @@ html, body {
 
 
 body {
-	padding: 2rem 4rem;
+	padding: 2rem 3rem;
+}
+
+body > * {
+	display: block;
+
+	max-width: 1200px;
+
+	margin: 0 auto;
 }
 
 
@@ -96,4 +104,18 @@ section a:hover {
 
 section pre code {
 	border: 1px solid lightblue;
+}
+
+
+
+.example-tab-headline {
+	margin-top: 4rem;
+}
+
+.example-tabs {
+	margin-top: 0.5rem;
+}
+
+.example {
+	margin-top: 0.5rem;
 }

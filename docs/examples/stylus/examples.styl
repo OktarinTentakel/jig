@@ -34,9 +34,18 @@ $example-grid
 
 
 	> div
+	> div > div
+		display flex
+		justify-content center
+		align-items center
+
 		position relative
 
 		border 3px solid dodgerblue
+
+		color white
+		font-size 1.5rem
+		text-shadow 1px -1px 3px black, 1px 1px 3px black, -1px 1px 3px black, -1px -1px 3px black
 
 		background-size cover
 		background-position center center
@@ -64,9 +73,15 @@ $example-grid
 	&:hover
 		&:before
 		> div
+		> div > div
+			border-color lightskyblue
+
 			background-image none !important
 
 			filter none !important
+
+		> div > div
+			filter invert(100%) !important
 
 
 
@@ -295,3 +310,158 @@ $example-grid
 					background-image url('../files/img/block-8.jpg')
 
 					transform rotate(0deg)
+
+
+
+#real-world-grid-example
+	.examples > .stylus
+		@extend $example-grid
+
+
+
+		> div
+			&:nth-of-type(1)
+				&:before
+					content 'Stage'
+
+				grid-item(12)
+				order 1
+
+				spacing-based-attribute('height', 'xxl', 3.0)
+
+				margin gutter-value(-1.0)
+				margin-bottom 0
+
+				+breakpoint(medium)
+					margin gutter-value(-1.0, $breakpoint:medium)
+					margin-bottom gutter-value(-3, $breakpoint:medium, $direction:vertical)
+
+				set-auto-breakpoint(large)
+				+breakpoint(large)
+					margin gutter-value(-1.0)
+					margin-bottom gutter-value(-3, $direction:vertical)
+
+
+
+			&:nth-of-type(2)
+				&:before
+					content 'Navbar'
+
+				grid-item(12)
+				order 2
+
+				+breakpoint(medium)
+					grid-item(4, $row-span:2)
+					order 3
+
+				+breakpoint(large)
+					grid-item(3)
+
+
+
+			&:nth-of-type(3)
+				grid-item()
+				order 2
+
+				grid-container()
+
+				> div
+					&:nth-of-type(1)
+						&:before
+							content 'Text'
+
+						grid-item(12)
+
+						height spacing-value('md') * 10
+
+					&:nth-of-type(2)
+					&:nth-of-type(3)
+					&:nth-of-type(4)
+						&:before
+							content 'Teaser'
+
+						grid-item(12)
+
+						height 100px
+
+					&:nth-of-type(3)
+					&:nth-of-type(4)
+						margin-top gutter-value(-1, $direction:vertical)
+
+
+
+				set-auto-breakpoint(medium)
+				+breakpoint(medium)
+					grid-item($start:0, $span:8)
+
+					> div
+						&:nth-of-type(1)
+							height spacing-value('md') * 7
+
+						&:nth-of-type(2)
+						&:nth-of-type(3)
+						&:nth-of-type(4)
+							grid-item(4)
+
+							height 75px
+
+						&:nth-of-type(3)
+						&:nth-of-type(4)
+							margin-top 0
+
+
+
+				set-auto-breakpoint(large)
+				+breakpoint(large)
+					grid-item(9)
+
+					> div
+						&:nth-of-type(1)
+							height spacing-value('md') * 5
+
+						&:nth-of-type(2)
+						&:nth-of-type(3)
+						&:nth-of-type(4)
+							height auto
+
+
+
+			&:nth-of-type(4)
+				&:before
+					content 'Hint'
+
+				grid-item($start:1, $end:11)
+				order 4
+
+				margin-top gutter-value(-0.5, $direction:'vertical')
+
+				+breakpoint(medium)
+					grid-item(8, $start:0)
+
+				+breakpoint(large)
+					grid-item($start:3, $span:6)
+
+
+
+			&:nth-of-type(5)
+				&:before
+					content 'Footer'
+
+				grid-item(12)
+				order 5
+
+				spacing-based-attributes({
+					'padding-top' : 'md',
+					'padding-bottom' : 'xl'
+				})
+				margin gutter-value(-1)
+				margin-top gutter-value(1, $direction:vertical)
+
+				+breakpoint(medium)
+					margin gutter-value(-1, $breakpoint:medium)
+					margin-top gutter-value(2, $breakpoint:medium, $direction:vertical)
+
+				set-auto-breakpoint(large)
+				+breakpoint(large)
+					margin gutter-value(-1)
+					margin-top gutter-value(2.5, $direction:vertical)

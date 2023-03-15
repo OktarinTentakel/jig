@@ -4,7 +4,10 @@
 	<head>
 		<title>jig examples</title>
 
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
 		<link rel="apple-touch-icon" sizes="180x180" href="./files/img/apple-touch-icon.png"/>
 		<link rel="icon" type="image/png" sizes="32x32" href="./files/img/favicon-32x32.png"/>
 		<link rel="icon" type="image/png" sizes="16x16" href="./files/img/favicon-16x16.png"/>
@@ -13,6 +16,13 @@
 		<link rel="stylesheet" href="./css/scss-legacy.css"/>
 		<link rel="stylesheet" href="./css/stylus.css"/>
 		<link rel="stylesheet" href="./css/main.css"/>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+		<script>
+			window.addEventListener('DOMContentLoaded', function(){
+				M.Tabs.init(document.querySelector('.example-tabs'), {});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -29,84 +39,169 @@
 				that all implementations function alike and are capable of creating the same grids.
 			</p>
 			<p>Hover over an example grid, to better see the grid's outline, without images and effects.</p>
+			<p>Have a look at the source code of these examples at:</p>
+			<ul>
+				<li>
+					<a
+						href="https://github.com/OktarinTentakel/jig/blob/master/docs/examples/scss/examples.scss"
+						target="_blank"
+					>SCSS</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/OktarinTentakel/jig/blob/master/docs/examples/scss-legacy/examples.scss"
+						target="_blank"
+					>SCSS Legacy</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/OktarinTentakel/jig/blob/master/docs/examples/stylus/examples.styl"
+						target="_blank"
+					>Stylus</a>
+				</li>
+			</ul>
 		</header>
 		<main>
-			<section id="basic-grid-example">
-				<header>
-					<h2>Basic Grid</h2>
-					<p>
-						This example demonstrates basic grid definitions, like responsive column sizes, gutters
-						and responsive properties like background-colors. It also includes simple cases of alignment.
-					</p>
-				</header>
-				<div class="examples">
-					<h3>SCSS (Dart Sass)</h3>
-					<div class="scss-legacy">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-
-					<h3>SCSS Legacy (LibSass)</h3>
-					<div class="scss-legacy">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-
-					<h3>Stylus</h3>
-					<div class="stylus">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
+			<div class="row">
+				<h2 class="example-tab-headline">Examples</h2>
+				<div class="col s12">
+					<ul class="example-tabs tabs">
+						<li class="tab col s4"><a href="#basic-grid-example" class="active">Basic Grid</a></li>
+						<li class="tab col s4"><a href="#advanced-grid-example">Advanced Grid</a></li>
+						<li class="tab col s4"><a href="#real-world-grid-example">Real World Grid</a></li>
+					</ul>
 				</div>
-			</section>
 
-			<section id="advanced-grid-example">
-				<header>
-					<h2>Advanced Grid</h2>
-					<p>
-						This example includes advanced grid concepts, like rows, item alignments, item reordering.
-						It also includes responsive spacing and demonstrates overlaying concepts like positioning
-						and transforms on grid elements.
-					</p>
-				</header>
-				<div class="examples">
-					<h3>SCSS (Dart Sass)</h3>
-					<div class="scss">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
+				<section id="basic-grid-example" class="example col s12">
+					<header>
+						<h3>Basic Grid</h3>
+						<p>
+							This example demonstrates basic grid definitions, like responsive column sizes, gutters
+							and responsive properties like background-colors. It also includes simple cases of alignment.
+						</p>
+					</header>
+					<div class="examples">
+						<h4>SCSS (Dart Sass)</h4>
+						<div class="scss-legacy">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
 
-					<h3>SCSS Legacy (LibSass)</h3>
-					<div class="scss-legacy">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
+						<h4>SCSS Legacy (LibSass)</h4>
+						<div class="scss-legacy">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
 
-					<h3>Stylus</h3>
-					<div class="stylus">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
+						<h4>Stylus</h4>
+						<div class="stylus">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+
+				<section id="advanced-grid-example" class="example col s12">
+					<header>
+						<h3>Advanced Grid</h3>
+						<p>
+							This example includes advanced grid concepts, like rows, item alignments, item reordering.
+							It also includes responsive spacing and demonstrates overlaying concepts like positioning
+							and transforms on grid elements.
+						</p>
+					</header>
+					<div class="examples">
+						<h4>SCSS (Dart Sass)</h4>
+						<div class="scss">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+
+						<h4>SCSS Legacy (LibSass)</h4>
+						<div class="scss-legacy">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+
+						<h4>Stylus</h4>
+						<div class="stylus">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+				</section>
+
+				<section id="real-world-grid-example" class="example col s12">
+					<header>
+						<h3>Real World Grid</h3>
+						<p>
+							This example tries to emulate a (rather elaborate) grid, which may be used to construct
+							a real world website, including breakout elements, overlapping elements and subgrids.
+						</p>
+					</header>
+					<div class="examples">
+						<h4>SCSS (Dart Sass)</h4>
+						<div class="scss">
+							<div></div>
+							<div></div>
+							<div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div></div>
+							<div></div>
+						</div>
+
+						<h4>SCSS Legacy (LibSass)</h4>
+						<div class="scss-legacy">
+							<div></div>
+							<div></div>
+							<div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div></div>
+							<div></div>
+						</div>
+
+						<h4>Stylus</h4>
+						<div class="stylus">
+							<div></div>
+							<div></div>
+							<div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+				</section>
+			</div>
 		</main>
 	</body>
 </html>

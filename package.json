@@ -1,7 +1,7 @@
 {
-	"name" : "jig",
-	"version" : "0.1.0-dev",
-	"authors" : ["Sebastian Schlapkohl"],
+	"name" : "@oktarintentakel/jig",
+	"version" : "0.1.0-beta",
+	"author" : "Sebastian Schlapkohl",
 	"license" : "MIT",
 	"repository" : "github:oktarintentakel/jig",
 	"description" : "A \"foundationish\" grid solution for SCSS and Stylus with native CSS grid and sane defaults and helpers for responsive websites.",
@@ -15,6 +15,10 @@
 		"scss",
 		"stylus"
 	],
+
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/oktarintentakel"
+	},
 
 	"type" : "module",
 	"directories" : {
