@@ -357,3 +357,12 @@ Yes to all? Then this might by your package indeed.
 
 Anyway, this is a rather compact and streamlined package without much fluff. So, in theory you could even just give it
 a spin and, if it does not bring to the table what you need, you can even replace it fairly easy with Foundation again.
+
+
+
+Why are the media queries/breakpoints in this project using em instead of rem or px?
+------------------------------------------------------------------------------------
+[https://zellwk.com/blog/media-query-units/](https://zellwk.com/blog/media-query-units/)
+
+TLDR: em is the only unit without browser bugs, which behaves as expected on changes like zooming
+or changing the browsers base font size.

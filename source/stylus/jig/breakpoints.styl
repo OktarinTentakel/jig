@@ -192,7 +192,7 @@ build-breakpoint-query($breakpoint-definition=0)
 	$next-breakpoint = null
 	$min = null
 	$max = null
-	$query-rem-conversion-base = 16px // this is always 16px, no matter what is defined on <html>
+	$query-em-conversion-base = 16px // this is always 16px, no matter what is defined on <html>
 
 	if $breakpoint == 'overwrite'
 		return '(min-width: 0)'
@@ -209,14 +209,17 @@ build-breakpoint-query($breakpoint-definition=0)
 	if ($breakpoint-name == null) and ($direction == 'only')
 		error('jig:build-breakpoint-query | only named media queries can have an "only" range')
 
+	// we are building media queries with em instead of rem and px
+	// why? => https://zellwk.com/blog/media-query-units/
+
 	if ($direction == 'only') or ($direction == 'up')
-		$min = to-rem($breakpoint, $query-rem-conversion-base)
+		$min = to-em($breakpoint, $query-em-conversion-base)
 
 	if ($direction == 'only') or ($direction == 'down')
 		if $breakpoint-name == null
-			$max = to-rem($breakpoint, $query-rem-conversion-base)
+			$max = to-em($breakpoint, $query-em-conversion-base)
 		else if $next-breakpoint-name != null
-			$max = to-rem($next-breakpoint, $query-rem-conversion-base) - to-rem(1px, $query-rem-conversion-base)
+			$max = to-em($next-breakpoint, $query-em-conversion-base) - to-em(1px, $query-em-conversion-base)
 
 	if ($min == 0) and ($max == null)
 		$min = null

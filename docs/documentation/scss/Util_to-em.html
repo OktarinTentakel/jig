@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Breakpoints:breakpoint</title>
+    <title>JSDoc: Namespace: Util:to-em</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Breakpoints:breakpoint</h1>
+    <h1 class="page-title">Namespace: Util:to-em</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Breakpoints:breakpoint</h2>
+        <h2>Util:to-em</h2>
         
     
 </header>
@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="breakpoints.scss.html">breakpoints.scss</a>, <a href="breakpoints.scss.html#line153">line 153</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -106,14 +106,15 @@
 
     
 
-    <h4 class="name" id="breakpoint"><span class="type-signature"></span>breakpoint<span class="signature">($breakpoint-definitions)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="to-em"><span class="type-signature"></span>to-em<span class="signature">($values, $base)</span><span class="type-signature"> &rarr; {Number|List.&lt;Number>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Renders media queries based one one or more breakpoint definitions.</p>
+    <p>Convert one or more px values to (a) em value(s), based on a base font size in px, percent or rem.
+If the base is in % or rem, the base will be converted to px based on the global base font size.</p>
 </div>
 
 
@@ -149,7 +150,7 @@
 
         <tr>
             
-                <td class="name"><code>$breakpoint-definitions</code></td>
+                <td class="name"><code>$values</code></td>
             
 
             <td class="type">
@@ -158,16 +159,7 @@
 <span class="param-type">Number</span>
 |
 
-<span class="param-type">Literal</span>
-|
-
-<span class="param-type">List.&lt;String></span>
-|
-
-<span class="param-type">List.&lt;Literal></span>
-|
-
-<span class="param-type">List.&lt;List.&lt;String>></span>
+<span class="param-type">List.&lt;Number></span>
 
 
             
@@ -177,7 +169,30 @@
 
             
 
-            <td class="description last"><p>a list of breakpoint definitions according to build-breakpoint-query</p></td>
+            <td class="description last"><p>the value(s) to convert, usually px values, if a value is em, it will not be changed</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$base</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the base size to convert against</p></td>
         </tr>
 
     
@@ -218,7 +233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="breakpoints.scss.html">breakpoints.scss</a>, <a href="breakpoints.scss.html#line157">line 157</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -241,16 +256,39 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the converted value(s)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">List.&lt;Number></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>@include breakpoint(small){
-  ...
-}
-@include breakpoint(small down, large up){
-  ...
-}</code></pre>
+    <pre class="prettyprint"><code>to-em(32px, 16px)
+  => 2em
+to-em((10px, 20px, 40px), 20px)
+  => [0.5em, 1em, 2em]</code></pre>
 
 
 

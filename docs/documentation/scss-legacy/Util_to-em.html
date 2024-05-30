@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Spacing:spacing-based-attribute</title>
+    <title>JSDoc: Namespace: Util:to-em</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Spacing:spacing-based-attribute</h1>
+    <h1 class="page-title">Namespace: Util:to-em</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Spacing:spacing-based-attribute</h2>
+        <h2>Util:to-em</h2>
         
     
 </header>
@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="spacing.scss.html">spacing.scss</a>, <a href="spacing.scss.html#line66">line 66</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -106,16 +106,15 @@
 
     
 
-    <h4 class="name" id="spacing-based-attribute"><span class="type-signature"></span>spacing-based-attribute<span class="signature">($attribute, $size, $factor<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="to-em"><span class="type-signature"></span>to-em<span class="signature">($values, $base)</span><span class="type-signature"> &rarr; {Number|List.&lt;Number>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Define an attribute based on breakpoint-dependent spacing values.
-Since this version does not optimize the usage of media queries, please make sure to only use this mixin,
-if you'll definitely only have one attribute to be defined in multiple breakpoints.</p>
+    <p>Convert one or more px values to (a) em value(s), based on a base font size in px, percent or rem.
+If the base is in % or rem, the base will be converted to px based on the global base font size.</p>
 </div>
 
 
@@ -139,11 +138,7 @@ if you'll definitely only have one attribute to be defined in multiple breakpoin
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -155,77 +150,33 @@ if you'll definitely only have one attribute to be defined in multiple breakpoin
 
         <tr>
             
-                <td class="name"><code>$attribute</code></td>
+                <td class="name"><code>$values</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">List.&lt;Number></span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last"><p>the name of the attribute you want to set</p></td>
+            <td class="description last"><p>the value(s) to convert, usually px values, if a value is em, it will not be changed</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>$size</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>on of the named sized defined in jig's spacing config (sm, l, xxl, ...)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$factor</code></td>
+                <td class="name"><code>$base</code></td>
             
 
             <td class="type">
@@ -238,26 +189,10 @@ if you'll definitely only have one attribute to be defined in multiple breakpoin
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
 
-            <td class="description last"><p>if a float factor is provided the value will be multiplied with this factor</p></td>
+            <td class="description last"><p>the base size to convert against</p></td>
         </tr>
 
     
@@ -298,19 +233,12 @@ if you'll definitely only have one attribute to be defined in multiple breakpoin
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="spacing.scss.html">spacing.scss</a>, <a href="spacing.scss.html#line70">line 70</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line97">line 97</a>
     </li></ul></dd>
     
 
     
 
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="Spacing_spacing-based-attributes.html#spacing-based-attributes">spacing-based-attributes</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -326,25 +254,41 @@ if you'll definitely only have one attribute to be defined in multiple breakpoin
 
 
 
-<h5>Throws:</h5>
+
+
+<h5>Returns:</h5>
 
         
+<div class="param-desc">
+    the converted value(s)
+</div>
 
-    <div class="param-desc">
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">List.&lt;Number></span>
+
+
+    </dd>
+</dl>
+
     
-        <p>error if size is unknown</p>
-    
-    </div>
-
-
-    
-
-
 
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>@include spacing-based-attribute(margin-top, 'xl', 1.0);</code></pre>
+    <pre class="prettyprint"><code>to-em(32px, 16px)
+  => 2em
+to-em((10px, 20px, 40px), 20px)
+  => [0.5em, 1em, 2em]</code></pre>
 
 
 

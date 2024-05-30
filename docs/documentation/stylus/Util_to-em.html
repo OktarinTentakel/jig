@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Util:to-rem</title>
+    <title>JSDoc: Namespace: Util:to-em</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Util:to-rem</h1>
+    <h1 class="page-title">Namespace: Util:to-em</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Util:to-rem</h2>
+        <h2>Util:to-em</h2>
         
     
 </header>
@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.styl.html">util.styl</a>, <a href="util.styl.html#line69">line 69</a>
+        <a href="util.styl.html">util.styl</a>, <a href="util.styl.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -106,14 +106,14 @@
 
     
 
-    <h4 class="name" id="to-rem"><span class="type-signature"></span>to-rem<span class="signature">($values, $base<span class="signature-attributes">opt, nullable</span>)</span><span class="type-signature"> &rarr; {Number|List.&lt;Number>}</span></h4>
+    <h4 class="name" id="to-em"><span class="type-signature"></span>to-em<span class="signature">($values, $base)</span><span class="type-signature"> &rarr; {Number|List.&lt;Number>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Convert one or more px values to (a) rem value(s), based on a base font size in px, percent or rem.
+    <p>Convert one or more px values to (a) em value(s), based on a base font size in px, percent or rem.
 If the base is in % or rem, the base will be converted to px based on the global base font size.</p>
 </div>
 
@@ -138,11 +138,7 @@ If the base is in % or rem, the base will be converted to px based on the global
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -170,22 +166,10 @@ If the base is in % or rem, the base will be converted to px based on the global
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last"><p>the value(s) to convert, usually px values, if a value is em, it will be treated as rem</p></td>
+            <td class="description last"><p>the value(s) to convert, usually px values, if a value is em, it will not be changed</p></td>
         </tr>
 
     
@@ -205,25 +189,7 @@ If the base is in % or rem, the base will be converted to px based on the global
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
-                    &lt;nullable><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    $jig---base-font-size-px
-                
-                </td>
             
 
             <td class="description last"><p>the base size to convert against</p></td>
@@ -267,7 +233,7 @@ If the base is in % or rem, the base will be converted to px based on the global
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.styl.html">util.styl</a>, <a href="util.styl.html#line73">line 73</a>
+        <a href="util.styl.html">util.styl</a>, <a href="util.styl.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -319,10 +285,10 @@ If the base is in % or rem, the base will be converted to px based on the global
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>to-rem(32px)
-  => 2rem
-to-rem((10px, 20px, 40px), 20px)
-  => (0.5rem, 1rem, 2rem)</code></pre>
+    <pre class="prettyprint"><code>to-em(32px, 16px)
+  => 2em
+to-em((10px, 20px, 40px), 20px)
+  => [0.5em, 1em, 2em]</code></pre>
 
 
 

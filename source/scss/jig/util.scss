@@ -141,6 +141,55 @@
 
 
 /**
+ * @namespace Util:to-em
+ */
+
+/**
+ * Convert one or more px values to (a) em value(s), based on a base font size in px, percent or rem.
+ * If the base is in % or rem, the base will be converted to px based on the global base font size.
+ *
+ * @memberof Util:to-em
+ * @function
+ * @name to-em
+ * @alias to-em
+ *
+ * @param {Number|List<Number>} $values - the value(s) to convert, usually px values, if a value is em, it will not be changed
+ * @param {Number} $base - the base size to convert against
+ * @returns {Number|List<Number>} the converted value(s)
+ *
+ * @example
+ * to-em(32px, 16px)
+ *   => 2em
+ * to-em((10px, 20px, 40px), 20px)
+ *   => [0.5em, 1em, 2em]
+ */
+@function to-em($values, $base){
+	$rem-values: to-rem($values, $base);
+	@if meta.type-of($rem-values) != 'list' {
+		$rem-values: [$rem-values];
+	}
+
+	$em-values: [];
+	@each $rem-value in $rem-values {
+		$em-value: 0;
+
+		@if $rem-value != 0 {
+			$em-value: strip-unit($rem-value) * 1em;
+		}
+
+		$em-values: list.append($em-values, $em-value);
+	}
+
+	@if list.length($em-values) == 1 {
+		@return list.nth($em-values, 1);
+	} @else {
+		@return $em-values;
+	}
+}
+
+
+
+/**
  * @namespace Util:str-join
  */
 
