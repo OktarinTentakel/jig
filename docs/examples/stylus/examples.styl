@@ -44,7 +44,7 @@ $example-grid
 		border 3px solid dodgerblue
 
 		color white
-		font-size 1.5rem
+		font-size base-font-size-value() * 1.5
 		text-shadow 1px -1px 3px black, 1px 1px 3px black, -1px 1px 3px black, -1px -1px 3px black
 
 		background-size cover
@@ -87,381 +87,396 @@ $example-grid
 
 #basic-grid-example
 	.examples > .stylus
-		@extend $example-grid
+		content-holder($centered:true)
 
 
 
-		> div
-			&:nth-of-type(odd)
-				grid-item(6)
-
-				height 100px
-
-			&:nth-of-type(even)
-				grid-item(6)
-
-				height 75px
+		> .grid
+			@extend $example-grid
 
 
 
-		+breakpoint(medium up)
 			> div
-				&:nth-of-type(1)
-					grid-item(4)
+				&:nth-of-type(odd)
+					grid-item(6)
 
 					height 100px
 
-				&:nth-of-type(2)
-					grid-item(4)
-
-					height 80px
-
-				&:nth-of-type(3)
-					grid-item(4)
-
-					height 60px
-
-				&:nth-of-type(4)
-					grid-item(4)
-
-					height 40px
-
-				&:nth-of-type(5)
-					grid-item(4)
-
-					height 20px
-
-
-
-		+breakpoint(medium down)
-			> div
-				&:nth-of-type(3)
-					border-color aqua
-
-					background-color aqua
-					background-image url('../files/img/block-6.jpg')
-
-
-
-		+breakpoint(large)
-			> div
-				&:nth-of-type(1)
-					grid-item()
-
-					height 25vh
-
-				&:nth-of-type(2)
+				&:nth-of-type(even)
 					grid-item(6)
 
-					height 12.5vh
+					height 75px
 
-				&:nth-of-type(3)
-					grid-item(6)
-					grid-item-align($vertical:bottom)
 
-					height 10vh
 
-				&:nth-of-type(4)
-					grid-item(4)
-					grid-item-align(center, center)
-					order 2
+			+breakpoint(medium up)
+				> div
+					&:nth-of-type(1)
+						grid-item(4)
 
-					width 100px
-					height 5vh
+						height 100px
 
-				&:nth-of-type(5)
-					grid-item(4)
-					order 1
+					&:nth-of-type(2)
+						grid-item(4)
 
-					height 10vh
+						height 80px
+
+					&:nth-of-type(3)
+						grid-item(4)
+
+						height 60px
+
+					&:nth-of-type(4)
+						grid-item(4)
+
+						height 40px
+
+					&:nth-of-type(5)
+						grid-item(4)
+
+						height 20px
+
+
+
+			+breakpoint(medium down)
+				> div
+					&:nth-of-type(3)
+						border-color aqua
+
+						background-color aqua
+						background-image url('../files/img/block-6.jpg')
+
+
+
+			+breakpoint(large)
+				> div
+					&:nth-of-type(1)
+						grid-item()
+
+						height 25vh
+
+					&:nth-of-type(2)
+						grid-item(6)
+
+						height 12.5vh
+
+					&:nth-of-type(3)
+						grid-item(6)
+						grid-item-align($vertical:bottom)
+
+						height 10vh
+
+					&:nth-of-type(4)
+						grid-item(4)
+						grid-item-align(center, center)
+						order 2
+
+						width 100px
+						height 5vh
+
+					&:nth-of-type(5)
+						grid-item(4)
+						order 1
+
+						height 10vh
 
 
 
 #advanced-grid-example
 	.examples > .stylus
-		@extend $example-grid
-
-		spacing-based-attribute(padding-top, 'xxl')
+		content-holder($centered:true)
 
 
 
-		> div
-			&:nth-of-type(odd)
-				grid-item(4)
-				grid-item-align(null, end)
+		> .grid
+			@extend $example-grid
 
-				height gutter-value(2.5, $direction:'vertical')
-
-			&:nth-of-type(even)
-				grid-item(4)
-
-				height 75px
-
-			&:first-of-type
-				grid-item($span:4, $row-span:2)
-				grid-item-align($vertical:full)
-
-				height auto
+			spacing-based-attribute(padding-top, 'xxl')
 
 
 
-		+breakpoint(xsmall only)
 			> div
-				&:nth-of-type(3)
-					border-color aqua
-
-					background-color aqua
-					background-image url('../files/img/block-6.jpg')
-
-
-
-		set-auto-breakpoint(medium)
-		+breakpoint(medium)
-			> div
-				&:nth-of-type(1)
+				&:nth-of-type(odd)
 					grid-item(4)
-					order 5
+					grid-item-align(null, end)
 
-					width 50%
-					height gutter-value(3.0)
+					height gutter-value(2.5, $direction:'vertical')
 
-				&:nth-of-type(2)
-					grid-item($start:8, $end:12)
-					order 4
-
-					height 80px
-
-				&:nth-of-type(3)
-					grid-item($start:6, $span:2)
-					grid-item-align(full, center)
-					order 3
-
-					height 60px
-
-				&:nth-of-type(4)
-					grid-item(8, $row-start:1, $row-end:3)
-					grid-item-align('right', $vertical:'full')
-					order 2
-
-					width 50%
-					height auto
-
-				&:nth-of-type(5)
+				&:nth-of-type(even)
 					grid-item(4)
-					grid-item-align(left, top)
-					order 1
-					z-index 1
 
-					width 200%
-					height 55px
+					height 75px
 
-					border-color red
-
-					background-color red
-					background-image url('../files/img/block-7.jpg')
-
-					transform rotate(10deg)
-
-
-
-		+breakpoint(large)
-			> div
-				&:nth-of-type(1)
-					grid-item($start:0, $span:4, $row-start:0, $row-span:1)
+				&:first-of-type
+					grid-item($span:4, $row-span:2)
 					grid-item-align($vertical:full)
-					order 1
-
-					width auto
-					height 10vh
-
-				&:nth-of-type(2)
-					grid-item($start:4, $end:8, $row-start:0, $row-span:2)
-					grid-item-align($vertical:full)
-					order 2
 
 					height auto
 
-				&:nth-of-type(3)
-					grid-item($start:8, $span:4, $row-start:0, $row-span:3)
-					grid-item-align($vertical:full)
-					order 3
 
-					height auto
 
-				&:nth-of-type(4)
-					grid-item($start:0, $span:4, $row-start:1, $row-end:2)
-					grid-item-align(right, center)
-					order 4
+			+breakpoint(xsmall only)
+				> div
+					&:nth-of-type(3)
+						border-color aqua
 
-					width 100px
-					height 10vh
+						background-color aqua
+						background-image url('../files/img/block-6.jpg')
 
-				&:nth-of-type(5)
-					grid-item(6)
-					grid-item-align(stretch)
-					order 5
 
-					width auto
-					height 20vh
 
-					border-color dodgerblue
+			set-auto-breakpoint(medium)
+			+breakpoint(medium)
+				> div
+					&:nth-of-type(1)
+						grid-item(4)
+						order 5
 
-					background-color dodgerblue
-					background-image url('../files/img/block-8.jpg')
+						width 50%
+						height gutter-value(3.0)
 
-					transform rotate(0deg)
+					&:nth-of-type(2)
+						grid-item($start:8, $end:12)
+						order 4
+
+						height 80px
+
+					&:nth-of-type(3)
+						grid-item($start:6, $span:2)
+						grid-item-align(full, center)
+						order 3
+
+						height 60px
+
+					&:nth-of-type(4)
+						grid-item(8, $row-start:1, $row-end:3)
+						grid-item-align('right', $vertical:'full')
+						order 2
+
+						width 50%
+						height auto
+
+					&:nth-of-type(5)
+						grid-item(4)
+						grid-item-align(left, top)
+						order 1
+						z-index 1
+
+						width 200%
+						height 55px
+
+						border-color red
+
+						background-color red
+						background-image url('../files/img/block-7.jpg')
+
+						transform rotate(10deg)
+
+
+
+			+breakpoint(large)
+				> div
+					&:nth-of-type(1)
+						grid-item($start:0, $span:4, $row-start:0, $row-span:1)
+						grid-item-align($vertical:full)
+						order 1
+
+						width auto
+						height 10vh
+
+					&:nth-of-type(2)
+						grid-item($start:4, $end:8, $row-start:0, $row-span:2)
+						grid-item-align($vertical:full)
+						order 2
+
+						height auto
+
+					&:nth-of-type(3)
+						grid-item($start:8, $span:4, $row-start:0, $row-span:3)
+						grid-item-align($vertical:full)
+						order 3
+
+						height auto
+
+					&:nth-of-type(4)
+						grid-item($start:0, $span:4, $row-start:1, $row-end:2)
+						grid-item-align(right, center)
+						order 4
+
+						width 100px
+						height 10vh
+
+					&:nth-of-type(5)
+						grid-item(6)
+						grid-item-align(stretch)
+						order 5
+
+						width auto
+						height 20vh
+
+						border-color dodgerblue
+
+						background-color dodgerblue
+						background-image url('../files/img/block-8.jpg')
+
+						transform rotate(0deg)
 
 
 
 #real-world-grid-example
 	.examples > .stylus
-		@extend $example-grid
+		content-holder($centered:true)
 
 
 
-		> div
-			&:nth-of-type(1)
-				&:before
-					content 'Stage'
+		> .grid
+			@extend $example-grid
 
-				grid-item(12)
-				order 1
 
-				spacing-based-attribute('height', 'xxl', 3.0)
 
-				margin gutter-value(-1.0)
-				margin-bottom 0
+			> div
+				&:nth-of-type(1)
+					&:before
+						content 'Stage'
 
-				+breakpoint(medium)
-					margin gutter-value(-1.0, $breakpoint:medium)
-					margin-bottom gutter-value(-3, $breakpoint:medium, $direction:vertical)
+					grid-item(12)
+					order 1
 
-				set-auto-breakpoint(large)
-				+breakpoint(large)
+					spacing-based-attribute('height', 'xxl', 3.0)
+
 					margin gutter-value(-1.0)
-					margin-bottom gutter-value(-3, $direction:vertical)
+					margin-bottom 0
+
+					+breakpoint(medium)
+						margin gutter-value(-1.0, $breakpoint:medium)
+						margin-bottom gutter-value(-3, $breakpoint:medium, $direction:vertical)
+
+					set-auto-breakpoint(large)
+					+breakpoint(large)
+						margin gutter-value(-1.0)
+						margin-bottom gutter-value(-3, $direction:vertical)
 
 
 
-			&:nth-of-type(2)
-				&:before
-					content 'Navbar'
+				&:nth-of-type(2)
+					&:before
+						content 'Navbar'
 
-				grid-item(12)
-				order 2
+					grid-item(12)
+					order 2
 
-				+breakpoint(medium)
-					grid-item(4, $row-span:2)
-					order 3
+					+breakpoint(medium)
+						grid-item(4, $row-span:2)
+						order 3
 
-				+breakpoint(large)
-					grid-item(3)
-
-
-
-			&:nth-of-type(3)
-				grid-item()
-				order 2
-
-				grid-container()
-
-				> div
-					&:nth-of-type(1)
-						&:before
-							content 'Text'
-
-						grid-item(12)
-
-						height spacing-value('md') * 10
-
-					&:nth-of-type(2)
-					&:nth-of-type(3)
-					&:nth-of-type(4)
-						&:before
-							content 'Teaser'
-
-						grid-item(12)
-
-						height 100px
-
-					&:nth-of-type(3)
-					&:nth-of-type(4)
-						margin-top gutter-value(-1, $direction:vertical)
+					+breakpoint(large)
+						grid-item(3)
 
 
 
-				set-auto-breakpoint(medium)
-				+breakpoint(medium)
-					grid-item($start:0, $span:8)
+				&:nth-of-type(3)
+					grid-item()
+					order 2
+
+					grid-container()
 
 					> div
 						&:nth-of-type(1)
-							height spacing-value('md') * 7
+							&:before
+								content 'Text'
+
+							grid-item(12)
+
+							height spacing-value('md') * 10
 
 						&:nth-of-type(2)
 						&:nth-of-type(3)
 						&:nth-of-type(4)
-							grid-item(4)
+							&:before
+								content 'Teaser'
 
-							height 75px
+							grid-item(12)
+
+							height 100px
 
 						&:nth-of-type(3)
 						&:nth-of-type(4)
-							margin-top 0
+							margin-top gutter-value(-1, $direction:vertical)
 
 
 
-				set-auto-breakpoint(large)
-				+breakpoint(large)
-					grid-item(9)
+					set-auto-breakpoint(medium)
+					+breakpoint(medium)
+						grid-item($start:0, $span:8)
 
-					> div
-						&:nth-of-type(1)
-							height spacing-value('md') * 5
+						> div
+							&:nth-of-type(1)
+								height spacing-value('md') * 7
 
-						&:nth-of-type(2)
-						&:nth-of-type(3)
-						&:nth-of-type(4)
-							height auto
+							&:nth-of-type(2)
+							&:nth-of-type(3)
+							&:nth-of-type(4)
+								grid-item(4)
 
+								height 75px
 
-
-			&:nth-of-type(4)
-				&:before
-					content 'Hint'
-
-				grid-item($start:1, $end:11)
-				order 4
-
-				margin-top gutter-value(-0.5, $direction:'vertical')
-
-				+breakpoint(medium)
-					grid-item(8, $start:0)
-
-				+breakpoint(large)
-					grid-item($start:3, $span:6)
+							&:nth-of-type(3)
+							&:nth-of-type(4)
+								margin-top 0
 
 
 
-			&:nth-of-type(5)
-				&:before
-					content 'Footer'
+					set-auto-breakpoint(large)
+					+breakpoint(large)
+						grid-item(9)
 
-				grid-item(12)
-				order 5
+						> div
+							&:nth-of-type(1)
+								height spacing-value('md') * 5
 
-				spacing-based-attributes({
-					'padding-top' : 'md',
-					'padding-bottom' : 'xl'
-				})
-				margin gutter-value(-1)
-				margin-top gutter-value(1, $direction:vertical)
+							&:nth-of-type(2)
+							&:nth-of-type(3)
+							&:nth-of-type(4)
+								height auto
 
-				+breakpoint(medium)
-					margin gutter-value(-1, $breakpoint:medium)
-					margin-top gutter-value(2, $breakpoint:medium, $direction:vertical)
 
-				set-auto-breakpoint(large)
-				+breakpoint(large)
+
+				&:nth-of-type(4)
+					&:before
+						content 'Hint'
+
+					grid-item($start:1, $end:11)
+					order 4
+
+					margin-top gutter-value(-0.5, $direction:'vertical')
+
+					+breakpoint(medium)
+						grid-item(8, $start:0)
+
+					+breakpoint(large)
+						grid-item($start:3, $span:6)
+
+
+
+				&:nth-of-type(5)
+					&:before
+						content 'Footer'
+
+					grid-item(12)
+					order 5
+
+					spacing-based-attributes({
+						'padding-top' : 'md',
+						'padding-bottom' : 'xl'
+					})
 					margin gutter-value(-1)
-					margin-top gutter-value(2.5, $direction:vertical)
+					margin-top gutter-value(1, $direction:vertical)
+
+					+breakpoint(medium)
+						margin gutter-value(-1, $breakpoint:medium)
+						margin-top gutter-value(2, $breakpoint:medium, $direction:vertical)
+
+					set-auto-breakpoint(large)
+					+breakpoint(large)
+						margin gutter-value(-1)
+						margin-top gutter-value(2.5, $direction:vertical)

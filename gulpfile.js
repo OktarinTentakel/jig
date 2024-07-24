@@ -1,6 +1,6 @@
 //###[ IMPORTS ]########################################################################################################
 
-import fs from 'fs';
+import fs from 'node:fs';
 import yargs from 'yargs';
 import log from 'fancy-log';
 import {deleteAsync as del} from 'del';
@@ -10,7 +10,7 @@ import shell from 'gulp-shell';
 
 import sourcemaps from 'gulp-sourcemaps';
 import connect from 'gulp-connect';
-import dartSass from 'sass';
+import * as dartSass from 'sass';
 import nodeSass from 'node-sass';
 import gulpSass from 'gulp-sass';
 import stylus from 'gulp-stylus';

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: content.styl</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: content.styl</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @namespace Content
+ */
+
+
+
+/**
+ * @namespace Content:content-holder
+ */
+
+/**
+ * Adds properties to the current element, which make it a "content holder", meaning, that it
+ * adheres to the defined min/max content widths and keeps the content away from the browser edges by
+ * defining margins according to the defined responsive content paddings.
+ *
+ * Min and max widths are only rendered if they are defined in the jig config, as are content paddings.
+ *
+ * A content holder can be used as the base container definition for non-breakout elements on a page,
+ * which is not supposed to grow indefinitely horizontally.
+ *
+ * A content holder can be a grid container at the same time, these things do not exclude themselves and
+ * are even a very common use case.
+ *
+ * @memberof Content:content-holder
+ * @function
+ * @name content-holder
+ * @alias content-holder
+ *
+ * @param {Boolean} [$padded=true] - if true, config-defined responsive content padding gets applied to the element
+ * @param {Boolean} [$centered=true] - if true, element gets auto-centered using auto margins
+ *
+ * @example
+ * content-holder()
+ */
+content-holder($padded=true, $centered=false)
+	$breakpoint-names = keys($jig---breakpoint-config)
+	$smallest-breakpoint = $breakpoint-names[0]
+	$largest-breakpoint = last($breakpoint-names)
+
+	$min-width = content-width-value('min')
+	$max-width = content-width-value('max')
+
+	if $min-width != null
+		min-width ($min-width + (2 * content-padding-value($smallest-breakpoint)))
+
+	if $max-width != null
+		max-width ($max-width + (2 * content-padding-value($largest-breakpoint)))
+
+	if $centered
+		margin-right auto
+		margin-left auto
+
+	if $padded
+		$content-padding = $jig---content-config.padding
+
+		if $content-padding != null
+			attributes-for-breakpoints({
+				'padding-left' : $content-padding,
+				'padding-right' : $content-padding,
+			})
+
+
+
+/**
+ * @namespace Content:content-padding-value
+ */
+
+/**
+ * Returns the defined content padding for a/the current breakpoint.
+ *
+ * @memberof Content:content-padding-value
+ * @function
+ * @name content-padding-value
+ * @alias content-padding-value
+ *
+ * @param {String} [$breakpoint='auto'] - a defined breakpoint name or "auto", to use the current breakpoint at the point of usage
+ * @returns {Number} the determined content padding value
+ * @throws error if no content padding value could be determined, based on given breakpoint
+ *
+ * @example
+ * breakpoint(medium)
+ *   padding-left content-padding-value()
+ * margin-right content-padding-value($breakpoint:'small')
+ */
+content-padding-value($breakpoint='auto')
+	$padding = $jig---content-config.padding
+	$res = null
+
+	if $padding != null
+		if type($padding) == 'object'
+			$res = breakpoint-value($padding, $breakpoint)
+		else
+			$res = $padding
+
+	if $res == null
+		error('jig:content-padding-value | could not resolve content padding, check breakpoint')
+
+	return $res
+
+
+
+/**
+ * @namespace Content:content-width-value
+ */
+
+/**
+ * Returns the defined min/max content width.
+ *
+ * @memberof Content:content-width-value
+ * @function
+ * @name content-width-value
+ * @alias content-width-value
+ *
+ * @param {String} [$min-max='max'] - either "min" or "max", defines if min or max content-width is returned
+ * @param {?Number} [$default=null] - the default value to return if the width definition cannot be found
+ * @returns {Number|null} the determined content width value, may be null if width is not defined (depending on default value)
+ *
+ * @example
+ * max-width content-width-value()
+ * min-width content-width-value('min', 0)
+ */
+content-width-value($min-max='max', $default=null)
+	$width = $jig---content-config.max-width
+	if $min-max == 'min'
+		$width = $jig---content-config.min-width
+
+	if $width == null
+		$width = $default
+
+	return $width
+
+
+
+/**
+ * @namespace Content:base-font-size-value
+ */
+
+/**
+ * Returns the base font size, which is most likely applied to the html/body elements and acts as the base
+ * for rem calculations.
+ *
+ * @memberof Content:base-font-size-value
+ * @function
+ * @name base-font-size-value
+ * @alias base-font-size-value
+ *
+ * @returns {Number} the currently set jig base font size value
+ *
+ * @example
+ * font-size base-font-size-value()
+ */
+base-font-size-value()
+	return $jig---base-font-size
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li class="namespace-member"><a href="Breakpoints.html">Breakpoints</a></li><li class="namespace"><a href="Breakpoints_attribute-for-breakpoints.html">Breakpoints:attribute-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_attributes-for-breakpoints.html">Breakpoints:attributes-for-breakpoints</a></li><li class="namespace"><a href="Breakpoints_breakpoint.html">Breakpoints:breakpoint</a></li><li class="namespace"><a href="Breakpoints_breakpoint-value.html">Breakpoints:breakpoint-value</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-query.html">Breakpoints:build-breakpoint-query</a></li><li class="namespace"><a href="Breakpoints_build-breakpoint-range.html">Breakpoints:build-breakpoint-range</a></li><li class="namespace"><a href="Breakpoints_get-auto-breakpoint.html">Breakpoints:get-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_is-named-breakpoint.html">Breakpoints:is-named-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint.html">Breakpoints:overwrite-breakpoint</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attribute.html">Breakpoints:overwrite-breakpoint-for-attribute</a></li><li class="namespace"><a href="Breakpoints_overwrite-breakpoint-for-attributes.html">Breakpoints:overwrite-breakpoint-for-attributes</a></li><li class="namespace"><a href="Breakpoints_reset-auto-breakpoint.html">Breakpoints:reset-auto-breakpoint</a></li><li class="namespace"><a href="Breakpoints_set-auto-breakpoint.html">Breakpoints:set-auto-breakpoint</a></li><li class="namespace-member"><a href="Content.html">Content</a></li><li class="namespace"><a href="Content_base-font-size-value.html">Content:base-font-size-value</a></li><li class="namespace"><a href="Content_content-holder.html">Content:content-holder</a></li><li class="namespace"><a href="Content_content-padding-value.html">Content:content-padding-value</a></li><li class="namespace"><a href="Content_content-width-value.html">Content:content-width-value</a></li><li class="namespace-member"><a href="Grid.html">Grid</a></li><li class="namespace"><a href="Grid_grid-container.html">Grid:grid-container</a></li><li class="namespace"><a href="Grid_grid-item.html">Grid:grid-item</a></li><li class="namespace"><a href="Grid_grid-item-align.html">Grid:grid-item-align</a></li><li class="namespace"><a href="Grid_gutter-value.html">Grid:gutter-value</a></li><li class="namespace-member"><a href="Spacing.html">Spacing</a></li><li class="namespace"><a href="Spacing_spacing-based-attribute.html">Spacing:spacing-based-attribute</a></li><li class="namespace"><a href="Spacing_spacing-based-attributes.html">Spacing:spacing-based-attributes</a></li><li class="namespace"><a href="Spacing_spacing-value.html">Spacing:spacing-value</a></li><li class="namespace-member"><a href="Util.html">Util</a></li><li class="namespace"><a href="Util_hash-get-deep.html">Util:hash-get-deep</a></li><li class="namespace"><a href="Util_hash-next.html">Util:hash-next</a></li><li class="namespace"><a href="Util_str-join.html">Util:str-join</a></li><li class="namespace"><a href="Util_strip-unit.html">Util:strip-unit</a></li><li class="namespace"><a href="Util_to-em.html">Util:to-em</a></li><li class="namespace"><a href="Util_to-rem.html">Util:to-rem</a></li><li class="namespace"><a href="Util_to-str.html">Util:to-str</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Wed Jul 24 2024 15:14:45 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

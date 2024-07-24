@@ -52,7 +52,7 @@
 			border: 3px solid dodgerblue;
 
 			color: white;
-			font-size: 1.5rem;
+			font-size: base-font-size-value() * 1.5;
 			text-shadow: 1px -1px 3px black, 1px 1px 3px black, -1px 1px 3px black, -1px -1px 3px black;
 
 			background-size: cover;
@@ -105,110 +105,116 @@
 
 	#basic-grid-example {
 		.examples > .scss {
-			@extend %example-grid;
+			@include content-holder($centered:true);
 
 
 
-			> div {
-				&:nth-of-type(odd){
-					@include grid-item(6);
-
-					height: 100px;
-				}
-
-				&:nth-of-type(even){
-					@include grid-item(6);
-
-					height: 75px;
-				}
-			}
+			> .grid {
+				@extend %example-grid;
 
 
 
-			@include breakpoint(medium up){
 				> div {
-					&:nth-of-type(1){
-						@include grid-item(4);
+					&:nth-of-type(odd){
+						@include grid-item(6);
 
 						height: 100px;
 					}
 
-					&:nth-of-type(2){
-						@include grid-item(4);
-
-						height: 80px;
-					}
-
-					&:nth-of-type(3){
-						@include grid-item(4);
-
-						height: 60px;
-					}
-
-					&:nth-of-type(4){
-						@include grid-item(4);
-
-						height: 40px;
-					}
-
-					&:nth-of-type(5){
-						@include grid-item(4);
-
-						height: 20px;
-					}
-				}
-			}
-
-
-
-			@include breakpoint(medium down){
-				> div {
-					&:nth-of-type(3){
-						border-color: aqua;
-
-						background-color: aqua;
-						background-image: url('../files/img/block-6.jpg');
-					}
-				}
-			}
-
-
-
-			@include breakpoint(large){
-				> div {
-					&:nth-of-type(1){
-						@include grid-item();
-
-						height: 25vh;
-					}
-
-					&:nth-of-type(2){
+					&:nth-of-type(even){
 						@include grid-item(6);
 
-						height: 12.5vh;
+						height: 75px;
 					}
+				}
 
-					&:nth-of-type(3){
-						@include grid-item(6);
-						@include grid-item-align($vertical:bottom);
 
-						height: 10vh;
+
+				@include breakpoint(medium up){
+					> div {
+						&:nth-of-type(1){
+							@include grid-item(4);
+
+							height: 100px;
+						}
+
+						&:nth-of-type(2){
+							@include grid-item(4);
+
+							height: 80px;
+						}
+
+						&:nth-of-type(3){
+							@include grid-item(4);
+
+							height: 60px;
+						}
+
+						&:nth-of-type(4){
+							@include grid-item(4);
+
+							height: 40px;
+						}
+
+						&:nth-of-type(5){
+							@include grid-item(4);
+
+							height: 20px;
+						}
 					}
+				}
 
-					&:nth-of-type(4){
-						@include grid-item(4);
-						@include grid-item-align(center, center);
-						order: 2;
 
-						width: 100px;
-						height: 5vh;
+
+				@include breakpoint(medium down){
+					> div {
+						&:nth-of-type(3){
+							border-color: aqua;
+
+							background-color: aqua;
+							background-image: url('../files/img/block-6.jpg');
+						}
 					}
+				}
 
-					&:nth-of-type(5){
-						@include grid-item(4);
-						order: 1;
 
-						height: 10vh;
+
+				@include breakpoint(large){
+					> div {
+						&:nth-of-type(1){
+							@include grid-item();
+
+							height: 25vh;
+						}
+
+						&:nth-of-type(2){
+							@include grid-item(6);
+
+							height: 12.5vh;
+						}
+
+						&:nth-of-type(3){
+							@include grid-item(6);
+							@include grid-item-align($vertical:bottom);
+
+							height: 10vh;
+						}
+
+						&:nth-of-type(4){
+							@include grid-item(4);
+							@include grid-item-align(center, center);
+							order: 2;
+
+							width: 100px;
+							height: 5vh;
+						}
+
+						&:nth-of-type(5){
+							@include grid-item(4);
+							order: 1;
+
+							height: 10vh;
+						}
 					}
 				}
 			}
@@ -219,154 +225,160 @@
 
 	#advanced-grid-example {
 		.examples > .scss {
-			@extend %example-grid;
-
-			@include spacing-based-attribute(padding-top, 'xxl');
+			@include content-holder($centered:true);
 
 
 
-			> div {
-				&:nth-of-type(odd){
-					@include grid-item(4);
-					@include grid-item-align(null, end);
+			> .grid {
+				@extend %example-grid;
 
-					height: gutter-value(2.5, $direction:'vertical');
-				}
-
-				&:nth-of-type(even){
-					@include grid-item(4);
-
-					height: 75px;
-				}
-
-				&:first-of-type {
-					@include grid-item($span:4, $row-span:2);
-					@include grid-item-align($vertical:full);
-
-					height: auto;
-				}
-			}
+				@include spacing-based-attribute(padding-top, 'xxl');
 
 
 
-			@include breakpoint(xsmall only){
 				> div {
-					&:nth-of-type(3){
-						border-color: aqua;
-
-						background-color: aqua;
-						background-image: url('../files/img/block-6.jpg');
-					}
-				}
-			}
-
-
-
-			@include breakpoint(medium){
-				> div {
-					&:nth-of-type(1){
+					&:nth-of-type(odd){
 						@include grid-item(4);
-						order: 5;
+						@include grid-item-align(null, end);
 
-						width: 50%;
-						height: gutter-value(3.0);
+						height: gutter-value(2.5, $direction:'vertical');
 					}
 
-					&:nth-of-type(2){
-						@include grid-item($start:8, $end:12);
-						order: 4;
-
-						height: 80px;
-					}
-
-					&:nth-of-type(3){
-						@include grid-item($start:6, $span:2);
-						@include grid-item-align(full, center);
-						order: 3;
-
-						height: 60px;
-					}
-
-					&:nth-of-type(4){
-						@include grid-item(8, $row-start:1, $row-end:3);
-						@include grid-item-align('right', $vertical:'full');
-						order: 2;
-
-						width: 50%;
-						height: auto;
-					}
-
-					&:nth-of-type(5){
+					&:nth-of-type(even){
 						@include grid-item(4);
-						@include grid-item-align(left, top);
-						order: 1;
-						z-index: 1;
 
-						width: 200%;
-						height: 55px;
+						height: 75px;
+					}
 
-						border-color: red;
+					&:first-of-type {
+						@include grid-item($span:4, $row-span:2);
+						@include grid-item-align($vertical:full);
 
-						background-color: red;
-						background-image: url('../files/img/block-7.jpg');
-
-						transform: rotate(10deg);
+						height: auto;
 					}
 				}
-			}
 
 
 
-			@include breakpoint(large){
-				> div {
-					&:nth-of-type(1){
-						@include grid-item($start:0, $span:4, $row-start:0, $row-span:1);
-						@include grid-item-align($vertical:full);
-						order: 1;
+				@include breakpoint(xsmall only){
+					> div {
+						&:nth-of-type(3){
+							border-color: aqua;
 
-						width: auto;
-						height: 10vh;
+							background-color: aqua;
+							background-image: url('../files/img/block-6.jpg');
+						}
 					}
+				}
 
-					&:nth-of-type(2){
-						@include grid-item($start:4, $end:8, $row-start:0, $row-span:2);
-						@include grid-item-align($vertical:full);
-						order: 2;
 
-						height: auto;
+
+				@include breakpoint(medium){
+					> div {
+						&:nth-of-type(1){
+							@include grid-item(4);
+							order: 5;
+
+							width: 50%;
+							height: gutter-value(3.0);
+						}
+
+						&:nth-of-type(2){
+							@include grid-item($start:8, $end:12);
+							order: 4;
+
+							height: 80px;
+						}
+
+						&:nth-of-type(3){
+							@include grid-item($start:6, $span:2);
+							@include grid-item-align(full, center);
+							order: 3;
+
+							height: 60px;
+						}
+
+						&:nth-of-type(4){
+							@include grid-item(8, $row-start:1, $row-end:3);
+							@include grid-item-align('right', $vertical:'full');
+							order: 2;
+
+							width: 50%;
+							height: auto;
+						}
+
+						&:nth-of-type(5){
+							@include grid-item(4);
+							@include grid-item-align(left, top);
+							order: 1;
+							z-index: 1;
+
+							width: 200%;
+							height: 55px;
+
+							border-color: red;
+
+							background-color: red;
+							background-image: url('../files/img/block-7.jpg');
+
+							transform: rotate(10deg);
+						}
 					}
+				}
 
-					&:nth-of-type(3){
-						@include grid-item($start:8, $span:4, $row-start:0, $row-span:3);
-						@include grid-item-align($vertical:full);
-						order: 3;
 
-						height: auto;
-					}
 
-					&:nth-of-type(4){
-						@include grid-item($start:0, $span:4, $row-start:1, $row-end:2);
-						@include grid-item-align(right, center);
-						order: 4;
+				@include breakpoint(large){
+					> div {
+						&:nth-of-type(1){
+							@include grid-item($start:0, $span:4, $row-start:0, $row-span:1);
+							@include grid-item-align($vertical:full);
+							order: 1;
 
-						width: 100px;
-						height: 10vh;
-					}
+							width: auto;
+							height: 10vh;
+						}
 
-					&:nth-of-type(5){
-						@include grid-item(6);
-						@include grid-item-align(stretch);
-						order: 5;
+						&:nth-of-type(2){
+							@include grid-item($start:4, $end:8, $row-start:0, $row-span:2);
+							@include grid-item-align($vertical:full);
+							order: 2;
 
-						width: auto;
-						height: 20vh;
+							height: auto;
+						}
 
-						border-color: dodgerblue;
+						&:nth-of-type(3){
+							@include grid-item($start:8, $span:4, $row-start:0, $row-span:3);
+							@include grid-item-align($vertical:full);
+							order: 3;
 
-						background-color: dodgerblue;
-						background-image: url('../files/img/block-8.jpg');
+							height: auto;
+						}
 
-						transform: rotate(0deg);
+						&:nth-of-type(4){
+							@include grid-item($start:0, $span:4, $row-start:1, $row-end:2);
+							@include grid-item-align(right, center);
+							order: 4;
+
+							width: 100px;
+							height: 10vh;
+						}
+
+						&:nth-of-type(5){
+							@include grid-item(6);
+							@include grid-item-align(stretch);
+							order: 5;
+
+							width: auto;
+							height: 20vh;
+
+							border-color: dodgerblue;
+
+							background-color: dodgerblue;
+							background-image: url('../files/img/block-8.jpg');
+
+							transform: rotate(0deg);
+						}
 					}
 				}
 			}
@@ -377,182 +389,188 @@
 
 	#real-world-grid-example {
 		.examples > .scss {
-			@extend %example-grid;
+			@include content-holder($centered:true);
 
 
 
-			> div {
-				&:nth-of-type(1){
-					&:before {
-						content: 'Stage';
-					}
+			> .grid {
+				@extend %example-grid;
 
-					@include grid-item(12);
-					order: 1;
 
-					@include spacing-based-attribute('height', 'xxl', 3.0);
 
-					margin: gutter-value(-1.0);
-					margin-bottom: 0;
+				> div {
+					&:nth-of-type(1){
+						&:before {
+							content: 'Stage';
+						}
 
-					@include breakpoint(medium){
+						@include grid-item(12);
+						order: 1;
+
+						@include spacing-based-attribute('height', 'xxl', 3.0);
+
 						margin: gutter-value(-1.0);
-						margin-bottom: gutter-value(-3, $direction:vertical);
-					}
+						margin-bottom: 0;
 
-					@include breakpoint(large){
-						margin: gutter-value(-1.0);
-						margin-bottom: gutter-value(-3, $direction:vertical);
-					}
-				}
-
-
-
-				&:nth-of-type(2){
-					&:before {
-						content: 'Navbar';
-					}
-
-					@include grid-item(12);
-					order: 2;
-
-					@include breakpoint(medium){
-						@include grid-item(4, $row-span:2);
-						order: 3;
-					}
-
-					@include breakpoint(large){
-						@include grid-item(3);
-					}
-				}
-
-
-
-				&:nth-of-type(3){
-					@include grid-item();
-					order: 2;
-
-					@include grid-container();
-
-					> div {
-						&:nth-of-type(1){
-							&:before {
-								content: 'Text';
-							}
-
-							@include grid-item(12);
-
-							height: spacing-value('md') * 10;
+						@include breakpoint(medium){
+							margin: gutter-value(-1.0);
+							margin-bottom: gutter-value(-3, $direction:vertical);
 						}
 
-						&:nth-of-type(2),
-						&:nth-of-type(3),
-						&:nth-of-type(4){
-							&:before {
-								content: 'Teaser';
-							}
-
-							@include grid-item(12);
-
-							height: 100px;
-						}
-
-						&:nth-of-type(3),
-						&:nth-of-type(4){
-							margin-top: gutter-value(-1, $direction:vertical);
+						@include breakpoint(large){
+							margin: gutter-value(-1.0);
+							margin-bottom: gutter-value(-3, $direction:vertical);
 						}
 					}
 
 
 
-					@include breakpoint(medium){
-						@include grid-item($start:0, $span:8);
+					&:nth-of-type(2){
+						&:before {
+							content: 'Navbar';
+						}
+
+						@include grid-item(12);
+						order: 2;
+
+						@include breakpoint(medium){
+							@include grid-item(4, $row-span:2);
+							order: 3;
+						}
+
+						@include breakpoint(large){
+							@include grid-item(3);
+						}
+					}
+
+
+
+					&:nth-of-type(3){
+						@include grid-item();
+						order: 2;
+
+						@include grid-container();
 
 						> div {
 							&:nth-of-type(1){
-								height: spacing-value('md') * 7;
+								&:before {
+									content: 'Text';
+								}
+
+								@include grid-item(12);
+
+								height: spacing-value('md') * 10;
 							}
 
 							&:nth-of-type(2),
 							&:nth-of-type(3),
 							&:nth-of-type(4){
-								@include grid-item(4);
+								&:before {
+									content: 'Teaser';
+								}
 
-								height: 75px;
+								@include grid-item(12);
+
+								height: 100px;
 							}
 
 							&:nth-of-type(3),
 							&:nth-of-type(4){
-								margin-top: 0;
+								margin-top: gutter-value(-1, $direction:vertical);
+							}
+						}
+
+
+
+						@include breakpoint(medium){
+							@include grid-item($start:0, $span:8);
+
+							> div {
+								&:nth-of-type(1){
+									height: spacing-value('md') * 7;
+								}
+
+								&:nth-of-type(2),
+								&:nth-of-type(3),
+								&:nth-of-type(4){
+									@include grid-item(4);
+
+									height: 75px;
+								}
+
+								&:nth-of-type(3),
+								&:nth-of-type(4){
+									margin-top: 0;
+								}
+							}
+						}
+
+
+
+						@include breakpoint(large){
+							@include grid-item(9);
+
+							> div {
+								&:nth-of-type(1){
+									height: spacing-value('md') * 5;
+								}
+
+								&:nth-of-type(2),
+								&:nth-of-type(3),
+								&:nth-of-type(4){
+									height: auto;
+								}
 							}
 						}
 					}
 
 
 
-					@include breakpoint(large){
-						@include grid-item(9);
+					&:nth-of-type(4){
+						&:before {
+							content: 'Hint';
+						}
 
-						> div {
-							&:nth-of-type(1){
-								height: spacing-value('md') * 5;
-							}
+						@include grid-item($start:1, $end:11);
+						order: 4;
 
-							&:nth-of-type(2),
-							&:nth-of-type(3),
-							&:nth-of-type(4){
-								height: auto;
-							}
+						margin-top: gutter-value(-0.5, $direction:'vertical');
+
+						@include breakpoint(medium){
+							@include grid-item(8, $start:0);
+						}
+
+						@include breakpoint(large){
+							@include grid-item($start:3, $span:6);
 						}
 					}
-				}
 
 
 
-				&:nth-of-type(4){
-					&:before {
-						content: 'Hint';
-					}
+					&:nth-of-type(5){
+						&:before {
+							content: 'Footer';
+						}
 
-					@include grid-item($start:1, $end:11);
-					order: 4;
+						@include grid-item(12);
+						order: 5;
 
-					margin-top: gutter-value(-0.5, $direction:'vertical');
-
-					@include breakpoint(medium){
-						@include grid-item(8, $start:0);
-					}
-
-					@include breakpoint(large){
-						@include grid-item($start:3, $span:6);
-					}
-				}
-
-
-
-				&:nth-of-type(5){
-					&:before {
-						content: 'Footer';
-					}
-
-					@include grid-item(12);
-					order: 5;
-
-					@include spacing-based-attributes((
-						'padding-top' : 'md',
-						'padding-bottom' : 'xl'
-					));
-					margin: gutter-value(-1);
-					margin-top: gutter-value(1, $direction:vertical);
-
-					@include breakpoint(medium){
+						@include spacing-based-attributes((
+							'padding-top' : 'md',
+							'padding-bottom' : 'xl'
+						));
 						margin: gutter-value(-1);
-						margin-top: gutter-value(2, $direction:vertical);
-					}
+						margin-top: gutter-value(1, $direction:vertical);
 
-					@include breakpoint(large){
-						margin: gutter-value(-1);
-						margin-top: gutter-value(2.5, $direction:vertical);
+						@include breakpoint(medium){
+							margin: gutter-value(-1);
+							margin-top: gutter-value(2, $direction:vertical);
+						}
+
+						@include breakpoint(large){
+							margin: gutter-value(-1);
+							margin-top: gutter-value(2.5, $direction:vertical);
+						}
 					}
 				}
 			}

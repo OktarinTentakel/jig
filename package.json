@@ -1,6 +1,6 @@
 {
 	"name" : "@oktarintentakel/jig",
-	"version" : "0.1.10-beta",
+	"version" : "0.1.11-beta",
 	"author" : "Sebastian Schlapkohl",
 	"description" : "A \"foundationish\" grid solution for SCSS and Stylus with native CSS grid and sane defaults and helpers for responsive websites.",
 	"license" : "MIT",
@@ -41,9 +41,9 @@
 		"jsdoc" : "^3.6.11",
 		"node-sass" : "~9.0.0",
 		"normalize.css" : "^8.0.1",
-		"sass" : "~1.66.1",
+		"sass" : "~1.77.5",
 		"serve-static" : "^1.15.0",
-		"stylus" : "~0.62.0",
+		"stylus" : "~0.63.0",
 		"yargs" : "^17.7.2"
 	}
 }
