@@ -241,7 +241,7 @@
 						@include grid-item(4);
 						@include grid-item-align(null, end);
 
-						height: gutter-value(2.5, $direction:'vertical');
+						height: gutter-value($direction:'vertical') * 2.5;
 					}
 
 					&:nth-of-type(even){
@@ -280,7 +280,7 @@
 							order: 5;
 
 							width: 50%;
-							height: gutter-value(3.0);
+							height: gutter-value() * 3;
 						}
 
 						&:nth-of-type(2){
@@ -409,17 +409,17 @@
 
 						@include spacing-based-attribute('height', 'xxl', 3.0);
 
-						margin: gutter-value(-1.0);
+						margin: gutter-value() * -1;
 						margin-bottom: 0;
 
 						@include breakpoint(medium){
-							margin: gutter-value(-1.0);
-							margin-bottom: gutter-value(-3, $direction:vertical);
+							margin: gutter-value() * -1;
+							margin-bottom: gutter-value($direction:vertical) * -3;
 						}
 
 						@include breakpoint(large){
-							margin: gutter-value(-1.0);
-							margin-bottom: gutter-value(-3, $direction:vertical);
+							margin: gutter-value() * -1;
+							margin-bottom: gutter-value($direction:vertical) * -3;
 						}
 					}
 
@@ -476,7 +476,7 @@
 
 							&:nth-of-type(3),
 							&:nth-of-type(4){
-								margin-top: gutter-value(-1, $direction:vertical);
+								margin-top: gutter-value($direction:vertical) * -1;
 							}
 						}
 
@@ -534,7 +534,7 @@
 						@include grid-item($start:1, $end:11);
 						order: 4;
 
-						margin-top: gutter-value(-0.5, $direction:'vertical');
+						margin-top: gutter-value($direction:'vertical') * -0.5;
 
 						@include breakpoint(medium){
 							@include grid-item(8, $start:0);
@@ -559,17 +559,17 @@
 							'padding-top' : 'md',
 							'padding-bottom' : 'xl'
 						));
-						margin: gutter-value(-1);
-						margin-top: gutter-value(1, $direction:vertical);
+						margin: gutter-value() * -1;
+						margin-top: gutter-value($direction:vertical);
 
 						@include breakpoint(medium){
-							margin: gutter-value(-1);
-							margin-top: gutter-value(2, $direction:vertical);
+							margin: gutter-value() * -1;
+							margin-top: gutter-value($direction:vertical) * 2;
 						}
 
 						@include breakpoint(large){
-							margin: gutter-value(-1);
-							margin-top: gutter-value(2.5, $direction:vertical);
+							margin: gutter-value() * -1;
+							margin-top: gutter-value($direction:vertical) * 2.5;
 						}
 					}
 				}
