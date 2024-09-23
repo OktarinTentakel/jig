@@ -19,17 +19,6 @@ by Sebastian Schlapkohl
 
 
 
-A Word of Caution
------------------
-This package has reached beta status. Everything included is tested with browser examples. And the contents include
-everything I aimed for in the first version. Although everything is finished from a technical perspective, this package
-is not yet battle-proven.
-
-The beta should be fine to use (cautiously), but I will delay the bump to version 1.0.0 stable until after I've used
-this in a real-world project.
-
-
-
 What is This?
 -------------
 Browsers have long moved on from table and float layouts, moved past flex layouts and finally arrived at native grids.
@@ -136,7 +125,7 @@ yarn add oktarintentakel/jig#vX.X.X
 
 ### Using an Alias Location
 
-In many cases (especially when installing directly from Github repository) it makes sense to define an install alias,
+In many cases (especially when installing directly from Github repository) it makes sense to define an installation alias,
 to manually define a folder inside `node_modules` to install to.
 
 Using NPM
@@ -178,7 +167,7 @@ or with Github repository
 It may be a good idea, to generally split node and client packages up. Why? Client packages are delivered directly to
 the client and are executed and interpreted on the user's machine. So, these packages have a different set of rules
 applying to them. For example: it is not really clever to give client packages an approximate version, like a normal
-node dependency using `^` oder `~`, because every minor change in a client package may affect all receiving clients
+node dependency using `^` or `~`, because every minor change in a client package may affect all receiving clients
 after a reevaluation of npm versions. This is a nightmare, because this means, that, at undetermined points in time, all
 cross-browser testing you did may be invalid and since you are not seeing everything while developing all the time, your
 app may fall apart on certain devices, without you knowing.
@@ -189,7 +178,7 @@ mentioned problems. That is very unpractical for both usages and each should be 
 purpose, since they are used for different things on very different machines, even if it is the same package under the
 hood.
 
-So I generally propse separating all npm packages, that are delivered to the client directly in any way into a specific
+So I generally propose separating all npm packages, that are delivered to the client directly in any way into a specific
 `@client` package in `node_modules` using fixed versioning for these (I originally got the idea when I transitioned)
 from bower to npm, reading the bower team's [ideas](https://bower.io/blog/2017/how-to-migrate-away-from-bower/) about
 this.
@@ -270,7 +259,7 @@ or (if you want to have more control about what to include)
 @require 'jig/spacing'
 ```
 
-But this is just the absolute minimum. Of course you'll want to customize the grid and the layout, by providing
+But this is just the absolute minimum. Of course, you'll want to customize the grid and the layout, by providing
 detailed information about the structure you are trying to build. Also, we are still missing stuff like CSS
 normalization here, which we'd probably like to add.
 

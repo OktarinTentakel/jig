@@ -77,7 +77,7 @@ const
 //###[ FUNCTIONS ]######################################################################################################
 
 function compileNormalize(){
-	return gulp.src(`${NODE_DIR}/normalize.css/normalize.css`)
+	return gulp.src(`${NODE_DIR}/@csstools/normalize.css/normalize.css`)
 		.pipe(sourcemaps.init())
 			.pipe(gulpSass(nodeSass)({
 				outputStyle : 'compressed'

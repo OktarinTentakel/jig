@@ -5,12 +5,12 @@
 
 @mixin render(){
 	%example-grid {
-		@include grid-container();
-
 		position: relative;
 
 		padding: gutter-value();
 		border: 3px solid red;
+
+		@include grid-container();
 
 		&:before {
 			content: '';
@@ -23,12 +23,12 @@
 
 			background-size: cover;
 			background-position: center center;
+			filter: saturate(150%) brightness(38%);
+
 			@include attributes-for-breakpoints((
 				'background-color' : $GRID_CONTAINER_BACKGROUNDCOLOR,
 				'background-image' : $GRID_CONTAINER_BACKGROUNDIMAGE
 			));
-
-			filter: saturate(150%) brightness(38%);
 		}
 
 		@include breakpoint(medium){
@@ -409,8 +409,10 @@
 
 						@include spacing-based-attribute('height', 'xxl', 3.0);
 
-						margin: gutter-value() * -1;
-						margin-bottom: 0;
+						&{
+							margin: gutter-value() * -1;
+							margin-bottom: 0;
+						}
 
 						@include breakpoint(medium){
 							margin: gutter-value() * -1;
@@ -548,19 +550,21 @@
 
 
 					&:nth-of-type(5){
+						order: 5;
+
+						margin: gutter-value() * -1;
+						margin-top: gutter-value($direction:vertical);
+
 						&:before {
 							content: 'Footer';
 						}
 
 						@include grid-item(12);
-						order: 5;
 
 						@include spacing-based-attributes((
 							'padding-top' : 'md',
 							'padding-bottom' : 'xl'
 						));
-						margin: gutter-value() * -1;
-						margin-top: gutter-value($direction:vertical);
 
 						@include breakpoint(medium){
 							margin: gutter-value() * -1;
