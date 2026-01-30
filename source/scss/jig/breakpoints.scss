@@ -156,8 +156,8 @@ $jig---auto-breakpoint: list.nth(map.keys($jig---breakpoint-config), 1);
 @function build-breakpoint-range($min:null, $max:null){
 	@return util.str-join(
 		[
-			if($min != null, '(min-width: #{$min})', null),
-			if($max != null, '(max-width: #{$max})', null)
+			util.if($min != null, '(min-width: #{$min})'),
+			util.if($max != null, '(max-width: #{$max})')
 		],
 		' and '
 	);
@@ -200,8 +200,14 @@ $jig---auto-breakpoint: list.nth(map.keys($jig---breakpoint-config), 1);
  *   => '(orientation: landscape)'
  */
 @function build-breakpoint-query($breakpoint-definition:0){
-	$breakpoint: if($breakpoint-definition and (list.length($breakpoint-definition) > 0), list.nth($breakpoint-definition, 1), 0);
-	$direction: if($breakpoint-definition and (list.length($breakpoint-definition) > 1), list.nth($breakpoint-definition, 2), 'up');
+	$breakpoint: 0;
+	@if $breakpoint-definition and (list.length($breakpoint-definition) > 0) {
+		$breakpoint: list.nth($breakpoint-definition, 1)
+	}
+	$direction: 'up';
+	@if $breakpoint-definition and (list.length($breakpoint-definition) > 1) {
+		$direction: list.nth($breakpoint-definition, 2);
+	}
 	$breakpoint-name: null;
 	$next-breakpoint: null;
 	$min: null;
@@ -275,9 +281,15 @@ $jig---auto-breakpoint: list.nth(map.keys($jig---breakpoint-config), 1);
 @mixin breakpoint($breakpoint-definitions...){
 	@each $breakpoint-definition in $breakpoint-definitions {
 		$query: build-breakpoint-query($breakpoint-definition);
-		$breakpoint: if(list.length($breakpoint-definition) > 0, list.nth($breakpoint-definition, 1), 0);
-		$direction: if(list.length($breakpoint-definition) > 1, list.nth($breakpoint-definition, 2), 'up');
-		$breakpoint-index: index(map.keys($jig---breakpoint-config), list.nth($breakpoint-definition, 1));
+		$breakpoint: 0;
+		@if list.length($breakpoint-definition) > 0 {
+			$breakpoint: list.nth($breakpoint-definition, 1);
+		}
+		$direction: 'up';
+		@if list.length($breakpoint-definition) > 1 {
+			$direction: list.nth($breakpoint-definition, 2);
+		}
+		$breakpoint-index: list.index(map.keys($jig---breakpoint-config), list.nth($breakpoint-definition, 1));
 		$print-breakpoint-index: list.index(map.keys($jig---breakpoint-config), $jig---print-breakpoint);
 
 		// set current breakpoint var to mixin breakpoint value to allow for auto-evaluation inside

@@ -44,10 +44,10 @@
 		$next-index: list.index($keys, $key) + 1;
 	}
 
-	@if ($next-index == 0) or ($next-index > length($map)) {
+	@if ($next-index == 0) or ($next-index > list.length($map)) {
 		@return null;
 	} @else {
-		@return map.get($map, nth($keys, $next-index));
+		@return map.get($map, list.nth($keys, $next-index));
 	}
 }
 
@@ -223,5 +223,36 @@
 		@return string.slice($res, 1, string.length($glue) * -1);
 	} @else {
 		@return $res;
+	}
+}
+
+
+
+/**
+ * @namespace Util:if
+ */
+
+/**
+ * Build a ternary expression.
+ *
+ * @memberof Util:if
+ * @function
+ * @name if
+ * @alias if
+ *
+ * @param {Boolean} condition - the condition to evaluate
+ * @param {*} then - the return value if "condition" is truthy
+ * @param {*} else - the return value if "condition" is falsy
+ * @returns {*} "then", if "condition" is truthy otherwise "else"
+ *
+ * @example
+ * if(1 == 2, 'math genius', 'idiot')
+ * // => 'idiot'
+ */
+@function if($condition, $then, $else:null){
+	@if $condition {
+		@return $then;
+	} @else {
+		@return $else;
 	}
 }

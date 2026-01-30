@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Content:content-padding-value</title>
+    <title>JSDoc: Namespace: Util:if</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Content:content-padding-value</h1>
+    <h1 class="page-title">Namespace: Util:if</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Content:content-padding-value</h2>
+        <h2>Util:if</h2>
         
     
 </header>
@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="content.scss.html">content.scss</a>, <a href="content.scss.html#line34">line 34</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line117">line 117</a>
     </li></ul></dd>
     
 
@@ -106,14 +106,14 @@
 
     
 
-    <h4 class="name" id="content-padding-value"><span class="type-signature"></span>content-padding-value<span class="signature">($breakpoint<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="if"><span class="type-signature"></span>if<span class="signature">(condition, then, else)</span><span class="type-signature"> &rarr; {*}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Returns the defined content padding for a/the current breakpoint.</p>
+    <p>Build a ternary expression.</p>
 </div>
 
 
@@ -137,11 +137,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -153,39 +149,69 @@
 
         <tr>
             
-                <td class="name"><code>$breakpoint</code></td>
+                <td class="name"><code>condition</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">boolean</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last"><p>the condition to evaluate</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>then</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
             
 
             
-                <td class="default">
-                
-                    'auto'
-                
-                </td>
+
+            <td class="description last"><p>the return value if &quot;condition&quot; is truthy</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>else</code></td>
             
 
-            <td class="description last"><p>a defined breakpoint name or &quot;auto&quot;, to use the current breakpoint at the point of usage</p></td>
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the return value if &quot;condition&quot; is falsy</p></td>
         </tr>
 
     
@@ -226,7 +252,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="content.scss.html">content.scss</a>, <a href="content.scss.html#line38">line 38</a>
+        <a href="util.scss.html">util.scss</a>, <a href="util.scss.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -247,25 +273,13 @@
 
 
 
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        <p>error if no content padding value could be determined, based on given breakpoint</p>
-    
-    </div>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    the determined content padding value
+    "then", if "condition" is truthy otherwise "else"
 </div>
 
 
@@ -276,7 +290,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Number</span>
+<span class="param-type">*</span>
 
 
     </dd>
@@ -287,10 +301,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>@include breakpoint(medium){
-  padding-left: content-padding-value();
-}
-margin-right: content-padding-value($breakpoint:'small');</code></pre>
+    <pre class="prettyprint"><code>if(1 == 2, 'math genius', 'idiot')
+// => 'idiot'</code></pre>
 
 
 

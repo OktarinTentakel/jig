@@ -1,6 +1,6 @@
 {
 	"name" : "@oktarintentakel/jig",
-	"version" : "1.0.0",
+	"version" : "1.1.0",
 	"author" : "Sebastian Schlapkohl",
 	"description" : "A \"foundationish\" grid solution for SCSS and Stylus with native CSS grid and sane defaults and helpers for responsive websites.",
 	"license" : "MIT",
@@ -28,22 +28,29 @@
 		"examples" : "./docs/examples"
 	},
 
+	"scripts" : {
+		"build": "yarn install; gulp --color build",
+		"documentation": "yarn install; gulp --color documentation",
+		"examples": "yarn install; gulp --color examples"
+	},
+
 	"devDependencies" : {
-		"@csstools/normalize.css" : "^11.0.1",
-		"del": "^7.1.0",
+		"@csstools/normalize.css" : "^12.1.1",
+		"del": "^8.0.1",
 		"fancy-log": "^2.0.0",
-		"gulp" : "^4.0.2",
+		"gulp" : "^5.0.1",
 		"gulp-connect" : "^5.7.0",
 		"gulp-rename": "^2.0.0",
 		"gulp-sass" : "^5.1.0",
 		"gulp-shell" : "^0.8.0",
 		"gulp-sourcemaps" : "^3.0.0",
 		"gulp-stylus" : "^3.0.1",
-		"jsdoc" : "^3.6.11",
+		"jsdoc" : "^4.0.5",
 		"node-sass" : "~9.0.0",
-		"sass" : "~1.79.3",
-		"serve-static" : "^1.16.2",
-		"stylus" : "~0.63.0",
-		"yargs" : "^17.7.2"
+		"sass" : "~1.97.3",
+		"serve-static" : "^2.2.1",
+		"stylus" : "~0.64.0",
+		"taffydb" : "^2.7.3",
+		"yargs" : "^18.0.0"
 	}
 }

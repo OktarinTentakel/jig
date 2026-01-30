@@ -3,5 +3,4 @@
 cd "${0%/*}" && \
 cd .. && \
 docker compose run --rm \
--u "$(id -u):$(id -g)" \
-jig bash -c "yarn run build"
+jig bash -c 'yarn install'

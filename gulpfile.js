@@ -7,7 +7,6 @@ import {deleteAsync as del} from 'del';
 import gulp from'gulp';
 import rename from 'gulp-rename';
 import shell from 'gulp-shell';
-
 import sourcemaps from 'gulp-sourcemaps';
 import connect from 'gulp-connect';
 import * as dartSass from 'sass';
@@ -165,7 +164,7 @@ function serveExamples(done){
 		https : true,
 		host : '0.0.0.0',
 		root : EXAMPLES_DIR,
-		port : 3000,
+		port : 443,
 		livereload : {
 			port : 3001
 		},

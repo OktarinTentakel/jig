@@ -6,12 +6,14 @@ services:
          dockerfile: ./docker/jig/dockerfile
       image: oktarintentakel/jig
       volumes:
-         - .:/project:delegated
+         - .:/project
       ports:
+         - 443:443
          - 3000:3000
          - 3001:3001
       working_dir: /project
       environment:
          - TERM=xterm-256color
-         - YARN_CACHE_FOLDER=/tmp
-      command: bash -c "yarn install; gulp --color examples"
+         - LANG=C.UTF-8
+         - NODE_ENV=development
+      command: bash -c "yarn run examples"
